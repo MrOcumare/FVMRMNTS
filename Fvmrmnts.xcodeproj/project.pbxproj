@@ -1,0 +1,435 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CF34AC1922E0779D0075E203 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF34AC1822E0779D0075E203 /* AppDelegate.swift */; };
+		CF34AC1B22E0779D0075E203 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF34AC1A22E0779D0075E203 /* ViewController.swift */; };
+		CF34AC1E22E0779D0075E203 /* Fvmrmnts.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CF34AC1C22E0779D0075E203 /* Fvmrmnts.xcdatamodeld */; };
+		CF34AC2322E077A00075E203 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF34AC2222E077A00075E203 /* Assets.xcassets */; };
+		CF34AC2D22E07AD00075E203 /* FvmrmntsColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF34AC2C22E07AD00075E203 /* FvmrmntsColors.swift */; };
+		CF34AC2F22E081D50075E203 /* NetHexColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF34AC2E22E081D50075E203 /* NetHexColors.swift */; };
+		CF462FBE22E6037D001765B3 /* gt-walsheim-bold-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FAE22E6037D001765B3 /* gt-walsheim-bold-web.ttf */; };
+		CF462FBF22E6037D001765B3 /* gt-walsheim-medium-oblique-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FAF22E6037D001765B3 /* gt-walsheim-medium-oblique-web.ttf */; };
+		CF462FC022E6037D001765B3 /* gt-walsheim-bold-oblique-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FB022E6037D001765B3 /* gt-walsheim-bold-oblique-web.ttf */; };
+		CF462FC122E6037D001765B3 /* gt-walsheim-ultra-bold-oblique-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FB122E6037D001765B3 /* gt-walsheim-ultra-bold-oblique-web.ttf */; };
+		CF462FC222E6037D001765B3 /* gt-walsheim-thin-oblique-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FB222E6037D001765B3 /* gt-walsheim-thin-oblique-web.ttf */; };
+		CF462FC322E6037D001765B3 /* gt-walsheim-black-oblique-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FB322E6037D001765B3 /* gt-walsheim-black-oblique-web.ttf */; };
+		CF462FC422E6037D001765B3 /* gt-walsheim-light-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FB422E6037D001765B3 /* gt-walsheim-light-web.ttf */; };
+		CF462FC522E6037D001765B3 /* gt-walsheim-ultra-light-oblique-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FB522E6037D001765B3 /* gt-walsheim-ultra-light-oblique-web.ttf */; };
+		CF462FC622E6037D001765B3 /* gt-walsheim-regular-oblique-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FB622E6037D001765B3 /* gt-walsheim-regular-oblique-web.ttf */; };
+		CF462FC722E6037D001765B3 /* gt-walsheim-medium-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FB722E6037D001765B3 /* gt-walsheim-medium-web.ttf */; };
+		CF462FC822E6037D001765B3 /* gt-walsheim-ultra-light-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FB822E6037D001765B3 /* gt-walsheim-ultra-light-web.ttf */; };
+		CF462FC922E6037D001765B3 /* gt-walsheim-thin-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FB922E6037D001765B3 /* gt-walsheim-thin-web.ttf */; };
+		CF462FCA22E6037D001765B3 /* gt-walsheim-light-oblique-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FBA22E6037D001765B3 /* gt-walsheim-light-oblique-web.ttf */; };
+		CF462FCB22E6037D001765B3 /* gt-walsheim-regular-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FBB22E6037D001765B3 /* gt-walsheim-regular-web.ttf */; };
+		CF462FCC22E6037D001765B3 /* gt-walsheim-black-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FBC22E6037D001765B3 /* gt-walsheim-black-web.ttf */; };
+		CF462FCD22E6037D001765B3 /* gt-walsheim-ultra-bold-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FBD22E6037D001765B3 /* gt-walsheim-ultra-bold-web.ttf */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		CF34AC1522E0779D0075E203 /* Fvmrmnts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fvmrmnts.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF34AC1822E0779D0075E203 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CF34AC1A22E0779D0075E203 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CF34AC1D22E0779D0075E203 /* Fvmrmnts.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Fvmrmnts.xcdatamodel; sourceTree = "<group>"; };
+		CF34AC2222E077A00075E203 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CF34AC2422E077A00075E203 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CF34AC2C22E07AD00075E203 /* FvmrmntsColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FvmrmntsColors.swift; sourceTree = "<group>"; };
+		CF34AC2E22E081D50075E203 /* NetHexColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetHexColors.swift; sourceTree = "<group>"; };
+		CF462FAE22E6037D001765B3 /* gt-walsheim-bold-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-bold-web.ttf"; sourceTree = "<group>"; };
+		CF462FAF22E6037D001765B3 /* gt-walsheim-medium-oblique-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-medium-oblique-web.ttf"; sourceTree = "<group>"; };
+		CF462FB022E6037D001765B3 /* gt-walsheim-bold-oblique-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-bold-oblique-web.ttf"; sourceTree = "<group>"; };
+		CF462FB122E6037D001765B3 /* gt-walsheim-ultra-bold-oblique-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-ultra-bold-oblique-web.ttf"; sourceTree = "<group>"; };
+		CF462FB222E6037D001765B3 /* gt-walsheim-thin-oblique-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-thin-oblique-web.ttf"; sourceTree = "<group>"; };
+		CF462FB322E6037D001765B3 /* gt-walsheim-black-oblique-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-black-oblique-web.ttf"; sourceTree = "<group>"; };
+		CF462FB422E6037D001765B3 /* gt-walsheim-light-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-light-web.ttf"; sourceTree = "<group>"; };
+		CF462FB522E6037D001765B3 /* gt-walsheim-ultra-light-oblique-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-ultra-light-oblique-web.ttf"; sourceTree = "<group>"; };
+		CF462FB622E6037D001765B3 /* gt-walsheim-regular-oblique-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-regular-oblique-web.ttf"; sourceTree = "<group>"; };
+		CF462FB722E6037D001765B3 /* gt-walsheim-medium-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-medium-web.ttf"; sourceTree = "<group>"; };
+		CF462FB822E6037D001765B3 /* gt-walsheim-ultra-light-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-ultra-light-web.ttf"; sourceTree = "<group>"; };
+		CF462FB922E6037D001765B3 /* gt-walsheim-thin-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-thin-web.ttf"; sourceTree = "<group>"; };
+		CF462FBA22E6037D001765B3 /* gt-walsheim-light-oblique-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-light-oblique-web.ttf"; sourceTree = "<group>"; };
+		CF462FBB22E6037D001765B3 /* gt-walsheim-regular-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-regular-web.ttf"; sourceTree = "<group>"; };
+		CF462FBC22E6037D001765B3 /* gt-walsheim-black-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-black-web.ttf"; sourceTree = "<group>"; };
+		CF462FBD22E6037D001765B3 /* gt-walsheim-ultra-bold-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-ultra-bold-web.ttf"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CF34AC1222E0779D0075E203 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CF34AC0C22E0779D0075E203 = {
+			isa = PBXGroup;
+			children = (
+				CF34AC1722E0779D0075E203 /* Fvmrmnts */,
+				CF34AC1622E0779D0075E203 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CF34AC1622E0779D0075E203 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CF34AC1522E0779D0075E203 /* Fvmrmnts.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CF34AC1722E0779D0075E203 /* Fvmrmnts */ = {
+			isa = PBXGroup;
+			children = (
+				CF34AC1822E0779D0075E203 /* AppDelegate.swift */,
+				CF34AC1A22E0779D0075E203 /* ViewController.swift */,
+				CF34AC2A22E07AA70075E203 /* Styles */,
+				CF34AC2222E077A00075E203 /* Assets.xcassets */,
+				CF34AC2422E077A00075E203 /* Info.plist */,
+				CF34AC1C22E0779D0075E203 /* Fvmrmnts.xcdatamodeld */,
+			);
+			path = Fvmrmnts;
+			sourceTree = "<group>";
+		};
+		CF34AC2A22E07AA70075E203 /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+				CFE6B45D22E6031A00EE72CB /* TextFonts */,
+				CF34AC2B22E07ABA0075E203 /* Cololrs */,
+			);
+			path = Styles;
+			sourceTree = "<group>";
+		};
+		CF34AC2B22E07ABA0075E203 /* Cololrs */ = {
+			isa = PBXGroup;
+			children = (
+				CF34AC2C22E07AD00075E203 /* FvmrmntsColors.swift */,
+				CF34AC2E22E081D50075E203 /* NetHexColors.swift */,
+			);
+			path = Cololrs;
+			sourceTree = "<group>";
+		};
+		CF462FAD22E6037D001765B3 /* GT Walsheim Pro */ = {
+			isa = PBXGroup;
+			children = (
+				CF462FAE22E6037D001765B3 /* gt-walsheim-bold-web.ttf */,
+				CF462FAF22E6037D001765B3 /* gt-walsheim-medium-oblique-web.ttf */,
+				CF462FB022E6037D001765B3 /* gt-walsheim-bold-oblique-web.ttf */,
+				CF462FB122E6037D001765B3 /* gt-walsheim-ultra-bold-oblique-web.ttf */,
+				CF462FB222E6037D001765B3 /* gt-walsheim-thin-oblique-web.ttf */,
+				CF462FB322E6037D001765B3 /* gt-walsheim-black-oblique-web.ttf */,
+				CF462FB422E6037D001765B3 /* gt-walsheim-light-web.ttf */,
+				CF462FB522E6037D001765B3 /* gt-walsheim-ultra-light-oblique-web.ttf */,
+				CF462FB622E6037D001765B3 /* gt-walsheim-regular-oblique-web.ttf */,
+				CF462FB722E6037D001765B3 /* gt-walsheim-medium-web.ttf */,
+				CF462FB822E6037D001765B3 /* gt-walsheim-ultra-light-web.ttf */,
+				CF462FB922E6037D001765B3 /* gt-walsheim-thin-web.ttf */,
+				CF462FBA22E6037D001765B3 /* gt-walsheim-light-oblique-web.ttf */,
+				CF462FBB22E6037D001765B3 /* gt-walsheim-regular-web.ttf */,
+				CF462FBC22E6037D001765B3 /* gt-walsheim-black-web.ttf */,
+				CF462FBD22E6037D001765B3 /* gt-walsheim-ultra-bold-web.ttf */,
+			);
+			path = "GT Walsheim Pro";
+			sourceTree = "<group>";
+		};
+		CFE6B45D22E6031A00EE72CB /* TextFonts */ = {
+			isa = PBXGroup;
+			children = (
+				CF462FAD22E6037D001765B3 /* GT Walsheim Pro */,
+			);
+			path = TextFonts;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CF34AC1422E0779D0075E203 /* Fvmrmnts */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CF34AC2722E077A00075E203 /* Build configuration list for PBXNativeTarget "Fvmrmnts" */;
+			buildPhases = (
+				CF34AC1122E0779D0075E203 /* Sources */,
+				CF34AC1222E0779D0075E203 /* Frameworks */,
+				CF34AC1322E0779D0075E203 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Fvmrmnts;
+			productName = Fvmrmnts;
+			productReference = CF34AC1522E0779D0075E203 /* Fvmrmnts.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CF34AC0D22E0779D0075E203 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1020;
+				LastUpgradeCheck = 1020;
+				ORGANIZATIONNAME = "Ilya Ocumare";
+				TargetAttributes = {
+					CF34AC1422E0779D0075E203 = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
+				};
+			};
+			buildConfigurationList = CF34AC1022E0779D0075E203 /* Build configuration list for PBXProject "Fvmrmnts" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CF34AC0C22E0779D0075E203;
+			productRefGroup = CF34AC1622E0779D0075E203 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CF34AC1422E0779D0075E203 /* Fvmrmnts */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CF34AC1322E0779D0075E203 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF462FC222E6037D001765B3 /* gt-walsheim-thin-oblique-web.ttf in Resources */,
+				CF462FC122E6037D001765B3 /* gt-walsheim-ultra-bold-oblique-web.ttf in Resources */,
+				CF462FC822E6037D001765B3 /* gt-walsheim-ultra-light-web.ttf in Resources */,
+				CF462FCD22E6037D001765B3 /* gt-walsheim-ultra-bold-web.ttf in Resources */,
+				CF462FC722E6037D001765B3 /* gt-walsheim-medium-web.ttf in Resources */,
+				CF462FC322E6037D001765B3 /* gt-walsheim-black-oblique-web.ttf in Resources */,
+				CF462FBF22E6037D001765B3 /* gt-walsheim-medium-oblique-web.ttf in Resources */,
+				CF462FC522E6037D001765B3 /* gt-walsheim-ultra-light-oblique-web.ttf in Resources */,
+				CF462FCA22E6037D001765B3 /* gt-walsheim-light-oblique-web.ttf in Resources */,
+				CF34AC2322E077A00075E203 /* Assets.xcassets in Resources */,
+				CF462FC022E6037D001765B3 /* gt-walsheim-bold-oblique-web.ttf in Resources */,
+				CF462FBE22E6037D001765B3 /* gt-walsheim-bold-web.ttf in Resources */,
+				CF462FC422E6037D001765B3 /* gt-walsheim-light-web.ttf in Resources */,
+				CF462FCC22E6037D001765B3 /* gt-walsheim-black-web.ttf in Resources */,
+				CF462FCB22E6037D001765B3 /* gt-walsheim-regular-web.ttf in Resources */,
+				CF462FC622E6037D001765B3 /* gt-walsheim-regular-oblique-web.ttf in Resources */,
+				CF462FC922E6037D001765B3 /* gt-walsheim-thin-web.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CF34AC1122E0779D0075E203 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF34AC1B22E0779D0075E203 /* ViewController.swift in Sources */,
+				CF34AC2D22E07AD00075E203 /* FvmrmntsColors.swift in Sources */,
+				CF34AC2F22E081D50075E203 /* NetHexColors.swift in Sources */,
+				CF34AC1E22E0779D0075E203 /* Fvmrmnts.xcdatamodeld in Sources */,
+				CF34AC1922E0779D0075E203 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		CF34AC2522E077A00075E203 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = appletvos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TVOS_DEPLOYMENT_TARGET = 12.2;
+			};
+			name = Debug;
+		};
+		CF34AC2622E077A00075E203 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = appletvos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				TVOS_DEPLOYMENT_TARGET = 12.2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CF34AC2822E077A00075E203 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BRLU765MJG;
+				INFOPLIST_FILE = Fvmrmnts/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "ilya-ocymare.Fvmrmnts";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+			};
+			name = Debug;
+		};
+		CF34AC2922E077A00075E203 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BRLU765MJG;
+				INFOPLIST_FILE = Fvmrmnts/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "ilya-ocymare.Fvmrmnts";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CF34AC1022E0779D0075E203 /* Build configuration list for PBXProject "Fvmrmnts" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CF34AC2522E077A00075E203 /* Debug */,
+				CF34AC2622E077A00075E203 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CF34AC2722E077A00075E203 /* Build configuration list for PBXNativeTarget "Fvmrmnts" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CF34AC2822E077A00075E203 /* Debug */,
+				CF34AC2922E077A00075E203 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		CF34AC1C22E0779D0075E203 /* Fvmrmnts.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CF34AC1D22E0779D0075E203 /* Fvmrmnts.xcdatamodel */,
+			);
+			currentVersion = CF34AC1D22E0779D0075E203 /* Fvmrmnts.xcdatamodel */;
+			path = Fvmrmnts.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = CF34AC0D22E0779D0075E203 /* Project object */;
+}
