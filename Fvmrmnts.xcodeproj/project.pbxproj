@@ -7,31 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CF045E9622E709F50013DE41 /* gt-walsheim-bold-oblique-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF045E9522E709F50013DE41 /* gt-walsheim-bold-oblique-web.ttf */; };
+		CF045E9822E70A5A0013DE41 /* gt-walsheim-bold-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF045E9722E70A5A0013DE41 /* gt-walsheim-bold-web.ttf */; };
+		CF045E9A22E70BD90013DE41 /* gt-walsheim-medium-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF045E9922E70BD90013DE41 /* gt-walsheim-medium-web.ttf */; };
+		CF045E9C22E711400013DE41 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF045E9B22E711400013DE41 /* CollectionViewCell.swift */; };
 		CF34AC1922E0779D0075E203 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF34AC1822E0779D0075E203 /* AppDelegate.swift */; };
 		CF34AC1B22E0779D0075E203 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF34AC1A22E0779D0075E203 /* ViewController.swift */; };
 		CF34AC1E22E0779D0075E203 /* Fvmrmnts.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CF34AC1C22E0779D0075E203 /* Fvmrmnts.xcdatamodeld */; };
 		CF34AC2322E077A00075E203 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF34AC2222E077A00075E203 /* Assets.xcassets */; };
 		CF34AC2D22E07AD00075E203 /* FvmrmntsColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF34AC2C22E07AD00075E203 /* FvmrmntsColors.swift */; };
 		CF34AC2F22E081D50075E203 /* NetHexColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF34AC2E22E081D50075E203 /* NetHexColors.swift */; };
-		CF462FBE22E6037D001765B3 /* gt-walsheim-bold-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FAE22E6037D001765B3 /* gt-walsheim-bold-web.ttf */; };
-		CF462FBF22E6037D001765B3 /* gt-walsheim-medium-oblique-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FAF22E6037D001765B3 /* gt-walsheim-medium-oblique-web.ttf */; };
-		CF462FC022E6037D001765B3 /* gt-walsheim-bold-oblique-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FB022E6037D001765B3 /* gt-walsheim-bold-oblique-web.ttf */; };
-		CF462FC122E6037D001765B3 /* gt-walsheim-ultra-bold-oblique-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FB122E6037D001765B3 /* gt-walsheim-ultra-bold-oblique-web.ttf */; };
-		CF462FC222E6037D001765B3 /* gt-walsheim-thin-oblique-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FB222E6037D001765B3 /* gt-walsheim-thin-oblique-web.ttf */; };
-		CF462FC322E6037D001765B3 /* gt-walsheim-black-oblique-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FB322E6037D001765B3 /* gt-walsheim-black-oblique-web.ttf */; };
-		CF462FC422E6037D001765B3 /* gt-walsheim-light-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FB422E6037D001765B3 /* gt-walsheim-light-web.ttf */; };
-		CF462FC522E6037D001765B3 /* gt-walsheim-ultra-light-oblique-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FB522E6037D001765B3 /* gt-walsheim-ultra-light-oblique-web.ttf */; };
-		CF462FC622E6037D001765B3 /* gt-walsheim-regular-oblique-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FB622E6037D001765B3 /* gt-walsheim-regular-oblique-web.ttf */; };
-		CF462FC722E6037D001765B3 /* gt-walsheim-medium-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FB722E6037D001765B3 /* gt-walsheim-medium-web.ttf */; };
-		CF462FC822E6037D001765B3 /* gt-walsheim-ultra-light-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FB822E6037D001765B3 /* gt-walsheim-ultra-light-web.ttf */; };
-		CF462FC922E6037D001765B3 /* gt-walsheim-thin-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FB922E6037D001765B3 /* gt-walsheim-thin-web.ttf */; };
-		CF462FCA22E6037D001765B3 /* gt-walsheim-light-oblique-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FBA22E6037D001765B3 /* gt-walsheim-light-oblique-web.ttf */; };
-		CF462FCB22E6037D001765B3 /* gt-walsheim-regular-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FBB22E6037D001765B3 /* gt-walsheim-regular-web.ttf */; };
-		CF462FCC22E6037D001765B3 /* gt-walsheim-black-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FBC22E6037D001765B3 /* gt-walsheim-black-web.ttf */; };
-		CF462FCD22E6037D001765B3 /* gt-walsheim-ultra-bold-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF462FBD22E6037D001765B3 /* gt-walsheim-ultra-bold-web.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CF045E9522E709F50013DE41 /* gt-walsheim-bold-oblique-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-bold-oblique-web.ttf"; sourceTree = "<group>"; };
+		CF045E9722E70A5A0013DE41 /* gt-walsheim-bold-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-bold-web.ttf"; sourceTree = "<group>"; };
+		CF045E9922E70BD90013DE41 /* gt-walsheim-medium-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-medium-web.ttf"; sourceTree = "<group>"; };
+		CF045E9B22E711400013DE41 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		CF34AC1522E0779D0075E203 /* Fvmrmnts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fvmrmnts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF34AC1822E0779D0075E203 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CF34AC1A22E0779D0075E203 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -40,22 +32,6 @@
 		CF34AC2422E077A00075E203 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF34AC2C22E07AD00075E203 /* FvmrmntsColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FvmrmntsColors.swift; sourceTree = "<group>"; };
 		CF34AC2E22E081D50075E203 /* NetHexColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetHexColors.swift; sourceTree = "<group>"; };
-		CF462FAE22E6037D001765B3 /* gt-walsheim-bold-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-bold-web.ttf"; sourceTree = "<group>"; };
-		CF462FAF22E6037D001765B3 /* gt-walsheim-medium-oblique-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-medium-oblique-web.ttf"; sourceTree = "<group>"; };
-		CF462FB022E6037D001765B3 /* gt-walsheim-bold-oblique-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-bold-oblique-web.ttf"; sourceTree = "<group>"; };
-		CF462FB122E6037D001765B3 /* gt-walsheim-ultra-bold-oblique-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-ultra-bold-oblique-web.ttf"; sourceTree = "<group>"; };
-		CF462FB222E6037D001765B3 /* gt-walsheim-thin-oblique-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-thin-oblique-web.ttf"; sourceTree = "<group>"; };
-		CF462FB322E6037D001765B3 /* gt-walsheim-black-oblique-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-black-oblique-web.ttf"; sourceTree = "<group>"; };
-		CF462FB422E6037D001765B3 /* gt-walsheim-light-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-light-web.ttf"; sourceTree = "<group>"; };
-		CF462FB522E6037D001765B3 /* gt-walsheim-ultra-light-oblique-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-ultra-light-oblique-web.ttf"; sourceTree = "<group>"; };
-		CF462FB622E6037D001765B3 /* gt-walsheim-regular-oblique-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-regular-oblique-web.ttf"; sourceTree = "<group>"; };
-		CF462FB722E6037D001765B3 /* gt-walsheim-medium-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-medium-web.ttf"; sourceTree = "<group>"; };
-		CF462FB822E6037D001765B3 /* gt-walsheim-ultra-light-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-ultra-light-web.ttf"; sourceTree = "<group>"; };
-		CF462FB922E6037D001765B3 /* gt-walsheim-thin-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-thin-web.ttf"; sourceTree = "<group>"; };
-		CF462FBA22E6037D001765B3 /* gt-walsheim-light-oblique-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-light-oblique-web.ttf"; sourceTree = "<group>"; };
-		CF462FBB22E6037D001765B3 /* gt-walsheim-regular-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-regular-web.ttf"; sourceTree = "<group>"; };
-		CF462FBC22E6037D001765B3 /* gt-walsheim-black-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-black-web.ttf"; sourceTree = "<group>"; };
-		CF462FBD22E6037D001765B3 /* gt-walsheim-ultra-bold-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-ultra-bold-web.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +66,8 @@
 			children = (
 				CF34AC1822E0779D0075E203 /* AppDelegate.swift */,
 				CF34AC1A22E0779D0075E203 /* ViewController.swift */,
+				CF045E9B22E711400013DE41 /* CollectionViewCell.swift */,
+				CFE6B45D22E6031A00EE72CB /* TextFonts */,
 				CF34AC2A22E07AA70075E203 /* Styles */,
 				CF34AC2222E077A00075E203 /* Assets.xcassets */,
 				CF34AC2422E077A00075E203 /* Info.plist */,
@@ -101,7 +79,6 @@
 		CF34AC2A22E07AA70075E203 /* Styles */ = {
 			isa = PBXGroup;
 			children = (
-				CFE6B45D22E6031A00EE72CB /* TextFonts */,
 				CF34AC2B22E07ABA0075E203 /* Cololrs */,
 			);
 			path = Styles;
@@ -119,22 +96,9 @@
 		CF462FAD22E6037D001765B3 /* GT Walsheim Pro */ = {
 			isa = PBXGroup;
 			children = (
-				CF462FAE22E6037D001765B3 /* gt-walsheim-bold-web.ttf */,
-				CF462FAF22E6037D001765B3 /* gt-walsheim-medium-oblique-web.ttf */,
-				CF462FB022E6037D001765B3 /* gt-walsheim-bold-oblique-web.ttf */,
-				CF462FB122E6037D001765B3 /* gt-walsheim-ultra-bold-oblique-web.ttf */,
-				CF462FB222E6037D001765B3 /* gt-walsheim-thin-oblique-web.ttf */,
-				CF462FB322E6037D001765B3 /* gt-walsheim-black-oblique-web.ttf */,
-				CF462FB422E6037D001765B3 /* gt-walsheim-light-web.ttf */,
-				CF462FB522E6037D001765B3 /* gt-walsheim-ultra-light-oblique-web.ttf */,
-				CF462FB622E6037D001765B3 /* gt-walsheim-regular-oblique-web.ttf */,
-				CF462FB722E6037D001765B3 /* gt-walsheim-medium-web.ttf */,
-				CF462FB822E6037D001765B3 /* gt-walsheim-ultra-light-web.ttf */,
-				CF462FB922E6037D001765B3 /* gt-walsheim-thin-web.ttf */,
-				CF462FBA22E6037D001765B3 /* gt-walsheim-light-oblique-web.ttf */,
-				CF462FBB22E6037D001765B3 /* gt-walsheim-regular-web.ttf */,
-				CF462FBC22E6037D001765B3 /* gt-walsheim-black-web.ttf */,
-				CF462FBD22E6037D001765B3 /* gt-walsheim-ultra-bold-web.ttf */,
+				CF045E9922E70BD90013DE41 /* gt-walsheim-medium-web.ttf */,
+				CF045E9522E709F50013DE41 /* gt-walsheim-bold-oblique-web.ttf */,
+				CF045E9722E70A5A0013DE41 /* gt-walsheim-bold-web.ttf */,
 			);
 			path = "GT Walsheim Pro";
 			sourceTree = "<group>";
@@ -205,23 +169,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CF462FC222E6037D001765B3 /* gt-walsheim-thin-oblique-web.ttf in Resources */,
-				CF462FC122E6037D001765B3 /* gt-walsheim-ultra-bold-oblique-web.ttf in Resources */,
-				CF462FC822E6037D001765B3 /* gt-walsheim-ultra-light-web.ttf in Resources */,
-				CF462FCD22E6037D001765B3 /* gt-walsheim-ultra-bold-web.ttf in Resources */,
-				CF462FC722E6037D001765B3 /* gt-walsheim-medium-web.ttf in Resources */,
-				CF462FC322E6037D001765B3 /* gt-walsheim-black-oblique-web.ttf in Resources */,
-				CF462FBF22E6037D001765B3 /* gt-walsheim-medium-oblique-web.ttf in Resources */,
-				CF462FC522E6037D001765B3 /* gt-walsheim-ultra-light-oblique-web.ttf in Resources */,
-				CF462FCA22E6037D001765B3 /* gt-walsheim-light-oblique-web.ttf in Resources */,
+				CF045E9622E709F50013DE41 /* gt-walsheim-bold-oblique-web.ttf in Resources */,
+				CF045E9A22E70BD90013DE41 /* gt-walsheim-medium-web.ttf in Resources */,
 				CF34AC2322E077A00075E203 /* Assets.xcassets in Resources */,
-				CF462FC022E6037D001765B3 /* gt-walsheim-bold-oblique-web.ttf in Resources */,
-				CF462FBE22E6037D001765B3 /* gt-walsheim-bold-web.ttf in Resources */,
-				CF462FC422E6037D001765B3 /* gt-walsheim-light-web.ttf in Resources */,
-				CF462FCC22E6037D001765B3 /* gt-walsheim-black-web.ttf in Resources */,
-				CF462FCB22E6037D001765B3 /* gt-walsheim-regular-web.ttf in Resources */,
-				CF462FC622E6037D001765B3 /* gt-walsheim-regular-oblique-web.ttf in Resources */,
-				CF462FC922E6037D001765B3 /* gt-walsheim-thin-web.ttf in Resources */,
+				CF045E9822E70A5A0013DE41 /* gt-walsheim-bold-web.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,6 +185,7 @@
 			files = (
 				CF34AC1B22E0779D0075E203 /* ViewController.swift in Sources */,
 				CF34AC2D22E07AD00075E203 /* FvmrmntsColors.swift in Sources */,
+				CF045E9C22E711400013DE41 /* CollectionViewCell.swift in Sources */,
 				CF34AC2F22E081D50075E203 /* NetHexColors.swift in Sources */,
 				CF34AC1E22E0779D0075E203 /* Fvmrmnts.xcdatamodeld in Sources */,
 				CF34AC1922E0779D0075E203 /* AppDelegate.swift in Sources */,
