@@ -13,12 +13,16 @@ class CustomCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpViewCell()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    let conteinerView : UIView = {
+        let conteinerView = UIView()
+        return conteinerView
+    }()
     
     let imageView : UIImageView = {
         var image: UIImage = UIImage(named: "cellImage")!
@@ -75,16 +79,17 @@ class CustomCell: UICollectionViewCell {
         videDescription.backgroundColor = UIColor.Fvmrmnts.Color.Black
         return videDescription
     }()
-    
-    
-    
+        
     func setUpViewCell() {
-        addSubview(imageView)
-        addSubview(translucentView)
+        addSubview(conteinerView)
+        conteinerView.addSubview(imageView)
+        conteinerView.addSubview(translucentView)
         translucentView.addSubview(headerLabelofCell)
         translucentView.addSubview(episodesNumber)
         translucentView.addSubview(is18label)
         addSubview(videDescription)
+        //    COMMENT(mrocumare): установка ограничений
+        setUpconteinerView()
         setUpImageCell()
         setUpTranslucentView()
         setUpheaderLabelofCell()
@@ -92,7 +97,14 @@ class CustomCell: UICollectionViewCell {
         setis18label()
         setVideDescription()
         
-        
+    }
+    
+    func setUpconteinerView() {
+        conteinerView.translatesAutoresizingMaskIntoConstraints = false
+        conteinerView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
+        conteinerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
+        conteinerView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 0).isActive = true
+        conteinerView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: 0).isActive = true
     }
     
     func setVideDescription() {
@@ -127,16 +139,16 @@ class CustomCell: UICollectionViewCell {
     
     func setUpTranslucentView() {
         translucentView.translatesAutoresizingMaskIntoConstraints = false
-        translucentView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 0).isActive = true
-        translucentView.topAnchor.constraint(equalTo: self.topAnchor, constant: 28).isActive = true
+        translucentView.leftAnchor.constraint(equalTo: conteinerView.leftAnchor, constant: 0).isActive = true
+        translucentView.topAnchor.constraint(equalTo: conteinerView.topAnchor, constant: 28).isActive = true
         translucentView.heightAnchor.constraint(equalToConstant: 180).isActive = true
-        translucentView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: 0).isActive = true
+        translucentView.rightAnchor.constraint(equalTo: conteinerView.rightAnchor, constant: 0).isActive = true
     }
     
     func setUpImageCell() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: 0).isActive = true
-        imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
+        imageView.rightAnchor.constraint(equalTo: conteinerView.rightAnchor, constant: 0).isActive = true
+        imageView.topAnchor.constraint(equalTo: conteinerView.topAnchor, constant: 0).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: 208).isActive = true
         imageView.widthAnchor.constraint(equalToConstant: 239)
     }
