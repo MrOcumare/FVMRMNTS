@@ -15,15 +15,7 @@ class ViewController: UIViewController {
    
     
     let arrayOfSectionsTittle = ["Интервью и подкасты","Юмор и сатира","Новости"]
-    
-//    let mainLabel : UILabel = {
-//        let mainLabel = UILabel()
-//        mainLabel.font = UIFont(name: "GTWalsheimProBold", size: 55)
-//        mainLabel.text = "Интервью и подкасты"
-//        mainLabel.textColor = UIColor.Fvmrmnts.Color.White
-//        mainLabel.adjustsFontSizeToFitWidth = true
-//        return mainLabel
-//    }()
+
     
     let collectonView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -33,8 +25,6 @@ class ViewController: UIViewController {
         layout.scrollDirection = .vertical
         collectonView.backgroundColor = UIColor.Fvmrmnts.Color.Black
         collectonView.isScrollEnabled = true
-        
-
         return collectonView
     }()
     
@@ -46,13 +36,15 @@ class ViewController: UIViewController {
         
         collectonView.collectionViewLayout = headerlayout
         
-        /* Register the header's nib */
+       
         collectonView.register(UINib(nibName: "CollectionReusableView", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "CollectionReusableView")
+        
 //        UIFont.familyNames.forEach({ familyName in
 //            let fontNames = UIFont.fontNames(forFamilyName: familyName)
 //            print(familyName, fontNames)
 //        })
-
+        
+        
         collectonView.delegate = self as! UICollectionViewDelegate
         collectonView.dataSource = self as! UICollectionViewDataSource
         collectonView.register(CustomCell.self, forCellWithReuseIdentifier: cellID)
@@ -62,15 +54,6 @@ class ViewController: UIViewController {
     }
   
     //    TODO(mrocumare): понять как эту залупу вынести в отдельный файл
-
-//    func setupmainLabel() {
-//
-//        mainLabel.translatesAutoresizingMaskIntoConstraints = false
-//        mainLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 140).isActive = true
-//        mainLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 208).isActive = true
-//        mainLabel.heightAnchor.constraint(equalToConstant: 120).isActive = true
-//
-//    }
     func setupCollectionView() {
         collectonView.translatesAutoresizingMaskIntoConstraints = false
         collectonView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 118).isActive = true
@@ -86,26 +69,38 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         return arrayOfSectionsTittle.count
     }
     
-    
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        if section == 1 {
+            return 4
+        } else if section == 2 {
+            return 10
+        } else {
+            return 2
+        }
     }
+   
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectonView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
+        let cell = collectonView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! CustomCell
+        cell.imageView.adjustsImageWhenAncestorFocused = true
+        cell.clipsToBounds = true
         cell.backgroundColor = UIColor.Fvmrmnts.Color.Black
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 268, height: 329)
+        return CGSize(width: 268, height: 319)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 120, right: 0)
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView,
+                                 layout collectionViewLayout: UICollectionViewLayout,
+                                 minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return CGFloat(bitPattern: 25)
+    }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if (kind == UICollectionView.elementKindSectionFooter) {
@@ -121,8 +116,5 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         }
         fatalError()
     }
-    
-   
-    
 }
 

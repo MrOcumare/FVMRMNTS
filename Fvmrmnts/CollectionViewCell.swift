@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 //    COMMENT(mrocumare): описание ячейки
 class CustomCell: UICollectionViewCell {
+   
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpViewCell()
@@ -76,7 +78,7 @@ class CustomCell: UICollectionViewCell {
         videDescription.text = "Тимур Каргинов и Андрей \nКоняев регулярно о самом \nразном и интересном"
         videDescription.numberOfLines = 0
         videDescription.font = UIFont(name: "GT Walsheim Pro", size: 19)
-        videDescription.backgroundColor = UIColor.Fvmrmnts.Color.Black
+        
         return videDescription
     }()
         
