@@ -13,4 +13,8 @@ class CollectionReusableView: UICollectionReusableView {
 
     @IBOutlet weak var headerTitle: UILabel!
     
+    func setup(title: String) {
+        self.headerTitle.text = title
+    }
+    
 }

@@ -42,7 +42,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         let headerlayout = UICollectionViewFlowLayout()
-        headerlayout.headerReferenceSize = CGSize(width: self.collectonView.frame.size.width, height: 65)
+        headerlayout.headerReferenceSize = CGSize(width: self.collectonView.frame.size.width, height: 128)
+        
         collectonView.collectionViewLayout = headerlayout
         
         /* Register the header's nib */
@@ -55,11 +56,8 @@ class ViewController: UIViewController {
         collectonView.delegate = self as! UICollectionViewDelegate
         collectonView.dataSource = self as! UICollectionViewDataSource
         collectonView.register(CustomCell.self, forCellWithReuseIdentifier: cellID)
-        
         view.backgroundColor = UIColor.Fvmrmnts.Color.Black
-//        view.addSubview(mainLabel)
         view.addSubview(collectonView)
-//        setupmainLabel()
         setupCollectionView()
     }
   
@@ -107,18 +105,18 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         return UIEdgeInsets(top: 0, left: 0, bottom: 120, right: 0)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: 268, height: 329)
-    }
+    
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if (kind == UICollectionView.elementKindSectionFooter) {
             let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "CartFooterCollectionReusableView", for: indexPath)
-            // Customize footerView here
+            
             return footerView
         } else if (kind == UICollectionView.elementKindSectionHeader) {
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "CollectionReusableView", for: indexPath)
-            // Customize headerView here
+            let headerView = collectonView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: header, for: indexPath) as! CollectionReusableView
+           
+            headerView.headerTitle.text = arrayOfSectionsTittle[indexPath.section]
+            
             return headerView
         }
         fatalError()
