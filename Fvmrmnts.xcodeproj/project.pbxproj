@@ -17,6 +17,8 @@
 		CF34AC2322E077A00075E203 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF34AC2222E077A00075E203 /* Assets.xcassets */; };
 		CF34AC2D22E07AD00075E203 /* FvmrmntsColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF34AC2C22E07AD00075E203 /* FvmrmntsColors.swift */; };
 		CF34AC2F22E081D50075E203 /* NetHexColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF34AC2E22E081D50075E203 /* NetHexColors.swift */; };
+		CF5D5DD622E8B05F0023138E /* CollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5D5DD422E8B05F0023138E /* CollectionReusableView.swift */; };
+		CF5D5DD722E8B05F0023138E /* CollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF5D5DD522E8B05F0023138E /* CollectionReusableView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		CF34AC2422E077A00075E203 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF34AC2C22E07AD00075E203 /* FvmrmntsColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FvmrmntsColors.swift; sourceTree = "<group>"; };
 		CF34AC2E22E081D50075E203 /* NetHexColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetHexColors.swift; sourceTree = "<group>"; };
+		CF5D5DD422E8B05F0023138E /* CollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionReusableView.swift; sourceTree = "<group>"; };
+		CF5D5DD522E8B05F0023138E /* CollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionReusableView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,8 @@
 				CF34AC2222E077A00075E203 /* Assets.xcassets */,
 				CF34AC2422E077A00075E203 /* Info.plist */,
 				CF34AC1C22E0779D0075E203 /* Fvmrmnts.xcdatamodeld */,
+				CF5D5DD422E8B05F0023138E /* CollectionReusableView.swift */,
+				CF5D5DD522E8B05F0023138E /* CollectionReusableView.xib */,
 			);
 			path = Fvmrmnts;
 			sourceTree = "<group>";
@@ -169,6 +175,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF5D5DD722E8B05F0023138E /* CollectionReusableView.xib in Resources */,
 				CF045E9622E709F50013DE41 /* gt-walsheim-bold-oblique-web.ttf in Resources */,
 				CF045E9A22E70BD90013DE41 /* gt-walsheim-medium-web.ttf in Resources */,
 				CF34AC2322E077A00075E203 /* Assets.xcassets in Resources */,
@@ -183,6 +190,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF5D5DD622E8B05F0023138E /* CollectionReusableView.swift in Sources */,
 				CF34AC1B22E0779D0075E203 /* ViewController.swift in Sources */,
 				CF34AC2D22E07AD00075E203 /* FvmrmntsColors.swift in Sources */,
 				CF045E9C22E711400013DE41 /* CollectionViewCell.swift in Sources */,
