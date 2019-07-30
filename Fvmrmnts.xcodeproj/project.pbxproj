@@ -19,6 +19,7 @@
 		CF34AC2F22E081D50075E203 /* NetHexColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF34AC2E22E081D50075E203 /* NetHexColors.swift */; };
 		CF5D5DD622E8B05F0023138E /* CollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5D5DD422E8B05F0023138E /* CollectionReusableView.swift */; };
 		CF5D5DD722E8B05F0023138E /* CollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF5D5DD522E8B05F0023138E /* CollectionReusableView.xib */; };
+		CF5D5DD922E9EFBF0023138E /* gt-walsheim-regular-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF5D5DD822E9EFBF0023138E /* gt-walsheim-regular-web.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		CF34AC2E22E081D50075E203 /* NetHexColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetHexColors.swift; sourceTree = "<group>"; };
 		CF5D5DD422E8B05F0023138E /* CollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionReusableView.swift; sourceTree = "<group>"; };
 		CF5D5DD522E8B05F0023138E /* CollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionReusableView.xib; sourceTree = "<group>"; };
+		CF5D5DD822E9EFBF0023138E /* gt-walsheim-regular-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-regular-web.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 			children = (
 				CF045E9922E70BD90013DE41 /* gt-walsheim-medium-web.ttf */,
 				CF045E9522E709F50013DE41 /* gt-walsheim-bold-oblique-web.ttf */,
+				CF5D5DD822E9EFBF0023138E /* gt-walsheim-regular-web.ttf */,
 				CF045E9722E70A5A0013DE41 /* gt-walsheim-bold-web.ttf */,
 			);
 			path = "GT Walsheim Pro";
@@ -178,6 +181,7 @@
 				CF5D5DD722E8B05F0023138E /* CollectionReusableView.xib in Resources */,
 				CF045E9622E709F50013DE41 /* gt-walsheim-bold-oblique-web.ttf in Resources */,
 				CF045E9A22E70BD90013DE41 /* gt-walsheim-medium-web.ttf in Resources */,
+				CF5D5DD922E9EFBF0023138E /* gt-walsheim-regular-web.ttf in Resources */,
 				CF34AC2322E077A00075E203 /* Assets.xcassets in Resources */,
 				CF045E9822E70A5A0013DE41 /* gt-walsheim-bold-web.ttf in Resources */,
 			);
