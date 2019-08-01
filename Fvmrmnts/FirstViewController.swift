@@ -8,11 +8,16 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+public protocol FirstViewControllerDelegate: class {
+    func navigateToNextPage()
+}
+
+class FirstViewController: UIViewController {
     
     fileprivate let cellID = "cellID"
     fileprivate let header = "CollectionReusableView"
    
+    public weak var delegate: FirstViewControllerDelegate?
     
     let arrayOfSectionsTittle = ["1","2","3","4","5","6","7","8","9","10","11","12"]
 
@@ -28,6 +33,9 @@ class ViewController: UIViewController {
         collectonView.isScrollEnabled = true
         return collectonView
     }()
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,10 +60,14 @@ class ViewController: UIViewController {
         collectonView.contentInset = UIEdgeInsets(top: 208, left: 0, bottom: 0, right: 0)
         view.backgroundColor = UIColor.Fvmrmnts.Color.Black
         view.addSubview(collectonView)
+       
         setupCollectionView()
+        
     }
   
     //    TODO(mrocumare): понять как эту залупу вынести в отдельный файл
+    
+    
     func setupCollectionView() {
         collectonView.translatesAutoresizingMaskIntoConstraints = false
         collectonView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 118).isActive = true
@@ -65,7 +77,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return arrayOfSectionsTittle.count
@@ -90,6 +102,9 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.delegate?.navigateToNextPage()
+    }
    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
