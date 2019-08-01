@@ -15,6 +15,7 @@ extension UIColor {
             static let Black = UIColor(netHex: 0x000000)
             static let White = UIColor(netHex: 0xFFFFFF)
             static let Violet = UIColor(netHex: 0x61389F)
+            static let DarkViolet = UIColor(netHex: 0x290C4E)
             static let Red = UIColor(netHex: 0xD83F3F)
             static let Gray = UIColor(netHex: 0xA0A0A0)
         }
