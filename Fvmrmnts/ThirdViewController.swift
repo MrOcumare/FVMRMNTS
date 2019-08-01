@@ -2,6 +2,14 @@
 //  ThirdViewController.swift
 //  Fvmrmnts
 //
+//  Created by Mr.Ocumare on 01/08/2019.
+//  Copyright © 2019 Ilya Ocumare. All rights reserved.
+//
+
+//
+//  ThirdViewController.swift
+//  Fvmrmnts
+//
 //  Created by Mr.Ocumare on 31/07/2019.
 //  Copyright © 2019 Ilya Ocumare. All rights reserved.
 //
@@ -22,3 +30,4 @@ public class ThirdViewController: UIViewController {
         self.delegate?.navigateToFirstPage()
     }
 }
+

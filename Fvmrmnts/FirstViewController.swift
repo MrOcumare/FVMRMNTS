@@ -34,6 +34,9 @@ class FirstViewController: UIViewController {
         return collectonView
     }()
     
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,10 +60,14 @@ class FirstViewController: UIViewController {
         collectonView.contentInset = UIEdgeInsets(top: 208, left: 0, bottom: 0, right: 0)
         view.backgroundColor = UIColor.Fvmrmnts.Color.Black
         view.addSubview(collectonView)
+       
         setupCollectionView()
+        
     }
   
     //    TODO(mrocumare): понять как эту залупу вынести в отдельный файл
+    
+    
     func setupCollectionView() {
         collectonView.translatesAutoresizingMaskIntoConstraints = false
         collectonView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 118).isActive = true
