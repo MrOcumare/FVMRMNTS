@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ParallaxView
 
 public protocol SecondViewControllerDelegate: class {
     func navigateToFirstPage()
@@ -86,6 +87,7 @@ class SecondViewController: UIViewController {
         setUPshowLabel()
         setUPplayShowButton()
         setupCollectionView()
+        playShowButton.canBecomeFocused
     }
     
     func setupCollectionView() {
@@ -141,13 +143,14 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectonView.dequeueReusableCell(withReuseIdentifier: secondCellID, for: indexPath) as! SecondCollectionViewCell
-        cell.imageView.adjustsImageWhenAncestorFocused = true
-        cell.clipsToBounds = true
+//        cell.imageView.adjustsImageWhenAncestorFocused = true
+//        cell.clipsToBounds = true
+        
         cell.backgroundColor = UIColor.Fvmrmnts.Color.Black
         return cell
     }
-
     
+
     
     
     
@@ -159,22 +162,6 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
         print("Row \(indexPath.row) selected")
     }
 
-//    func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
-//        let index : IndexPath = IndexPath(row: context.nextFocusedIndexPath!.item, section: 0)
-//        let cell = collectonView.dequeueReusableCell(withReuseIdentifier: secondCellID, for: index) as! SecondCollectionViewCell
-//        if collectonView == self.collectonView && (context.nextFocusedIndexPath?.item) != nil {
-//
-//            extensionContext?.release(in: self, at: IndexSet(integer: 0))
-//
-//            var indexPaths = [IndexPath]()
-//
-//            collectionView.reloadItems(at: indexPaths)
-//
-//
-//        } else {
-//
-//        }
-//    }
     
 
     
@@ -201,33 +188,3 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
 //    }
 //}
 //
-//class CustomFocusView: UIView {
-//
-//
-//    //Now This View controller can get Focus
-//    override func canBecomeFocused() -> Bool {
-//        return true
-//    }
-//
-//    //We Can chance the focus behavior.... Is a good idea if we evidence it
-//    override func didUpdateFocusInContext(context: UIFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
-//
-//        //Bahavior we will trigger when view lost focus
-//        if context.previouslyFocusedView === self
-//        {
-//            UIView.animate(withDuration: 0.1, animations: { () -> Void in
-//                context.previouslyFocusedView?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-//            })
-//        }
-//
-//        //Bahavior we will trigger when view get focus
-//        if context.nextFocusedView === self
-//        {
-//            UIView.animate(withDuration: 0.1, animations: { () -> Void in
-//                context.nextFocusedView?.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-//            })
-//        }
-//
-//    }
-//
-//}

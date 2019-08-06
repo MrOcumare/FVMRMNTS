@@ -40,6 +40,13 @@ class SecondCollectionViewCell: UICollectionViewCell {
         return translucentView
     }()
     
+    let translucentView_2 : UIView = {
+        let translucentView = UIView()
+        translucentView.backgroundColor =  UIColor.Fvmrmnts.Color.Violet.withAlphaComponent(0.3)
+        translucentView.layer.cornerRadius = 4
+        return translucentView
+    }()
+    
     let headerLabelofCell : UILabel = {
         let headerLabelofCell = UILabel()
         headerLabelofCell.font = UIFont(name: "GTWalsheimProBold", size: 21)
@@ -76,19 +83,43 @@ class SecondCollectionViewCell: UICollectionViewCell {
         addSubview(conteinerView)
         conteinerView.addSubview(imageView)
         conteinerView.addSubview(translucentView)
+        conteinerView.addSubview(translucentView_2)
         translucentView.addSubview(headerLabelofCell)
         translucentView.addSubview(episodesNumber)
         addSubview(videDescription)
         //    COMMENT(mrocumare): установка ограничений
         setUpconteinerView()
         setUpImageCell()
-        setUpTranslucentView()
+        setUpTranslucentView_1()
+        setUpTranslucentView_2()
         setUpheaderLabelofCell()
         setUpepisodesNumber()
         setVideDescription()
+        self.translucentView_2.isHidden = true
+
+    }
+    
+    func setUpViewCell_2() {
+        addSubview(conteinerView)
+        conteinerView.addSubview(imageView)
+        conteinerView.addSubview(translucentView)
+        conteinerView.addSubview(translucentView_2)
+        translucentView.addSubview(headerLabelofCell)
+        translucentView.addSubview(episodesNumber)
+        addSubview(videDescription)
+        //    COMMENT(mrocumare): установка ограничений
+        setUpconteinerView()
+        setUpImageCell()
+        setUpTranslucentView_1()
+        setUpTranslucentView_2()
+        setUpheaderLabelofCell()
+        setUpepisodesNumber()
+        setVideDescription()
+        self.translucentView_2.isHidden = false
         
     }
     
+   
     func setUpconteinerView() {
         conteinerView.translatesAutoresizingMaskIntoConstraints = false
         conteinerView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
@@ -104,6 +135,8 @@ class SecondCollectionViewCell: UICollectionViewCell {
         videDescription.topAnchor.constraint(equalTo: translucentView.bottomAnchor, constant: 25).isActive = true
         videDescription.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 0).isActive = true
     }
+    
+    
     
     func setUpepisodesNumber() {
         episodesNumber.translatesAutoresizingMaskIntoConstraints = false
@@ -121,12 +154,19 @@ class SecondCollectionViewCell: UICollectionViewCell {
         
     }
     
-    func setUpTranslucentView() {
+    func setUpTranslucentView_1() {
         translucentView.translatesAutoresizingMaskIntoConstraints = false
         translucentView.leftAnchor.constraint(equalTo: conteinerView.leftAnchor, constant: 0).isActive = true
         translucentView.topAnchor.constraint(equalTo: conteinerView.topAnchor, constant: 28).isActive = true
         translucentView.heightAnchor.constraint(equalToConstant: 180).isActive = true
         translucentView.rightAnchor.constraint(equalTo: conteinerView.rightAnchor, constant: 0).isActive = true
+    }
+    func setUpTranslucentView_2() {
+        translucentView_2.translatesAutoresizingMaskIntoConstraints = false
+        translucentView_2.leftAnchor.constraint(equalTo: conteinerView.leftAnchor, constant: 0).isActive = true
+        translucentView_2.topAnchor.constraint(equalTo: conteinerView.topAnchor, constant: 0).isActive = true
+        translucentView_2.heightAnchor.constraint(equalToConstant: 208).isActive = true
+        translucentView_2.rightAnchor.constraint(equalTo: conteinerView.rightAnchor, constant: 0).isActive = true
     }
     
     func setUpImageCell() {
@@ -141,7 +181,21 @@ class SecondCollectionViewCell: UICollectionViewCell {
         translucentView.backgroundColor = UIColor.Fvmrmnts.Color.Black
     }
     
-    
+    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        var buffer = self.headerLabelofCell.text!
+        
+        if self.isFocused {
+         
+            self.translucentView_2.isHidden = false
+            self.translucentView.isHidden = true
+            
+        } else {
+            
+            self.translucentView.isHidden = false
+            self.translucentView_2.isHidden = true
+            
+        }
+    }
     
     
    

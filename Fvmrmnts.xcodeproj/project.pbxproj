@@ -25,6 +25,7 @@
 		CF9E099D22F1C89F001A362E /* FirstCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9E099C22F1C89F001A362E /* FirstCoordinator.swift */; };
 		CF9E099F22F1C950001A362E /* SecindCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9E099E22F1C950001A362E /* SecindCoordinator.swift */; };
 		CF9E09AA22F1CBF2001A362E /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9E09A822F1CBF2001A362E /* SecondViewController.swift */; };
+		CFE4703322F84BB100CB1CFC /* ParallaxView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFE4703222F84BB100CB1CFC /* ParallaxView.framework */; };
 		CFEE5A0222F2F37B002E8C9D /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEE5A0022F2F37B002E8C9D /* ThirdViewController.swift */; };
 		CFEE5A0322F2F37B002E8C9D /* ThirdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFEE5A0122F2F37B002E8C9D /* ThirdViewController.xib */; };
 /* End PBXBuildFile section */
@@ -50,6 +51,7 @@
 		CF9E099C22F1C89F001A362E /* FirstCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstCoordinator.swift; sourceTree = "<group>"; };
 		CF9E099E22F1C950001A362E /* SecindCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecindCoordinator.swift; sourceTree = "<group>"; };
 		CF9E09A822F1CBF2001A362E /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SecondViewController.swift; path = ../SecondViewController.swift; sourceTree = "<group>"; };
+		CFE4703222F84BB100CB1CFC /* ParallaxView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParallaxView.framework; path = Carthage/Build/tvOS/ParallaxView.framework; sourceTree = "<group>"; };
 		CFEE5A0022F2F37B002E8C9D /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		CFEE5A0122F2F37B002E8C9D /* ThirdViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThirdViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -59,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFE4703322F84BB100CB1CFC /* ParallaxView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +73,7 @@
 			children = (
 				CF34AC1722E0779D0075E203 /* Fvmrmnts */,
 				CF34AC1622E0779D0075E203 /* Products */,
+				CFE4703122F84BB100CB1CFC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -157,6 +161,14 @@
 			path = Coordinator;
 			sourceTree = "<group>";
 		};
+		CFE4703122F84BB100CB1CFC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CFE4703222F84BB100CB1CFC /* ParallaxView.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CFE6B45D22E6031A00EE72CB /* TextFonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -175,6 +187,7 @@
 				CF34AC1122E0779D0075E203 /* Sources */,
 				CF34AC1222E0779D0075E203 /* Frameworks */,
 				CF34AC1322E0779D0075E203 /* Resources */,
+				CFE4703422F84BCE00CB1CFC /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -234,6 +247,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CFE4703422F84BCE00CB1CFC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/tvOS/ParallaxView.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CF34AC1122E0779D0075E203 /* Sources */ = {
@@ -380,6 +414,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BRLU765MJG;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				INFOPLIST_FILE = Fvmrmnts/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -399,6 +437,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BRLU765MJG;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				INFOPLIST_FILE = Fvmrmnts/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
