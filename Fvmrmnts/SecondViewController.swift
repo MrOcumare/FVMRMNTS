@@ -139,7 +139,9 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
         return 1
     }
     
-    
+    func refrash(){
+        self.collectonView.reloadData()
+    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectonView.dequeueReusableCell(withReuseIdentifier: secondCellID, for: indexPath) as! SecondCollectionViewCell
