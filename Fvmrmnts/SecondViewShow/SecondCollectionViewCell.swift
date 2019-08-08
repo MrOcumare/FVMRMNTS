@@ -18,10 +18,10 @@ class SecondCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-
-            setUpViewCell()
         
-       
+        setUpViewCell()
+        
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -49,12 +49,12 @@ class SecondCollectionViewCell: UICollectionViewCell {
         return translucentView
     }()
     
-//    let translucentView_2 : UIView = {
-//        let translucentView = UIView()
-//        translucentView.backgroundColor =  UIColor.Fvmrmnts.Color.Violet.withAlphaComponent(0)
-//        translucentView.layer.cornerRadius = 4
-//        return translucentView
-//    }()
+    //    let translucentView_2 : UIView = {
+    //        let translucentView = UIView()
+    //        translucentView.backgroundColor =  UIColor.Fvmrmnts.Color.Violet.withAlphaComponent(0)
+    //        translucentView.layer.cornerRadius = 4
+    //        return translucentView
+    //    }()
     
     
     let headerLabelofCell : UILabel = {
@@ -73,7 +73,7 @@ class SecondCollectionViewCell: UICollectionViewCell {
         episodesNumber.text = "12 ЭПИЗОДОВ"
         episodesNumber.textColor = UIColor.Fvmrmnts.Color.White.withAlphaComponent(0.72)
         episodesNumber.adjustsFontSizeToFitWidth = true
-        episodesNumber.textAlignment = .center
+        episodesNumber.textAlignment = .left
         episodesNumber.layer.cornerRadius = 2
         return episodesNumber
     }()
@@ -93,7 +93,7 @@ class SecondCollectionViewCell: UICollectionViewCell {
         addSubview(conteinerView)
         conteinerView.addSubview(imageView)
         conteinerView.addSubview(translucentView)
-//        conteinerView.addSubview(translucentView_2)
+        //        conteinerView.addSubview(translucentView_2)
         translucentView.addSubview(headerLabelofCell)
         translucentView.addSubview(episodesNumber)
         addSubview(videDescription)
@@ -101,24 +101,34 @@ class SecondCollectionViewCell: UICollectionViewCell {
         setUpconteinerView()
         setUpImageCell()
         setUpTranslucentView()
-//        setUpTranslucentView_2()
+        //        setUpTranslucentView_2()
         setUpheaderLabelofCell()
         setUpepisodesNumber()
         setVideDescription()
         
-
+        
     }
     
     
-   
+    
+    var conteinerViewHeight : NSLayoutConstraint?
+    var conteinerViewLeftAnchor : NSLayoutConstraint?
+    var conteinerViewRightAnchor : NSLayoutConstraint?
+    var conteinerViewTopAnchor : NSLayoutConstraint?
+    
     func setUpconteinerView() {
         conteinerView.translatesAutoresizingMaskIntoConstraints = false
-        conteinerView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
-        conteinerView.heightAnchor.constraint(equalToConstant: 208).isActive = true
-//        conteinerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
-        conteinerView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 0).isActive = true
-        conteinerView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: 0).isActive = true
+        conteinerViewTopAnchor = conteinerView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0)
+        conteinerViewTopAnchor!.isActive = true
+        conteinerViewHeight = conteinerView.heightAnchor.constraint(equalToConstant: 208)
+        conteinerViewHeight!.isActive = true
+        conteinerViewLeftAnchor =  conteinerView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 0)
+        conteinerViewLeftAnchor!.isActive = true
+        conteinerViewRightAnchor =  conteinerView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: 0)
+        conteinerViewRightAnchor!.isActive = true
     }
+    
+   
     
     func setVideDescription() {
         videDescription.translatesAutoresizingMaskIntoConstraints = false
@@ -154,15 +164,6 @@ class SecondCollectionViewCell: UICollectionViewCell {
         translucentView.rightAnchor.constraint(equalTo: conteinerView.rightAnchor, constant: 0).isActive = true
     }
     
-//    func setUpTranslucentView_2() {
-//        translucentView_2.translatesAutoresizingMaskIntoConstraints = false
-//        translucentView_2.leftAnchor.constraint(equalTo: conteinerView.leftAnchor, constant: 0).isActive = true
-//        translucentView_2.topAnchor.constraint(equalTo: conteinerView.topAnchor, constant: 0).isActive = true
-//        translucentView_2.heightAnchor.constraint(equalToConstant: 208).isActive = true
-//        translucentView_2.rightAnchor.constraint(equalTo: conteinerView.rightAnchor, constant: 0).isActive = true
-//    }
-  
-    
     func setUpImageCell() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.rightAnchor.constraint(equalTo: conteinerView.rightAnchor, constant: 0).isActive = true
@@ -171,31 +172,34 @@ class SecondCollectionViewCell: UICollectionViewCell {
         imageView.widthAnchor.constraint(equalToConstant: 239).isActive = true
     }
     
-   
+  
     
     
-
-    
+    override var canBecomeFocused: Bool {
+        return true
+    }
     
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
-        var buffer = self.headerLabelofCell.text!
+        
         
         if self.isFocused {
-//            translucentView.backgroundColor =  UIColor.Fvmrmnts.Color.Violet.withAlphaComponent(0)
-//            translucentView_2.backgroundColor =  UIColor.Fvmrmnts.Color.Violet.withAlphaComponent(0.3)
-           
+            //            translucentView.backgroundColor =  UIColor.Fvmrmnts.Color.Violet.withAlphaComponent(0)
+            //            translucentView_2.backgroundColor =  UIColor.Fvmrmnts.Color.Violet.withAlphaComponent(0.3)
             
             conteinerView.addParallaxMotionEffects()
-//
-//            self.translucentView_2.isHidden = false
-//            self.translucentView.isHidden = true
+            
+            //
+            //            self.translucentView_2.isHidden = false
+            //            self.translucentView.isHidden = true
             
         } else {
-//            translucentView.backgroundColor =  UIColor.Fvmrmnts.Color.Violet.withAlphaComponent(0.3)
-//            translucentView_2.backgroundColor =  UIColor.Fvmrmnts.Color.Violet.withAlphaComponent(0)
+            //            translucentView.backgroundColor =  UIColor.Fvmrmnts.Color.Violet.withAlphaComponent(0.3)
+            //            translucentView_2.backgroundColor =  UIColor.Fvmrmnts.Color.Violet.withAlphaComponent(0)
+           
             conteinerView.removeParallaxMotionEffects()
-//            self.translucentView.isHidden = false
-//            self.translucentView_2.isHidden = true
+            
+            //            self.translucentView.isHidden = false
+            //            self.translucentView_2.isHidden = true
             
         }
     }

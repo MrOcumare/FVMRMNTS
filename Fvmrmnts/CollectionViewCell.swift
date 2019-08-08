@@ -57,7 +57,7 @@ class CustomCell: UICollectionViewCell {
         episodesNumber.text = "12 ЭПИЗОДОВ"
         episodesNumber.textColor = UIColor.Fvmrmnts.Color.White.withAlphaComponent(0.72)
         episodesNumber.adjustsFontSizeToFitWidth = true
-        episodesNumber.textAlignment = .center
+        episodesNumber.textAlignment = .left
         episodesNumber.layer.cornerRadius = 2
         return episodesNumber
     }()
