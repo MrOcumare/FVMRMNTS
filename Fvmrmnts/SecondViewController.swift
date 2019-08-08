@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ParallaxView
 
 public protocol SecondViewControllerDelegate: class {
     func navigateToFirstPage()
@@ -16,6 +17,10 @@ public protocol SecondViewControllerDelegate: class {
 class SecondViewController: UIViewController {
     
     public weak var delegate: SecondViewControllerDelegate?
+    
+    fileprivate let secondCellID = "secondCellID"
+
+
     
     let showLabel : UILabel = {
         let label = UILabel()
@@ -44,31 +49,54 @@ class SecondViewController: UIViewController {
         return btn
     }()
 
+    
+    
     let showImage : UIImageView = {
         var image: UIImage = UIImage(named: "cellImage")!
         let imageView = UIImageView(image: image)
         return imageView
     }()
     
-   
+    let collectonView : UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 40
+        let collectonView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
+        layout.scrollDirection = .horizontal
+        
+        collectonView.backgroundColor = UIColor.Fvmrmnts.Color.Black
+        collectonView.isScrollEnabled = true
+        return collectonView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.Fvmrmnts.Color.Black
         
-      
-        view.addSubview(showLabel)
-      
-        view.addSubview(showImage)
-        showImage.addSubview(playShowButton)
+        collectonView.delegate = self as UICollectionViewDelegate
+        collectonView.dataSource = self as UICollectionViewDataSource
+        collectonView.register(SecondCollectionViewCell.self, forCellWithReuseIdentifier: secondCellID)
         
+       
+        
+        view.addSubview(showLabel)
+        view.addSubview(showImage)
+        view.addSubview(collectonView)
+        showImage.addSubview(playShowButton)
+    
         setUPshowImage()
         setUPshowLabel()
-
         setUPplayShowButton()
+        setupCollectionView()
+        playShowButton.canBecomeFocused
     }
     
-   
+    func setupCollectionView() {
+        collectonView.translatesAutoresizingMaskIntoConstraints = false
+        collectonView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 50).isActive = true
+        collectonView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        collectonView.heightAnchor.constraint(equalToConstant: 400).isActive = true
+        collectonView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+    }
     
     func setUPshowImage() {
         showImage.translatesAutoresizingMaskIntoConstraints = false
@@ -93,9 +121,65 @@ class SecondViewController: UIViewController {
         showLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 50).isActive = true
         showLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50).isActive = true
     }
-   
+
     
+}
+
+extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+
+    
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
     }
+    
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func refrash(){
+        self.collectonView.reloadData()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectonView.dequeueReusableCell(withReuseIdentifier: secondCellID, for: indexPath) as! SecondCollectionViewCell
+//        cell.imageView.adjustsImageWhenAncestorFocused = true
+//        cell.clipsToBounds = true
+        
+        cell.backgroundColor = UIColor.Fvmrmnts.Color.Black
+        return cell
+    }
+    
+
+    
+    
+    
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Row \(indexPath.row) selected")
+    }
+
+    
+
+    
+    
+
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 300, height: 319)
+    }
+    
+    
+    
+
+    
+}
+
 
 //    @objc func navigateBackToFirstpage() {
 //        self.delegate?.navigateToFirstPage()
@@ -105,3 +189,4 @@ class SecondViewController: UIViewController {
 //        self.delegate?.navigateToThirdPage()
 //    }
 //}
+//

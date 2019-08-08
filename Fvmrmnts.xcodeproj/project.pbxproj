@@ -11,6 +11,7 @@
 		CF045E9822E70A5A0013DE41 /* gt-walsheim-bold-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF045E9722E70A5A0013DE41 /* gt-walsheim-bold-web.ttf */; };
 		CF045E9A22E70BD90013DE41 /* gt-walsheim-medium-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF045E9922E70BD90013DE41 /* gt-walsheim-medium-web.ttf */; };
 		CF045E9C22E711400013DE41 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF045E9B22E711400013DE41 /* CollectionViewCell.swift */; };
+		CF1F5D8922F31F0300700E6D /* SecondCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1F5D8822F31F0300700E6D /* SecondCollectionViewCell.swift */; };
 		CF34AC1922E0779D0075E203 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF34AC1822E0779D0075E203 /* AppDelegate.swift */; };
 		CF34AC1B22E0779D0075E203 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF34AC1A22E0779D0075E203 /* FirstViewController.swift */; };
 		CF34AC1E22E0779D0075E203 /* Fvmrmnts.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CF34AC1C22E0779D0075E203 /* Fvmrmnts.xcdatamodeld */; };
@@ -24,6 +25,7 @@
 		CF9E099D22F1C89F001A362E /* FirstCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9E099C22F1C89F001A362E /* FirstCoordinator.swift */; };
 		CF9E099F22F1C950001A362E /* SecindCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9E099E22F1C950001A362E /* SecindCoordinator.swift */; };
 		CF9E09AA22F1CBF2001A362E /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9E09A822F1CBF2001A362E /* SecondViewController.swift */; };
+		CFE4703322F84BB100CB1CFC /* ParallaxView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFE4703222F84BB100CB1CFC /* ParallaxView.framework */; };
 		CFEE5A0222F2F37B002E8C9D /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEE5A0022F2F37B002E8C9D /* ThirdViewController.swift */; };
 		CFEE5A0322F2F37B002E8C9D /* ThirdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFEE5A0122F2F37B002E8C9D /* ThirdViewController.xib */; };
 /* End PBXBuildFile section */
@@ -33,6 +35,7 @@
 		CF045E9722E70A5A0013DE41 /* gt-walsheim-bold-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-bold-web.ttf"; sourceTree = "<group>"; };
 		CF045E9922E70BD90013DE41 /* gt-walsheim-medium-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-medium-web.ttf"; sourceTree = "<group>"; };
 		CF045E9B22E711400013DE41 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollectionViewCell.swift; path = ../CollectionViewCell.swift; sourceTree = "<group>"; };
+		CF1F5D8822F31F0300700E6D /* SecondCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondCollectionViewCell.swift; sourceTree = "<group>"; };
 		CF34AC1522E0779D0075E203 /* Fvmrmnts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fvmrmnts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF34AC1822E0779D0075E203 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CF34AC1A22E0779D0075E203 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FirstViewController.swift; path = ../FirstViewController.swift; sourceTree = "<group>"; };
@@ -48,6 +51,7 @@
 		CF9E099C22F1C89F001A362E /* FirstCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstCoordinator.swift; sourceTree = "<group>"; };
 		CF9E099E22F1C950001A362E /* SecindCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecindCoordinator.swift; sourceTree = "<group>"; };
 		CF9E09A822F1CBF2001A362E /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SecondViewController.swift; path = ../SecondViewController.swift; sourceTree = "<group>"; };
+		CFE4703222F84BB100CB1CFC /* ParallaxView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParallaxView.framework; path = Carthage/Build/tvOS/ParallaxView.framework; sourceTree = "<group>"; };
 		CFEE5A0022F2F37B002E8C9D /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		CFEE5A0122F2F37B002E8C9D /* ThirdViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThirdViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -57,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFE4703322F84BB100CB1CFC /* ParallaxView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +73,7 @@
 			children = (
 				CF34AC1722E0779D0075E203 /* Fvmrmnts */,
 				CF34AC1622E0779D0075E203 /* Products */,
+				CFE4703122F84BB100CB1CFC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -140,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				CF9E09A822F1CBF2001A362E /* SecondViewController.swift */,
+				CF1F5D8822F31F0300700E6D /* SecondCollectionViewCell.swift */,
 			);
 			path = SecondViewShow;
 			sourceTree = "<group>";
@@ -152,6 +159,14 @@
 				CF9E099E22F1C950001A362E /* SecindCoordinator.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		CFE4703122F84BB100CB1CFC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CFE4703222F84BB100CB1CFC /* ParallaxView.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		CFE6B45D22E6031A00EE72CB /* TextFonts */ = {
@@ -172,6 +187,7 @@
 				CF34AC1122E0779D0075E203 /* Sources */,
 				CF34AC1222E0779D0075E203 /* Frameworks */,
 				CF34AC1322E0779D0075E203 /* Resources */,
+				CFE4703422F84BCE00CB1CFC /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -232,12 +248,34 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		CFE4703422F84BCE00CB1CFC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/tvOS/ParallaxView.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		CF34AC1122E0779D0075E203 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				CF9E09AA22F1CBF2001A362E /* SecondViewController.swift in Sources */,
+				CF1F5D8922F31F0300700E6D /* SecondCollectionViewCell.swift in Sources */,
 				CF9E099B22F1C1CC001A362E /* Coordinator.swift in Sources */,
 				CF5D5DD622E8B05F0023138E /* CollectionReusableView.swift in Sources */,
 				CF34AC1B22E0779D0075E203 /* FirstViewController.swift in Sources */,
@@ -376,6 +414,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BRLU765MJG;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				INFOPLIST_FILE = Fvmrmnts/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -395,6 +437,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BRLU765MJG;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				INFOPLIST_FILE = Fvmrmnts/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
