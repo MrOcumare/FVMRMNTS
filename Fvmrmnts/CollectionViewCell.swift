@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import ParallaxView
 //    COMMENT(mrocumare): описание ячейки
 class CustomCell: UICollectionViewCell {
    
@@ -93,7 +94,7 @@ class CustomCell: UICollectionViewCell {
     func setUpconteinerView() {
         conteinerView.translatesAutoresizingMaskIntoConstraints = false
         conteinerView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
-        conteinerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
+        conteinerView.heightAnchor.constraint(equalToConstant: 208).isActive = true
         conteinerView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 0).isActive = true
         conteinerView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: 0).isActive = true
     }
@@ -137,4 +138,15 @@ class CustomCell: UICollectionViewCell {
         imageView.heightAnchor.constraint(equalToConstant: 208).isActive = true
         imageView.widthAnchor.constraint(equalToConstant: 239)
     }
+    
+    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        
+        
+        if self.isFocused {
+            conteinerView.addParallaxMotionEffects()
+        } else {
+            conteinerView.removeParallaxMotionEffects()
+        }
+    }
 }
+

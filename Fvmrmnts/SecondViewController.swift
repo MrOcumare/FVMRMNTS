@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ParallaxView
+
 
 
 
@@ -129,7 +129,7 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
            self.delegate?.navigateToFirstPage()
         } else {
             isExit = true
-            self.handleAnimate(collectionViewAnimation: 0, showLabelAnimation: -96)
+            self.handleAnimate(collectionViewAnimation: 237, showLabelAnimation: 96)
             
         }
        
@@ -149,7 +149,7 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func handleAnimate(collectionViewAnimation: CGFloat, showLabelAnimation: CGFloat) {
         showLabelTopAnchor?.constant = showLabelAnimation
         collectionViewTopAnchor?.constant = collectionViewAnimation
-        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.7, delay: 0, options: .curveEaseOut, animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
     }

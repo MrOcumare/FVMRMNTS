@@ -57,7 +57,7 @@ class FirstViewController: UIViewController {
         collectonView.delegate = self as UICollectionViewDelegate
         collectonView.dataSource = self as UICollectionViewDataSource
         collectonView.register(CustomCell.self, forCellWithReuseIdentifier: cellID)
-        collectonView.contentInset = UIEdgeInsets(top: 208, left: 0, bottom: 0, right: 0)
+        collectonView.contentInset = UIEdgeInsets(top: 208, left: 118, bottom: 0, right: -118)
         view.backgroundColor = UIColor.Fvmrmnts.Color.Black
         view.addSubview(collectonView)
        
@@ -70,8 +70,8 @@ class FirstViewController: UIViewController {
     
     func setupCollectionView() {
         collectonView.translatesAutoresizingMaskIntoConstraints = false
-        collectonView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 118).isActive = true
-        collectonView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -118).isActive = true
+        collectonView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+        collectonView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
         collectonView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         collectonView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
@@ -96,8 +96,8 @@ extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectonView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! CustomCell
-        cell.imageView.adjustsImageWhenAncestorFocused = true
-        cell.clipsToBounds = true
+//        cell.imageView.adjustsImageWhenAncestorFocused = true
+//        cell.clipsToBounds = true
         cell.backgroundColor = UIColor.Fvmrmnts.Color.Black
         return cell
     }
