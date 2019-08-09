@@ -9,59 +9,39 @@
 import UIKit
 import ParallaxView
 
+
+
 public protocol SecondViewControllerDelegate: class {
     func navigateToFirstPage()
     func navigateToThirdPage()
 }
+
+
 
 class SecondViewController: UIViewController {
     
     public weak var delegate: SecondViewControllerDelegate?
     
     fileprivate let secondCellID = "secondCellID"
-
-
+    
+    lazy var isExit = false
+    
     
     let showLabel : UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "GTWalsheimProBold", size: 55)
+        label.font = UIFont(name: "GTWalsheimProBold", size: 64)
         label.numberOfLines = 0
-        label.text = "вДудь \n34 эпизода"
+        label.text = "вДудь"
         label.textColor = UIColor.Fvmrmnts.Color.White
         label.adjustsFontSizeToFitWidth = true
         return label
-    }()
-    
-    
-    let playShowButton : UIButton = {
-        let btn = UIButton()
-        btn.backgroundColor = UIColor.Fvmrmnts.Color.DarkViolet.withAlphaComponent(0.9)
-        let trianglePath = UIBezierPath()
-        let triangleLayer = CAShapeLayer()
-        trianglePath.move(to: CGPoint(x: 150 / 8 * 3, y: 150 / 3))
-        trianglePath.addLine(to: CGPoint(x: 150 - (150 / 8 * 3), y: 150 / 2))
-        trianglePath.addLine(to: CGPoint(x: 150 / 8 * 3, y: 150 - (150 / 3)))
-        trianglePath.addLine(to: CGPoint(x: 150 / 8 * 3, y: 150 / 3))
-        triangleLayer.path = trianglePath.cgPath
-        triangleLayer.fillColor = UIColor.white.cgColor
-        btn.layer.addSublayer(triangleLayer)
-        btn.layer.cornerRadius = 10
-        return btn
-    }()
-
-    
-    
-    let showImage : UIImageView = {
-        var image: UIImage = UIImage(named: "cellImage")!
-        let imageView = UIImageView(image: image)
-        return imageView
     }()
     
     let collectonView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 40
         let collectonView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
-        layout.scrollDirection = .horizontal
+        layout.scrollDirection = .vertical 
         
         collectonView.backgroundColor = UIColor.Fvmrmnts.Color.Black
         collectonView.isScrollEnabled = true
@@ -76,52 +56,31 @@ class SecondViewController: UIViewController {
         collectonView.dataSource = self as UICollectionViewDataSource
         collectonView.register(SecondCollectionViewCell.self, forCellWithReuseIdentifier: secondCellID)
         
+        
+        
        
         
-        view.addSubview(showLabel)
-        view.addSubview(showImage)
         view.addSubview(collectonView)
-        showImage.addSubview(playShowButton)
-    
-        setUPshowImage()
+        collectonView.addSubview(showLabel)
         setUPshowLabel()
-        setUPplayShowButton()
+        
         setupCollectionView()
-        playShowButton.canBecomeFocused
+        
     }
     
     func setupCollectionView() {
         collectonView.translatesAutoresizingMaskIntoConstraints = false
-        collectonView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 50).isActive = true
-        collectonView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        collectonView.heightAnchor.constraint(equalToConstant: 400).isActive = true
+        collectonView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 92).isActive = true
+        collectonView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -92).isActive = true
+        collectonView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
         collectonView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
-    }
-    
-    func setUPshowImage() {
-        showImage.translatesAutoresizingMaskIntoConstraints = false
-        showImage.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
-        showImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
-        showImage.heightAnchor.constraint(equalToConstant: 600).isActive = true
-        showImage.widthAnchor.constraint(equalToConstant: 800).isActive = true
-    }
-    
-    func setUPplayShowButton() {
-        playShowButton.translatesAutoresizingMaskIntoConstraints = false
-        playShowButton.leftAnchor.constraint(equalTo: showImage.leftAnchor, constant: (800 / 2) - 150 / 2).isActive = true
-        playShowButton.topAnchor.constraint(equalTo: showImage.topAnchor, constant:
-            (600 / 2) - 150 / 2).isActive = true
-      
-        playShowButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        playShowButton.heightAnchor.constraint(equalToConstant: 150).isActive = true
     }
     
     func setUPshowLabel() {
         showLabel.translatesAutoresizingMaskIntoConstraints = false
-        showLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 50).isActive = true
-        showLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50).isActive = true
+        showLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 140).isActive = true
+        showLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 96).isActive = true
     }
-
     
 }
 
@@ -139,22 +98,55 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
         return 1
     }
     
-    func refrash(){
-        self.collectonView.reloadData()
-    }
+   
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectonView.dequeueReusableCell(withReuseIdentifier: secondCellID, for: indexPath) as! SecondCollectionViewCell
 //        cell.imageView.adjustsImageWhenAncestorFocused = true
 //        cell.clipsToBounds = true
+    
+       
         
-        cell.backgroundColor = UIColor.Fvmrmnts.Color.Black
         return cell
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let menuPressRecognizer = UITapGestureRecognizer()
+        menuPressRecognizer.addTarget(self, action: #selector(SecondViewController.menuButtonAction(recognizer:)))
+        menuPressRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.menu.rawValue)]
+        self.view.addGestureRecognizer(menuPressRecognizer)
+    }
 
+    @objc func menuButtonAction(recognizer:UITapGestureRecognizer) {
+       
+        if isExit {
+           self.delegate?.navigateToFirstPage()
+            
+        }
+        collectonView.contentInset = UIEdgeInsets(top: 97, left: 0, bottom: 0, right: 0)
+        showLabel.isHidden = false
+        isExit = true
+        
+//        self.dismiss(animated: true, completion: nil)
+    }
     
     
+    func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        if context.nextFocusedIndexPath!.item == 0 {
+            collectonView.contentInset = UIEdgeInsets(top: 237, left: 0, bottom: 0, right: 0)
+            isExit = true
+            showLabel.isHidden = false
+            
+        } else {
+            
+            showLabel.isHidden = true
+            collectonView.contentInset = UIEdgeInsets(top: 97, left: 0, bottom: 0, right: 0)
+            isExit = false
+            
+        }
+        
+    }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return true
@@ -163,16 +155,11 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Row \(indexPath.row) selected")
     }
-
-    
-
-    
-    
-
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 300, height: 319)
+        return CGSize(width: self.collectonView.frame.width, height: 240)
     }
+    
     
     
     
