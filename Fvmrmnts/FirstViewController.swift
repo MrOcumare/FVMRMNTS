@@ -57,7 +57,7 @@ class FirstViewController: UIViewController {
         collectonView.delegate = self as UICollectionViewDelegate
         collectonView.dataSource = self as UICollectionViewDataSource
         collectonView.register(CustomCell.self, forCellWithReuseIdentifier: cellID)
-        collectonView.contentInset = UIEdgeInsets(top: 208, left: 118, bottom: 0, right: -118)
+        collectonView.contentInset = UIEdgeInsets(top: 208, left: 118, bottom: 0, right: 118)
         view.backgroundColor = UIColor.Fvmrmnts.Color.Black
         view.addSubview(collectonView)
        
