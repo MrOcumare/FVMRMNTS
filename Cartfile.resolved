@@ -1,1 +1,4 @@
+github "0xced/XCDYouTubeKit" "2.8.0"
+github "Alamofire/Alamofire" "5.0.0-beta.5"
 github "PGSSoft/ParallaxView" "3.0.0"
+github "devandsev/YoutubeDirectLinkExtractor" "0.2.0"

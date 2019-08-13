@@ -25,6 +25,13 @@
 		CF9E099D22F1C89F001A362E /* FirstCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9E099C22F1C89F001A362E /* FirstCoordinator.swift */; };
 		CF9E099F22F1C950001A362E /* SecindCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9E099E22F1C950001A362E /* SecindCoordinator.swift */; };
 		CF9E09AA22F1CBF2001A362E /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9E09A822F1CBF2001A362E /* SecondViewController.swift */; };
+		CFE11F2A2301790E00402B1F /* Consts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE11F292301790E00402B1F /* Consts.swift */; };
+		CFE11F2C2301799900402B1F /* ShowUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE11F2B2301799900402B1F /* ShowUtils.swift */; };
+		CFE11F2E23017A1900402B1F /* RequestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE11F2D23017A1900402B1F /* RequestUtils.swift */; };
+		CFE11F3023017AC900402B1F /* VideoPlayerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE11F2F23017AC900402B1F /* VideoPlayerUtils.swift */; };
+		CFE11F3323017C6900402B1F /* YoutubeDirectLinkExtractor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFE11F3123017C6900402B1F /* YoutubeDirectLinkExtractor.framework */; };
+		CFE11F3423017C6900402B1F /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFE11F3223017C6900402B1F /* Alamofire.framework */; };
+		CFE11F36230180B600402B1F /* XCDYouTubeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFE11F35230180B600402B1F /* XCDYouTubeKit.framework */; };
 		CFE4703322F84BB100CB1CFC /* ParallaxView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFE4703222F84BB100CB1CFC /* ParallaxView.framework */; };
 		CFEE5A0222F2F37B002E8C9D /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEE5A0022F2F37B002E8C9D /* ThirdViewController.swift */; };
 		CFEE5A0322F2F37B002E8C9D /* ThirdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFEE5A0122F2F37B002E8C9D /* ThirdViewController.xib */; };
@@ -34,7 +41,7 @@
 		CF045E9522E709F50013DE41 /* gt-walsheim-bold-oblique-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-bold-oblique-web.ttf"; sourceTree = "<group>"; };
 		CF045E9722E70A5A0013DE41 /* gt-walsheim-bold-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-bold-web.ttf"; sourceTree = "<group>"; };
 		CF045E9922E70BD90013DE41 /* gt-walsheim-medium-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-medium-web.ttf"; sourceTree = "<group>"; };
-		CF045E9B22E711400013DE41 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollectionViewCell.swift; path = ../CollectionViewCell.swift; sourceTree = "<group>"; };
+		CF045E9B22E711400013DE41 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		CF1F5D8822F31F0300700E6D /* SecondCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondCollectionViewCell.swift; sourceTree = "<group>"; };
 		CF34AC1522E0779D0075E203 /* Fvmrmnts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fvmrmnts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF34AC1822E0779D0075E203 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -44,13 +51,20 @@
 		CF34AC2422E077A00075E203 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF34AC2C22E07AD00075E203 /* FvmrmntsColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FvmrmntsColors.swift; sourceTree = "<group>"; };
 		CF34AC2E22E081D50075E203 /* NetHexColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetHexColors.swift; sourceTree = "<group>"; };
-		CF5D5DD422E8B05F0023138E /* CollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollectionReusableView.swift; path = ../CollectionReusableView.swift; sourceTree = "<group>"; };
-		CF5D5DD522E8B05F0023138E /* CollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CollectionReusableView.xib; path = ../CollectionReusableView.xib; sourceTree = "<group>"; };
+		CF5D5DD422E8B05F0023138E /* CollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionReusableView.swift; sourceTree = "<group>"; };
+		CF5D5DD522E8B05F0023138E /* CollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionReusableView.xib; sourceTree = "<group>"; };
 		CF5D5DD822E9EFBF0023138E /* gt-walsheim-regular-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-regular-web.ttf"; sourceTree = "<group>"; };
 		CF9E099A22F1C1CC001A362E /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		CF9E099C22F1C89F001A362E /* FirstCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstCoordinator.swift; sourceTree = "<group>"; };
 		CF9E099E22F1C950001A362E /* SecindCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecindCoordinator.swift; sourceTree = "<group>"; };
 		CF9E09A822F1CBF2001A362E /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SecondViewController.swift; path = ../SecondViewController.swift; sourceTree = "<group>"; };
+		CFE11F292301790E00402B1F /* Consts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consts.swift; sourceTree = "<group>"; };
+		CFE11F2B2301799900402B1F /* ShowUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowUtils.swift; sourceTree = "<group>"; };
+		CFE11F2D23017A1900402B1F /* RequestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestUtils.swift; sourceTree = "<group>"; };
+		CFE11F2F23017AC900402B1F /* VideoPlayerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerUtils.swift; sourceTree = "<group>"; };
+		CFE11F3123017C6900402B1F /* YoutubeDirectLinkExtractor.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YoutubeDirectLinkExtractor.framework; path = Carthage/Build/tvOS/YoutubeDirectLinkExtractor.framework; sourceTree = "<group>"; };
+		CFE11F3223017C6900402B1F /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/tvOS/Alamofire.framework; sourceTree = "<group>"; };
+		CFE11F35230180B600402B1F /* XCDYouTubeKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCDYouTubeKit.framework; path = Carthage/Build/tvOS/XCDYouTubeKit.framework; sourceTree = "<group>"; };
 		CFE4703222F84BB100CB1CFC /* ParallaxView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParallaxView.framework; path = Carthage/Build/tvOS/ParallaxView.framework; sourceTree = "<group>"; };
 		CFEE5A0022F2F37B002E8C9D /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		CFEE5A0122F2F37B002E8C9D /* ThirdViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThirdViewController.xib; sourceTree = "<group>"; };
@@ -61,6 +75,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFE11F36230180B600402B1F /* XCDYouTubeKit.framework in Frameworks */,
+				CFE11F3323017C6900402B1F /* YoutubeDirectLinkExtractor.framework in Frameworks */,
+				CFE11F3423017C6900402B1F /* Alamofire.framework in Frameworks */,
 				CFE4703322F84BB100CB1CFC /* ParallaxView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -89,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				CF34AC1822E0779D0075E203 /* AppDelegate.swift */,
+				CFE11F282301788800402B1F /* Utils */,
 				CF9E099922F1C18E001A362E /* Coordinator */,
 				CF54EAC522F311BE00431EE6 /* FirstViewShow */,
 				CF54EAC622F3123D00431EE6 /* SecondViewShow */,
@@ -135,9 +153,8 @@
 			isa = PBXGroup;
 			children = (
 				CF34AC1A22E0779D0075E203 /* FirstViewController.swift */,
-				CF045E9B22E711400013DE41 /* CollectionViewCell.swift */,
-				CF5D5DD422E8B05F0023138E /* CollectionReusableView.swift */,
-				CF5D5DD522E8B05F0023138E /* CollectionReusableView.xib */,
+				CFE11F38230187D100402B1F /* ReusableSectionHeader */,
+				CFE11F37230187C000402B1F /* Cell */,
 			);
 			path = FirstViewShow;
 			sourceTree = "<group>";
@@ -146,7 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				CF9E09A822F1CBF2001A362E /* SecondViewController.swift */,
-				CF1F5D8822F31F0300700E6D /* SecondCollectionViewCell.swift */,
+				CFE11F392301881100402B1F /* Cell */,
 			);
 			path = SecondViewShow;
 			sourceTree = "<group>";
@@ -161,9 +178,48 @@
 			path = Coordinator;
 			sourceTree = "<group>";
 		};
+		CFE11F282301788800402B1F /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				CFE11F292301790E00402B1F /* Consts.swift */,
+				CFE11F2B2301799900402B1F /* ShowUtils.swift */,
+				CFE11F2D23017A1900402B1F /* RequestUtils.swift */,
+				CFE11F2F23017AC900402B1F /* VideoPlayerUtils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		CFE11F37230187C000402B1F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				CF045E9B22E711400013DE41 /* CollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		CFE11F38230187D100402B1F /* ReusableSectionHeader */ = {
+			isa = PBXGroup;
+			children = (
+				CF5D5DD522E8B05F0023138E /* CollectionReusableView.xib */,
+				CF5D5DD422E8B05F0023138E /* CollectionReusableView.swift */,
+			);
+			path = ReusableSectionHeader;
+			sourceTree = "<group>";
+		};
+		CFE11F392301881100402B1F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				CF1F5D8822F31F0300700E6D /* SecondCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		CFE4703122F84BB100CB1CFC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CFE11F35230180B600402B1F /* XCDYouTubeKit.framework */,
+				CFE11F3223017C6900402B1F /* Alamofire.framework */,
+				CFE11F3123017C6900402B1F /* YoutubeDirectLinkExtractor.framework */,
 				CFE4703222F84BB100CB1CFC /* ParallaxView.framework */,
 			);
 			name = Frameworks;
@@ -258,6 +314,9 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/tvOS/ParallaxView.framework",
+				"$(SRCROOT)/Carthage/Build/tvOS/YoutubeDirectLinkExtractor.framework",
+				"$(SRCROOT)/Carthage/Build/tvOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/tvOS/XCDYouTubeKit.framework",
 			);
 			outputFileListPaths = (
 			);
@@ -281,10 +340,14 @@
 				CF34AC1B22E0779D0075E203 /* FirstViewController.swift in Sources */,
 				CF34AC2D22E07AD00075E203 /* FvmrmntsColors.swift in Sources */,
 				CF9E099D22F1C89F001A362E /* FirstCoordinator.swift in Sources */,
+				CFE11F2E23017A1900402B1F /* RequestUtils.swift in Sources */,
+				CFE11F3023017AC900402B1F /* VideoPlayerUtils.swift in Sources */,
 				CF045E9C22E711400013DE41 /* CollectionViewCell.swift in Sources */,
 				CF34AC2F22E081D50075E203 /* NetHexColors.swift in Sources */,
 				CF34AC1E22E0779D0075E203 /* Fvmrmnts.xcdatamodeld in Sources */,
 				CF9E099F22F1C950001A362E /* SecindCoordinator.swift in Sources */,
+				CFE11F2C2301799900402B1F /* ShowUtils.swift in Sources */,
+				CFE11F2A2301790E00402B1F /* Consts.swift in Sources */,
 				CFEE5A0222F2F37B002E8C9D /* ThirdViewController.swift in Sources */,
 				CF34AC1922E0779D0075E203 /* AppDelegate.swift in Sources */,
 			);

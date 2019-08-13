@@ -21,6 +21,7 @@ class FirstViewController: UIViewController {
     
     let arrayOfSectionsTittle = ["1","2","3","4","5","6","7","8","9","10","11","12"]
 
+    var arrayOfPlayList = [PlaylistYouTube]()
     
     let collectonView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -39,6 +40,28 @@ class FirstViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//    TODO(mrocumare): рефактор с нормальной многопоточностью
+        var i = 0
+        for item in ArrayOfPlayListsID {
+            let playListObj = PlaylistYouTube()
+            playListObj.setPlaylistId(playlistId: item)
+            downloadVideoInPlaylistByPlayListID(Playlist: playListObj, completion: {
+                print("success download playlistinfo by id \(item)")
+                downloadPlayListBunnerByID(Playlist: playListObj, completion: {
+                    print("Banner is downloaded")
+                    self.arrayOfPlayList.append(playListObj)
+                    //    TODO(mrocumare): сделать по нормальному анализ загрузки данных
+                    i = i + 1
+                    if i == 3 {
+                        sleep(4)
+                        self.collectonView.reloadData()
+                    }
+                })
+            })
+        }
+/////////////////////////////////////////////////////////////////////////////////
+        
         
         let headerlayout = UICollectionViewFlowLayout()
         headerlayout.headerReferenceSize = CGSize(width: self.collectonView.frame.size.width, height: 65)
@@ -80,17 +103,19 @@ class FirstViewController: UIViewController {
 extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return arrayOfSectionsTittle.count
+        return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 1 {
-            return 4
-        } else if section == 2 {
-            return 10
-        } else {
-            return 2
-        }
+        //    TODO(mrocumare): продумать количество ячеек в секции возможна новая структура
+       return 30
+//        if section == 1 {
+//            return 4
+//        } else if section == 2 {
+//            return 10
+//        } else {
+//            return 2
+//        }
     }
    
     
