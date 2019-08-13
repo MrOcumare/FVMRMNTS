@@ -25,11 +25,10 @@ class FirstViewController: UIViewController {
     
     let collectonView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 40
-        layout.minimumLineSpacing = 0
         let collectonView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
+        layout.minimumInteritemSpacing = 100
+        layout.minimumLineSpacing = 0
         layout.scrollDirection = .vertical
-        
         collectonView.backgroundColor = UIColor.Fvmrmnts.Color.Black
         collectonView.isScrollEnabled = true
         return collectonView
@@ -42,40 +41,36 @@ class FirstViewController: UIViewController {
         super.viewDidLoad()
         
 //    TODO(mrocumare): рефактор с нормальной многопоточностью
-        var i = 0
-        for item in ArrayOfPlayListsID {
-            let playListObj = PlaylistYouTube()
-            playListObj.setPlaylistId(playlistId: item)
-            downloadVideoInPlaylistByPlayListID(Playlist: playListObj, completion: {
-                print("success download playlistinfo by id \(item)")
-                downloadPlayListBunnerByID(Playlist: playListObj, completion: {
-                    print("Banner is downloaded")
-                    self.arrayOfPlayList.append(playListObj)
-                    //    TODO(mrocumare): сделать по нормальному анализ загрузки данных
-                    i = i + 1
-                    if i == 3 {
-                        sleep(4)
-                        self.collectonView.reloadData()
-                    }
-                })
-            })
-        }
+//        var i = 0
+//        for item in ArrayOfPlayListsID {
+//            let playListObj = PlaylistYouTube()
+//            playListObj.setPlaylistId(playlistId: item)
+//            downloadVideoInPlaylistByPlayListID(Playlist: playListObj, completion: {
+//                print("success download playlistinfo by id \(item)")
+//                downloadPlayListBunnerByID(Playlist: playListObj, completion: {
+//                    print("Banner is downloaded")
+//                    self.arrayOfPlayList.append(playListObj)
+//                    //    TODO(mrocumare): сделать по нормальному анализ загрузки данных
+//                    i = i + 1
+//                    if i == 3 {
+//                        sleep(4)
+//                        self.collectonView.reloadData()
+//                    }
+//                })
+//            })
+//        }
 /////////////////////////////////////////////////////////////////////////////////
-        
         
         let headerlayout = UICollectionViewFlowLayout()
         headerlayout.headerReferenceSize = CGSize(width: self.collectonView.frame.size.width, height: 65)
-        
         collectonView.collectionViewLayout = headerlayout
-        
-       
         collectonView.register(UINib(nibName: "CollectionReusableView", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "CollectionReusableView")
         
+        //    TODO(mrocumare): удалить отобрвжение шрифтов перед релизом
         UIFont.familyNames.forEach({ familyName in
             let fontNames = UIFont.fontNames(forFamilyName: familyName)
             print(familyName, fontNames)
         })
-        
         
         collectonView.delegate = self as UICollectionViewDelegate
         collectonView.dataSource = self as UICollectionViewDataSource
@@ -108,22 +103,12 @@ extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //    TODO(mrocumare): продумать количество ячеек в секции возможна новая структура
-       return 30
-//        if section == 1 {
-//            return 4
-//        } else if section == 2 {
-//            return 10
-//        } else {
-//            return 2
-//        }
+       return 1
     }
    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectonView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! CustomCell
-//        cell.imageView.adjustsImageWhenAncestorFocused = true
-//        cell.clipsToBounds = true
-        cell.backgroundColor = UIColor.Fvmrmnts.Color.Black
         return cell
     }
     
@@ -133,7 +118,7 @@ extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSou
    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 268, height: 319)
+        return CGSize(width: self.view.frame.width, height: 319)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

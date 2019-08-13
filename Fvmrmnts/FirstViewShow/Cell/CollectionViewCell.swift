@@ -11,10 +11,27 @@ import UIKit
 import ParallaxView
 //    COMMENT(mrocumare): описание ячейки
 class CustomCell: UICollectionViewCell {
-   
+    
+    let categoryCellID = "categoryCellID"
+    
+    let categoryCollectonView : UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        
+        let collectonView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
+        
+        collectonView.backgroundColor = UIColor.Fvmrmnts.Color.Black
+        collectonView.isScrollEnabled = true
+        
+        return collectonView
+        
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        categoryCollectonView.delegate = self as UICollectionViewDelegate
+        categoryCollectonView.dataSource = self as UICollectionViewDataSource
+        categoryCollectonView.register(CategoryCustomCell.self, forCellWithReuseIdentifier: categoryCellID)
         setUpViewCell()
     }
     
@@ -22,7 +39,78 @@ class CustomCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    
+    func setUpViewCell() {
+        addSubview(categoryCollectonView)
+        
+        setUPCategoryCollectonView()
+    }
+    
+    func setUPCategoryCollectonView() {
+        categoryCollectonView.translatesAutoresizingMaskIntoConstraints = false
+        categoryCollectonView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
+        categoryCollectonView.heightAnchor.constraint(equalToConstant: 319).isActive = true
+        categoryCollectonView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 135).isActive = true
+        categoryCollectonView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: 0).isActive = true
+    }
+    
+}
 
+extension CustomCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 50
+    }
+    
+    
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = categoryCollectonView.dequeueReusableCell(withReuseIdentifier: categoryCellID, for: indexPath) as! CategoryCustomCell
+        return cell
+    }
+    
+    //    TODO(mrocumare): добавить каординатор
+    
+    //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    //        self.delegate?.navigateToNextPage()
+    //    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 268, height: 319)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    
+    
+    
+}
+
+
+
+class CategoryCustomCell: UICollectionViewCell {
+    
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        setUpViewCell()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     let conteinerView : UIView = {
         let conteinerView = UIView()
@@ -62,7 +150,7 @@ class CustomCell: UICollectionViewCell {
         episodesNumber.layer.cornerRadius = 2
         return episodesNumber
     }()
-
+    
     
     let videDescription : UILabel = {
         let videDescription = UILabel()
@@ -73,7 +161,7 @@ class CustomCell: UICollectionViewCell {
         
         return videDescription
     }()
-        
+    
     func setUpViewCell() {
         addSubview(conteinerView)
         conteinerView.addSubview(imageView)
