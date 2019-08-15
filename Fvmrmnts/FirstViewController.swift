@@ -151,7 +151,7 @@ extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSou
    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.collectonView.frame.width, height: 422)
+        return CGSize(width: self.collectonView.frame.width, height: 440)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

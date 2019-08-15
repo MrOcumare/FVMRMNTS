@@ -56,7 +56,7 @@ class CustomCell: UICollectionViewCell{
     func setUPCategoryCollectonView() {
         categoryCollectonView.translatesAutoresizingMaskIntoConstraints = false
         categoryCollectonView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
-        categoryCollectonView.heightAnchor.constraint(equalToConstant: 422).isActive = true
+        categoryCollectonView.heightAnchor.constraint(equalToConstant: 440).isActive = true
         categoryCollectonView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 0).isActive = true
         categoryCollectonView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: 0).isActive = true
     }
@@ -94,7 +94,7 @@ extension CustomCell:  UICollectionViewDelegate, UICollectionViewDataSource, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 350, height: 422)
+        return CGSize(width: 350, height: 440)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -189,7 +189,7 @@ class CategoryCustomCell: UICollectionViewCell {
     
     func setUpconteinerView() {
         conteinerView.translatesAutoresizingMaskIntoConstraints = false
-        conteinerViewTopAnchor = conteinerView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0)
+        conteinerViewTopAnchor = conteinerView.topAnchor.constraint(equalTo: self.topAnchor, constant: 18)
         conteinerViewTopAnchor!.isActive = true
         conteinerViewHeightAnchor = conteinerView.heightAnchor.constraint(equalToConstant: 286)
         conteinerViewHeightAnchor!.isActive = true
@@ -209,14 +209,14 @@ class CategoryCustomCell: UICollectionViewCell {
     
     func setUpepisodesNumber() {
         episodesNumber.translatesAutoresizingMaskIntoConstraints = false
-        episodesNumber.leftAnchor.constraint(equalTo: imageView.leftAnchor, constant: 28).isActive = true
-        episodesNumber.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 68).isActive = true
+        episodesNumber.leftAnchor.constraint(equalTo: conteinerView.leftAnchor, constant: 28).isActive = true
+        episodesNumber.topAnchor.constraint(equalTo: conteinerView.topAnchor, constant: 68).isActive = true
     }
     
     func setUpheaderLabelofCell() {
         headerLabelofCell.translatesAutoresizingMaskIntoConstraints = false
-        headerLabelofCell.leftAnchor.constraint(equalTo: imageView.leftAnchor, constant: 28).isActive = true
-        headerLabelofCell.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -25).isActive = true
+        headerLabelofCell.leftAnchor.constraint(equalTo: conteinerView.leftAnchor, constant: 28).isActive = true
+        headerLabelofCell.bottomAnchor.constraint(equalTo: conteinerView.bottomAnchor, constant: -25).isActive = true
     }
     
     var imageViewTopAnchor:    NSLayoutConstraint?
@@ -237,10 +237,10 @@ class CategoryCustomCell: UICollectionViewCell {
     }
     
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
-        //    COMMENT(mrocumare): defaultState width - 350; right - 0; height - 286; top - 0;
-        //    COMMENT(mrocumare): focusedState width - 420; right - -35; height - 343; top - -28.5;
+        
+        
         if self.isFocused {
-            handleAnimate(imageViewAnimationTOP: -28.5, imageViewAnimationHEIGHT: 343, imageViewAnimationWIDTH: 420, imageViewAnimationRIGHT: 35)
+            handleAnimate(imageViewAnimationTOP: -21.5, imageViewAnimationHEIGHT: 329, imageViewAnimationWIDTH: 400, imageViewAnimationRIGHT: 25)
             
         } else {
             handleAnimate(imageViewAnimationTOP: 0, imageViewAnimationHEIGHT: 286, imageViewAnimationWIDTH: 350, imageViewAnimationRIGHT: 0)
@@ -260,7 +260,7 @@ class CategoryCustomCell: UICollectionViewCell {
         imageViewHeightAnchor!.constant = imageViewAnimationHEIGHT
         imageViewWidthAnchor!.constant  = imageViewAnimationWIDTH
         imageViewRightAnchor!.constant  = imageViewAnimationRIGHT
-        UIView.animate(withDuration: 0.7, delay: 0, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.35, delay: 0, options: .curveEaseOut, animations: {
             self.layoutIfNeeded()
         }, completion: nil)
     }
