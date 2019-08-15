@@ -88,7 +88,7 @@ class FirstViewController: UIViewController {
         collectonView.register(CustomCell.self, forCellWithReuseIdentifier: cellID)
         
         
-        collectonView.contentInset = UIEdgeInsets(top: 0, left: 140, bottom: 0, right: 0)
+        collectonView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
         
         
@@ -107,7 +107,7 @@ class FirstViewController: UIViewController {
     
     func setupCollectionView() {
         collectonView.translatesAutoresizingMaskIntoConstraints = false
-        collectonView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+        collectonView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 0).isActive = true
         collectonView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
         collectionViewTopAnchor = collectonView.topAnchor.constraint(equalTo: view.topAnchor, constant: 214)
         collectionViewTopAnchor!.isActive = true
@@ -155,7 +155,7 @@ extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-       return UIEdgeInsets(top: 60, left: 140, bottom: 120, right: 0)
+       return UIEdgeInsets(top: 60, left: 0, bottom: 120, right: 0)
     }
     
     
@@ -168,8 +168,6 @@ extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSou
             
         }
     }
-    
-    
     
     func handleAnimate(collectionViewAnimation: CGFloat, showLabelAnimation: CGFloat) {
         mainProjectLabelTopAnchor!.constant = showLabelAnimation
