@@ -21,14 +21,23 @@
             <rect key="frame" x="0.0" y="0.0" width="1504" height="65"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cCF-Q7-NI2">
-                    <rect key="frame" x="0.0" y="0.0" width="700" height="65"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" name="GTWalsheimProBold" family="GT Walsheim Pro" pointSize="55"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cCF-Q7-NI2">
+                    <rect key="frame" x="0.0" y="0.0" width="1414" height="65"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="65" id="Md6-9Y-w59"/>
+                        <constraint firstAttribute="width" constant="1414" id="mYP-JV-4uX"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="GTWalsheimProBold" family="GT Walsheim Pro" pointSize="64"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
+            <constraints>
+                <constraint firstItem="cCF-Q7-NI2" firstAttribute="top" secondItem="7wu-8X-Iab" secondAttribute="top" id="Jx0-Zl-8I3"/>
+                <constraint firstItem="OcR-fs-QSY" firstAttribute="trailing" secondItem="cCF-Q7-NI2" secondAttribute="trailing" id="YAZ-GE-aXE"/>
+                <constraint firstAttribute="bottom" secondItem="cCF-Q7-NI2" secondAttribute="bottom" id="cCH-eF-fqV"/>
+                <constraint firstItem="cCF-Q7-NI2" firstAttribute="leading" secondItem="7wu-8X-Iab" secondAttribute="leading" id="dU4-5p-wRU"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="OcR-fs-QSY"/>
             <connections>
                 <outlet property="headerTitle" destination="cCF-Q7-NI2" id="klH-iv-WrO"/>
