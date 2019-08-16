@@ -21,6 +21,7 @@
 		CF5D5DD622E8B05F0023138E /* CollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5D5DD422E8B05F0023138E /* CollectionReusableView.swift */; };
 		CF5D5DD722E8B05F0023138E /* CollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF5D5DD522E8B05F0023138E /* CollectionReusableView.xib */; };
 		CF5D5DD922E9EFBF0023138E /* gt-walsheim-regular-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF5D5DD822E9EFBF0023138E /* gt-walsheim-regular-web.ttf */; };
+		CF6DE2142306D574001E8747 /* Extractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6DE2132306D574001E8747 /* Extractor.swift */; };
 		CF9E099B22F1C1CC001A362E /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9E099A22F1C1CC001A362E /* Coordinator.swift */; };
 		CF9E099D22F1C89F001A362E /* FirstCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9E099C22F1C89F001A362E /* FirstCoordinator.swift */; };
 		CF9E099F22F1C950001A362E /* SecindCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9E099E22F1C950001A362E /* SecindCoordinator.swift */; };
@@ -54,6 +55,7 @@
 		CF5D5DD422E8B05F0023138E /* CollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionReusableView.swift; sourceTree = "<group>"; };
 		CF5D5DD522E8B05F0023138E /* CollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionReusableView.xib; sourceTree = "<group>"; };
 		CF5D5DD822E9EFBF0023138E /* gt-walsheim-regular-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-regular-web.ttf"; sourceTree = "<group>"; };
+		CF6DE2132306D574001E8747 /* Extractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extractor.swift; sourceTree = "<group>"; };
 		CF9E099A22F1C1CC001A362E /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		CF9E099C22F1C89F001A362E /* FirstCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstCoordinator.swift; sourceTree = "<group>"; };
 		CF9E099E22F1C950001A362E /* SecindCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecindCoordinator.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				CFE11F2B2301799900402B1F /* ShowUtils.swift */,
 				CFE11F2D23017A1900402B1F /* RequestUtils.swift */,
 				CFE11F2F23017AC900402B1F /* VideoPlayerUtils.swift */,
+				CF6DE2132306D574001E8747 /* Extractor.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF6DE2142306D574001E8747 /* Extractor.swift in Sources */,
 				CF9E09AA22F1CBF2001A362E /* SecondViewController.swift in Sources */,
 				CF1F5D8922F31F0300700E6D /* SecondCollectionViewCell.swift in Sources */,
 				CF9E099B22F1C1CC001A362E /* Coordinator.swift in Sources */,

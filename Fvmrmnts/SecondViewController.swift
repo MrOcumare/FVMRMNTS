@@ -7,8 +7,9 @@
 //
 
 import UIKit
-
-
+import AVFoundation
+import AVKit
+import XCDYouTubeKit
 
 
 public protocol SecondViewControllerDelegate: class {
@@ -134,7 +135,7 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
-        if context.nextFocusedIndexPath!.item == 0 {
+        if context.nextFocusedIndexPath?.item == 0 {
             handleAnimate(collectionViewAnimation: 237, showLabelAnimation: 96)
             isExit = true
         } else {
@@ -159,7 +160,25 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        let playerViewController = AVPlayerViewController()
+        self.present(playerViewController, animated: true, completion: nil)
+        XCDYouTubeClient.default().getVideoWithIdentifier("admcvvTMRtU") { [weak playerViewController] (video: XCDYouTubeVideo?, error: Error?) in
+            if let streamURLs = video?.streamURLs, let streamURL = (streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ?? streamURLs[YouTubeVideoQuality.hd1080] ?? streamURLs[YouTubeVideoQuality.hd720] ?? streamURLs[YouTubeVideoQuality.medium360] ?? streamURLs[YouTubeVideoQuality.small240]) {
+                print("<<<\(streamURL)>>>")
+                YouTubeExtractor.instance.info(id: "admcvvTMRtU", quality: .x1080, completion: { url in
+                    print(url?.absoluteString)
+                    playerViewController?.player = AVPlayer(url: url!)
+                    playerViewController?.player?.play()
+                    print("---------------------\(url!)---------------------к")
+                })
+                //                playerViewController?.player = AVPlayer(url: streamURL)
+                //                print("---->>>\(streamURL)<<<<-----")
+                //                playerViewController?.player?.play()
+                
+            } else {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
