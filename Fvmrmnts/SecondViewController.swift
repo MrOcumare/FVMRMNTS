@@ -104,15 +104,12 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
         return 1
     }
     
+    
+    
    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectonView.dequeueReusableCell(withReuseIdentifier: secondCellID, for: indexPath) as! SecondCollectionViewCell
-//        cell.imageView.adjustsImageWhenAncestorFocused = true
-//        cell.clipsToBounds = true
-    
-       
-        
         return cell
     }
     
@@ -158,8 +155,11 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
         return true
     }
     
+    
+    
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Row \(indexPath.row) selected")
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

@@ -9,25 +9,23 @@
 import Foundation
 import UIKit
 import ParallaxView
-//    COMMENT(mrocumare): описание ячейки
 
-
+protocol FirstViewControllerDelegateInCell: class {
+    func navigateToSecondController()
+}
 
 class CustomCell: UICollectionViewCell{
     
-    public weak var delegate: FirstViewControllerDelegate?
-    
     let categoryCellID = "categoryCellID"
+    
+    public weak var delegate: FirstViewControllerDelegateInCell!
     
     let categoryCollectonView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        
         let collectonView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
-        
         collectonView.backgroundColor = UIColor.Fvmrmnts.Color.Black
         collectonView.isScrollEnabled = true
-        
         return collectonView
         
     }()
@@ -37,15 +35,12 @@ class CustomCell: UICollectionViewCell{
         categoryCollectonView.delegate = self as UICollectionViewDelegate
         categoryCollectonView.dataSource = self as UICollectionViewDataSource
         categoryCollectonView.register(CategoryCustomCell.self, forCellWithReuseIdentifier: categoryCellID)
-        
         setUpViewCell()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
     
     func setUpViewCell() {
         addSubview(categoryCollectonView)
@@ -63,9 +58,8 @@ class CustomCell: UICollectionViewCell{
     
 }
 
+
 extension CustomCell:  UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
-   
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -75,22 +69,17 @@ extension CustomCell:  UICollectionViewDelegate, UICollectionViewDataSource, UIC
         return 10
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 60
     }
-    
-    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = categoryCollectonView.dequeueReusableCell(withReuseIdentifier: categoryCellID, for: indexPath) as! CategoryCustomCell
         return cell
     }
     
-    //    TODO(mrocumare): добавить каординатор
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.delegate?.navigateToNextPage()
+        self.delegate?.navigateToSecondController()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -100,22 +89,12 @@ extension CustomCell:  UICollectionViewDelegate, UICollectionViewDataSource, UIC
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 60)
     }
-    
-    
-    
-    
-    
-    
 }
-
-
 
 class CategoryCustomCell: UICollectionViewCell {
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setUpViewCell()
     }
     
@@ -133,7 +112,6 @@ class CategoryCustomCell: UICollectionViewCell {
         let imageView = UIImageView(image: image)
         return imageView
     }()
-
     
     let headerLabelofCell : UILabel = {
         let headerLabelofCell = UILabel()
@@ -156,14 +134,12 @@ class CategoryCustomCell: UICollectionViewCell {
         return episodesNumber
     }()
     
-    
     let videDescription : UILabel = {
         let videDescription = UILabel()
         videDescription.textColor = UIColor.Fvmrmnts.Color.Gray
         videDescription.text = "Тимур Каргинов и Андрей \nКоняев регулярно о самом \nразном и интересном"
         videDescription.numberOfLines = 0
         videDescription.font = UIFont(name: "GTWalsheimProRegular", size: 28)
-        
         return videDescription
     }()
     
@@ -173,7 +149,6 @@ class CategoryCustomCell: UICollectionViewCell {
         imageView.addSubview(headerLabelofCell)
         imageView.addSubview(episodesNumber)
         addSubview(videDescription)
-        //    COMMENT(mrocumare): установка ограничений
         setUpconteinerView()
         setUpImageCell()
         setUpheaderLabelofCell()
@@ -238,22 +213,13 @@ class CategoryCustomCell: UICollectionViewCell {
     
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         
-        
         if self.isFocused {
             handleAnimate(imageViewAnimationTOP: -21.5, imageViewAnimationHEIGHT: 329, imageViewAnimationWIDTH: 400, imageViewAnimationRIGHT: 25)
-            
         } else {
             handleAnimate(imageViewAnimationTOP: 0, imageViewAnimationHEIGHT: 286, imageViewAnimationWIDTH: 350, imageViewAnimationRIGHT: 0)
-            
         }
-        
-        
     }
-    
-//    imageViewTopAnchor:
-//    imageViewHeightAnchor:
-//    imageViewWidthAnchor:
-//    imageViewRightAnchor:
+
     
     func handleAnimate(imageViewAnimationTOP: CGFloat, imageViewAnimationHEIGHT: CGFloat, imageViewAnimationWIDTH: CGFloat, imageViewAnimationRIGHT: CGFloat) {
         imageViewTopAnchor!.constant    = imageViewAnimationTOP

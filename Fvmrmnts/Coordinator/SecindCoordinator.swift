@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 protocol BackToFirstViewControllerDelegate: class {
     
     func navigateBackToFirstPage(newOrderCoordinator: SecondCoordinator)
@@ -20,8 +19,7 @@ class SecondCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     
     unowned let navigationController:UINavigationController
-    
-    // We use this delegate to keep a reference to the parent coordinator
+
     weak var delegate: BackToFirstViewControllerDelegate?
     
     required init(navigationController: UINavigationController) {

@@ -10,17 +10,20 @@ import UIKit
 
 public protocol FirstViewControllerDelegate: class {
     func navigateToNextPage()
+    
 }
 
 class FirstViewController: UIViewController {
     
+    
     fileprivate let cellID = "cellID"
     fileprivate let header = "CollectionReusableView"
-   
+    
+    
     public weak var delegate: FirstViewControllerDelegate?
     
     let arrayOfSectionsTittle = ["Музыка немузыканта","Блог на блогера","Скандал интриги расследования","Интервью и подкасты","5","6","7","8","9","10","11","12"]
-
+    
     var arrayOfPlayList = [PlaylistYouTube]()
     
     
@@ -51,7 +54,8 @@ class FirstViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//    TODO(mrocumare): рефактор с нормальной многопоточностью
+//            TODO(mrocumare): рефактор с нормальной многопоточностью
+        
 //        var i = 0
 //        for item in ArrayOfPlayListsID {
 //            let playListObj = PlaylistYouTube()
@@ -70,7 +74,7 @@ class FirstViewController: UIViewController {
 //                })
 //            })
 //        }
-/////////////////////////////////////////////////////////////////////////////////
+        
         
         let headerlayout = UICollectionViewFlowLayout()
         headerlayout.headerReferenceSize = CGSize(width: self.collectonView.frame.size.width, height: 80)
@@ -86,21 +90,16 @@ class FirstViewController: UIViewController {
         collectonView.delegate = self as UICollectionViewDelegate
         collectonView.dataSource = self as UICollectionViewDataSource
         collectonView.register(CustomCell.self, forCellWithReuseIdentifier: cellID)
-        
-        
         collectonView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        
-        
-        
         view.backgroundColor = UIColor.Fvmrmnts.Color.Black
         view.addSubview(collectonView)
         view.addSubview(mainProjectLabel)
-       
+        
         setupMainProjectLabel()
         setupCollectionView()
         
     }
-  
+    
     //    TODO(mrocumare): понять как эту залупу вынести в отдельный файл
     
     var collectionViewTopAnchor: NSLayoutConstraint?
@@ -124,6 +123,7 @@ class FirstViewController: UIViewController {
     }
 }
 
+
 extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -131,38 +131,32 @@ extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //    TODO(mrocumare): продумать количество ячеек в секции возможна новая структура
-       return 1
+        return 1
     }
-   
+    
     func collectionView(_ collectionView: UICollectionView, canFocusItemAt indexPath: IndexPath) -> Bool {
         return false
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectonView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! CustomCell
-        
+        cell.delegate = self.delegate as? FirstViewControllerDelegateInCell
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.delegate?.navigateToNextPage()
-    }
-   
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: self.collectonView.frame.width, height: 440)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-       return UIEdgeInsets(top: 60, left: 0, bottom: 120, right: 0)
+        return UIEdgeInsets(top: 60, left: 0, bottom: 120, right: 0)
     }
     
     
     func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
-        if context.nextFocusedIndexPath!.section == 0 {
+        if context.nextFocusedIndexPath?.section == 0 {
             handleAnimate(collectionViewAnimation: 214, showLabelAnimation: 64)
-        
+            
         } else {
             handleAnimate(collectionViewAnimation: 0, showLabelAnimation: -64)
             
@@ -180,14 +174,11 @@ extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if (kind == UICollectionView.elementKindSectionFooter) {
             let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "CartFooterCollectionReusableView", for: indexPath)
-            
             return footerView
         } else if (kind == UICollectionView.elementKindSectionHeader) {
-            
-           
             let headerView = collectonView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: header, for: indexPath) as! CollectionReusableView
             headerView.headerTitle.text = arrayOfSectionsTittle[indexPath.section]
-           
+            
             return headerView
         }
         fatalError()
