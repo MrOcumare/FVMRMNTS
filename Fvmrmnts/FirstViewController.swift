@@ -24,8 +24,7 @@ class FirstViewController: UIViewController {
     
     let arrayOfSectionsTittle = ["Музыка немузыканта","Блог на блогера","Скандал интриги расследования","Интервью и подкасты","5","6","7","8","9","10","11","12"]
     
-    var arrayOfPlayList = [PlaylistYouTube]()
-    
+    var arrayOfShow = [CollectionOfShow]()
     
     lazy var mainProjectLabel : UILabel = {
         let label = UILabel()
@@ -50,31 +49,34 @@ class FirstViewController: UIViewController {
     
     
     
-    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
+        for item in ArrayOFShow {
+            let showCollection = CollectionOfShow()
+            print("=====================\(item)")
+            for id in item {
+               
+                print("==========================================\(id)")
+                let buffer = PlaylistYouTube()
+                buffer.setPlaylistId(playlistId: id)
+                
+                downloadVideoInPlaylistByPlayListID(Playlist: buffer, completion: {
+                    print("success download playlistinfo by id \(item)")
+                    showCollection.addToCollectionOfShow(show: buffer)
+                    self.collectonView.reloadData()
+                   
+                })
+                
+            }
+            arrayOfShow.append(showCollection)
+        }
+        
         
 //            TODO(mrocumare): рефактор с нормальной многопоточностью
         
-//        var i = 0
-//        for item in ArrayOfPlayListsID {
-//            let playListObj = PlaylistYouTube()
-//            playListObj.setPlaylistId(playlistId: item)
-//            downloadVideoInPlaylistByPlayListID(Playlist: playListObj, completion: {
-//                print("success download playlistinfo by id \(item)")
-//                downloadPlayListBunnerByID(Playlist: playListObj, completion: {
-//                    print("Banner is downloaded")
-//                    self.arrayOfPlayList.append(playListObj)
-//                    //    TODO(mrocumare): сделать по нормальному анализ загрузки данных
-//                    i = i + 1
-//                    if i == 3 {
-//                        sleep(4)
-//                        self.collectonView.reloadData()
-//                    }
-//                })
-//            })
-//        }
-        
+       
         
         let headerlayout = UICollectionViewFlowLayout()
         headerlayout.headerReferenceSize = CGSize(width: self.collectonView.frame.size.width, height: 80)
@@ -82,10 +84,10 @@ class FirstViewController: UIViewController {
         collectonView.register(UINib(nibName: "CollectionReusableView", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "CollectionReusableView")
         
         //    TODO(mrocumare): удалить отобрвжение шрифтов перед релизом
-        UIFont.familyNames.forEach({ familyName in
-            let fontNames = UIFont.fontNames(forFamilyName: familyName)
-            print(familyName, fontNames)
-        })
+//        UIFont.familyNames.forEach({ familyName in
+//            let fontNames = UIFont.fontNames(forFamilyName: familyName)
+//            print(familyName, fontNames)
+//        })
         
         collectonView.delegate = self as UICollectionViewDelegate
         collectonView.dataSource = self as UICollectionViewDataSource
@@ -127,7 +129,7 @@ class FirstViewController: UIViewController {
 extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 10
+        return arrayOfShow.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -141,6 +143,7 @@ extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectonView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! CustomCell
         cell.delegate = self.delegate as? FirstViewControllerDelegateInCell
+        cell.show = arrayOfShow[indexPath.row]
         return cell
     }
     

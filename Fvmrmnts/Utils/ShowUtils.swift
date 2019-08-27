@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Video : NSObject{
+class Video : NSObject {
     var videoID : String = ""
     var videoTitle : String = ""
     var position : Int = 0
@@ -16,7 +16,10 @@ class Video : NSObject{
     var playlistId : String = ""
     var imageData : Data? = nil
     var imgUrl : String = ""
+    var stopdTime : Double = 0
+    var fullTime : Double = 0
 }
+
 
 class PlaylistYouTube {
     var channelTitle : String
@@ -26,6 +29,7 @@ class PlaylistYouTube {
     var channelID : String
     var countOfPrivatVideos : Int
     var pageToken : String
+    //    TODO(mrocumare): выпилить channelBanner 
     var channelBanner : Data?
     var videos = [Video]()
     
@@ -44,6 +48,7 @@ class PlaylistYouTube {
         self.videos.append(video)
         self.countOfUpload = self.videos.count
     }
+    
     func setPlaylistId(playlistId: String) {
         self.playlistId = playlistId
     }
@@ -72,10 +77,23 @@ class PlaylistYouTube {
         let i = self.videos[j]
         print("videoID->\(i.videoID) videoTitle->\(i.videoTitle) position->\(i.position) channelTitle->\(i.channelTitle) playlistId->\(i.playlistId) imgUrl->\(i.imgUrl)\n")
     }
+    
     func checkTheFullDownload() -> Bool {
         if self.countTotal > self.videos.count + self.countOfPrivatVideos {
             return false
         }
         return true
+    }
+}
+
+class CollectionOfShow {
+    public var shows = [PlaylistYouTube]()
+    public var namecollection: String
+    
+    init() {
+        self.namecollection = ""
+    }
+    func addToCollectionOfShow(show: PlaylistYouTube){
+        self.shows.append(show)
     }
 }

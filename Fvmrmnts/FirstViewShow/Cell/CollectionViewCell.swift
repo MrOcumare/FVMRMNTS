@@ -18,6 +18,9 @@ class CustomCell: UICollectionViewCell{
     
     let categoryCellID = "categoryCellID"
     
+    
+    var show : CollectionOfShow?
+    
     public weak var delegate: FirstViewControllerDelegateInCell!
     
     let categoryCollectonView : UICollectionView = {
@@ -66,7 +69,7 @@ extension CustomCell:  UICollectionViewDelegate, UICollectionViewDataSource, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return (show?.shows.count)!
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -75,6 +78,8 @@ extension CustomCell:  UICollectionViewDelegate, UICollectionViewDataSource, UIC
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = categoryCollectonView.dequeueReusableCell(withReuseIdentifier: categoryCellID, for: indexPath) as! CategoryCustomCell
+        print("============\(show?.shows[indexPath.row].videos[0].imageData)")
+        cell.imageView.image = UIImage(data: (show?.shows[indexPath.row].videos[0].imageData)!)
         return cell
     }
     

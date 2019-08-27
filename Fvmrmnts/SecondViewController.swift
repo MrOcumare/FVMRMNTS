@@ -156,31 +156,40 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
         return true
     }
     
-    
-    
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let playerViewController = AVPlayerViewController()
+       
         self.present(playerViewController, animated: true, completion: nil)
         XCDYouTubeClient.default().getVideoWithIdentifier("admcvvTMRtU") { [weak playerViewController] (video: XCDYouTubeVideo?, error: Error?) in
             if let streamURLs = video?.streamURLs, let streamURL = (streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ?? streamURLs[YouTubeVideoQuality.hd1080] ?? streamURLs[YouTubeVideoQuality.hd720] ?? streamURLs[YouTubeVideoQuality.medium360] ?? streamURLs[YouTubeVideoQuality.small240]) {
                 print("<<<\(streamURL)>>>")
                 YouTubeExtractor.instance.info(id: "admcvvTMRtU", quality: .x1080, completion: { url in
                     print(url?.absoluteString)
+                    
+                    
                     playerViewController?.player = AVPlayer(url: url!)
+                    playerViewController?.player?.seek(to: CMTime(seconds: 155, preferredTimescale: 1))
                     playerViewController?.player?.play()
-                    print("---------------------\(url!)---------------------к")
-                })
-                //                playerViewController?.player = AVPlayer(url: streamURL)
-                //                print("---->>>\(streamURL)<<<<-----")
-                //                playerViewController?.player?.play()
+                    
+                    var  currentItem  = playerViewController?.player?.currentItem
+                    var duration = currentItem?.duration
+                    var currentTime = currentItem?.currentTime
+                    var ggg = Float(CMTimeGetSeconds((playerViewController?.player?.currentTime())!))
+                    print("-----fgdfgdfggfgdg\(CMTimeGetSeconds((playerViewController?.player?.currentItem?.asset.duration)!))")
+//                    while(playerViewController?.view.isUserInteractionEnabled != nil) {
+//                        ggg = Float(CMTimeGetSeconds((playerViewController?.player?.currentTime())!))
+//                    }
+                    print("-------->>>>>>\(ggg)")
                 
+                })
             } else {
                 self.dismiss(animated: true, completion: nil)
             }
         }
     }
     
+   
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: self.collectonView.frame.width, height: 240)
     }

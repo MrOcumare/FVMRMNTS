@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 import UIKit
 //    COMMENT(mrocumare): функция запроса видеофайлов по ID плейдиста
-func downloadVideoInPlaylistByPlayListID(Playlist: PlaylistYouTube, collectionVideos: UICollectionView? = nil, completion : @escaping ()->()) {
+func downloadVideoInPlaylistByPlayListID(Playlist: PlaylistYouTube, collectionVideos: UICollectionView? = nil, completion :  @escaping ()->()) {
     
     //    COMMENT(mrocumare): массив параметров запроса
     var parametrs = [String:String]()
@@ -80,6 +80,7 @@ func downloadVideoInPlaylistByPlayListID(Playlist: PlaylistYouTube, collectionVi
         case .failure(let error):
             print(error)
         }
+       
     }
 }
 

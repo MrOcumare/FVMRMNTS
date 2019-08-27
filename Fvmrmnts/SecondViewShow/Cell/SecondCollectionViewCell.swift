@@ -132,9 +132,8 @@ class SecondCollectionViewCell: UICollectionViewCell {
 
     
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
-        
-        
         if self.isFocused {
+            print("now")
             conteinerView.backgroundColor = UIColor.Fvmrmnts.Color.White.withAlphaComponent(0.12)
         } else {
             conteinerView.backgroundColor = UIColor.Fvmrmnts.Color.Black
