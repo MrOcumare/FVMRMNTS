@@ -126,6 +126,7 @@
 				CF34AC2222E077A00075E203 /* Assets.xcassets */,
 				CF34AC2422E077A00075E203 /* Info.plist */,
 				CF34AC1C22E0779D0075E203 /* Fvmrmnts.xcdatamodeld */,
+				CF6DE21923154F54001E8747 /* Spinner.swift */,
 			);
 			path = Fvmrmnts;
 			sourceTree = "<group>";
@@ -181,7 +182,6 @@
 			isa = PBXGroup;
 			children = (
 				CF6DE21723153A32001E8747 /* LoaderViewController.swift */,
-				CF6DE21923154F54001E8747 /* Spinner.swift */,
 			);
 			path = Loader;
 			sourceTree = "<group>";

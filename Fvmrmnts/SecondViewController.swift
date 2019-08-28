@@ -94,7 +94,8 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return currntPlayList.countTotal - currntPlayList.countOfPrivatVideos
+//        return currntPlayList.countOfUpload
+        return currntPlayList.videos.count
     }
     
     
@@ -108,10 +109,9 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectonView.dequeueReusableCell(withReuseIdentifier: secondCellID, for: indexPath) as! SecondCollectionViewCell
   
-        if !currntPlayList.videos.indices.contains(indexPath.row){
-            cell.imageView.image = UIImage(named: "cellImage")
-        } else {
-            cell.setmarlerwidth(mar: CGFloat(drowMarker(fullTime: currntPlayList.videos[indexPath.row].fullTime, stopTime: currntPlayList.videos[indexPath.row].stopdTime)))
+       
+//            cell.setmarlerwidth(mar: CGFloat(drowMarker(fullTime: currntPlayList.videos[indexPath.row].fullTime, stopTime: currntPlayList.videos[indexPath.row].stopdTime)))
+            cell.setmarlerwidth(marker: CGFloat(drowMarker(fullTime: currntPlayList.videos[indexPath.row].fullTime, stopTime: currntPlayList.videos[indexPath.row].stopdTime)), currentVideo: &currntPlayList.videos[indexPath.row])
             cell.imageView.image = UIImage(data: (currntPlayList.videos[indexPath.row].imageData!))
             cell.episodesNumber.text = String(currntPlayList.countTotal - indexPath.row)
             cell.headerLabelofCell.text = currntPlayList.videos[indexPath.row].videoTitle
@@ -120,7 +120,7 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
 //             cell.marlerwidth?.advanced(by: 50)
           
             
-        }
+        
         
         return cell
     }
@@ -148,8 +148,10 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
       
         if context.nextFocusedIndexPath?.item == currntPlayList.videos.count - 5 && !currntPlayList.checkTheFullDownload() {
-            downloadVideoInPlaylistByPlayListID(Playlist: currntPlayList) {
-            }
+            downloadVideoInPlaylistByPlayListID(Playlist: currntPlayList, collectionVideos: self.collectonView, completion: {
+                print("UPload Data is succes")
+            })
+            
         }
         
         if context.nextFocusedIndexPath?.item == 0 {
@@ -182,24 +184,20 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 YouTubeExtractor.instance.info(id: currntPlayList.videos[indexPath.row].videoID, quality: .x1080, completion: { url in
                     playerViewController?.player = AVPlayer(url: url!)
                     playerViewController?.player?.seek(to: CMTime(seconds: currntPlayList.videos[indexPath.row].stopdTime, preferredTimescale: 1))
+                    
                     playerViewController?.player?.play()
-                    var stoptime : Float = 0
-                     currntPlayList.videos[indexPath.row].fullTime = Double(CMTimeGetSeconds((playerViewController?.player?.currentItem?.asset.duration)!))
+                  
+                    var stoptime : Double = 0
+                    currntPlayList.videos[indexPath.row].fullTime = Double(CMTimeGetSeconds((playerViewController?.player?.currentItem?.asset.duration)!))
+                    currntPlayList.videos[indexPath.row].isPlayed = true
+                    //    TODO(mrocumare): убрать данный костыль сделать через асинхронщину
                     while(playerViewController?.view.isUserInteractionEnabled != nil) {
-                        stoptime = Float(CMTimeGetSeconds((playerViewController?.player?.currentTime()) ?? .zero))
+                        currntPlayList.videos[indexPath.row].stopdTime = Double(CMTimeGetSeconds((playerViewController?.player?.currentTime()) ?? .zero))
                     }
-                    currntPlayList.videos[indexPath.row].stopdTime = Double(stoptime)
+                    currntPlayList.videos[indexPath.row].stopdTime = stoptime
+                    self.collectonView.reloadData()
                     print("sdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf")
-                    var indexPaths = [IndexPath]()
-                    indexPaths.append(indexPath)
-                 
-                    self.collectonView.reloadItems(at: indexPaths)
-                    
-                    
-//                    var indexPaths = [IndexPath]()
-//                    indexPaths.append(indexPath)
-//                    collectionView.reloadItems(at: indexPaths)
-//                    self.collectonView.reloadData()
+
                 })
             } else {
                 self.dismiss(animated: true, completion: nil)

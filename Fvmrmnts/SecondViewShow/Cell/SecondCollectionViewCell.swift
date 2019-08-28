@@ -16,24 +16,20 @@ import ParallaxView
 class SecondCollectionViewCell: UICollectionViewCell {
     
    
+    var currentVideo : UnsafeMutablePointer<Video>?
     var markerwidth : CGFloat?
     var dfdf : Int?
-    func setmarlerwidth(mar : CGFloat) {
-        markerwidth = mar
+    func setmarlerwidth(marker : CGFloat, currentVideo : UnsafeMutablePointer<Video>) {
+        self.currentVideo = currentVideo
+        markerwidth = marker
         print("-->\(markerwidth)")
         setUpViewCell()
-        
     }
     
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        print(dfdf)
-        print(markerwidth)
-        
-        
-        
+    
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -157,19 +153,28 @@ class SecondCollectionViewCell: UICollectionViewCell {
         marker.translatesAutoresizingMaskIntoConstraints = false
         marker.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 0).isActive = true
         marker.leftAnchor.constraint(equalTo: imageView.leftAnchor, constant: 0).isActive = true
-        markerWidthAnchor = marker.widthAnchor.constraint(equalToConstant: markerwidth ?? 0)
+        markerWidthAnchor = marker.widthAnchor.constraint(equalToConstant: CGFloat(drowMarker(fullTime: (self.currentVideo?.pointee.fullTime)!, stopTime: (self.currentVideo?.pointee.stopdTime)!)))
         markerWidthAnchor!.isActive = true
         marker.heightAnchor.constraint(equalToConstant: 4).isActive = true
     }
 
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         if self.isFocused {
+           markerAnimate(markerwidth: CGFloat(drowMarker(fullTime: (self.currentVideo?.pointee.fullTime)!, stopTime: (self.currentVideo?.pointee.stopdTime)!)))
+                currentVideo?.pointee.isPlayed = false
+            
             conteinerView.backgroundColor = UIColor.Fvmrmnts.Color.White.withAlphaComponent(0.12)
         } else {
             conteinerView.backgroundColor = UIColor.Fvmrmnts.Color.Black
         }
     }
     
+    func markerAnimate(markerwidth: CGFloat) {
+        markerWidthAnchor?.constant =  markerwidth
+        UIView.animate(withDuration: 0.35, delay: 0, options: .curveEaseOut, animations: {
+            self.layoutIfNeeded()
+        }, completion: nil)
+    }
     
    
     

@@ -18,6 +18,7 @@ class Video : NSObject {
     var imgUrl : String = ""
     var stopdTime : Double = 0
     var fullTime : Double = 0
+    var isPlayed : Bool = false
 }
 
 
