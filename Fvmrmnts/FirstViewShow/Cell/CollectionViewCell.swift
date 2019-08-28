@@ -78,12 +78,12 @@ extension CustomCell:  UICollectionViewDelegate, UICollectionViewDataSource, UIC
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = categoryCollectonView.dequeueReusableCell(withReuseIdentifier: categoryCellID, for: indexPath) as! CategoryCustomCell
-        print("============\(show?.shows[indexPath.row].videos[0].imageData)")
         cell.imageView.image = UIImage(data: (show?.shows[indexPath.row].videos[0].imageData)!)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        currntPlayList = (show?.shows[indexPath.row])!
         self.delegate?.navigateToSecondController()
     }
     

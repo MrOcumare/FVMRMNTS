@@ -24,7 +24,7 @@ class FirstViewController: UIViewController {
     
     let arrayOfSectionsTittle = ["Музыка немузыканта","Блог на блогера","Скандал интриги расследования","Интервью и подкасты","5","6","7","8","9","10","11","12"]
     
-    var arrayOfShow = [CollectionOfShow]()
+//    var arrayOfShow = [CollectionOfShow]()
     
     lazy var mainProjectLabel : UILabel = {
         let label = UILabel()
@@ -47,36 +47,14 @@ class FirstViewController: UIViewController {
         return collectonView
     }()
     
-    
-    
     override func viewDidLoad() {
-        
         super.viewDidLoad()
+        self.collectonView.reloadData()
+
         
-        for item in ArrayOFShow {
-            let showCollection = CollectionOfShow()
-            print("=====================\(item)")
-            for id in item {
-               
-                print("==========================================\(id)")
-                let buffer = PlaylistYouTube()
-                buffer.setPlaylistId(playlistId: id)
-                
-                downloadVideoInPlaylistByPlayListID(Playlist: buffer, completion: {
-                    print("success download playlistinfo by id \(item)")
-                    showCollection.addToCollectionOfShow(show: buffer)
-                    self.collectonView.reloadData()
-                   
-                })
-                
-            }
-            arrayOfShow.append(showCollection)
-        }
-        
-        
-//            TODO(mrocumare): рефактор с нормальной многопоточностью
         
        
+        
         
         let headerlayout = UICollectionViewFlowLayout()
         headerlayout.headerReferenceSize = CGSize(width: self.collectonView.frame.size.width, height: 80)
@@ -143,7 +121,7 @@ extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectonView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! CustomCell
         cell.delegate = self.delegate as? FirstViewControllerDelegateInCell
-        cell.show = arrayOfShow[indexPath.row]
+        cell.show = arrayOfShow[indexPath.section]
         return cell
     }
     

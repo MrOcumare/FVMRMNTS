@@ -17,8 +17,6 @@ public protocol SecondViewControllerDelegate: class {
     func navigateToThirdPage()
 }
 
-
-
 class SecondViewController: UIViewController {
     
     public weak var delegate: SecondViewControllerDelegate?
@@ -26,7 +24,6 @@ class SecondViewController: UIViewController {
     fileprivate let secondCellID = "secondCellID"
     
     lazy var isExit = false
-    
     
     lazy var showLabel : UILabel = {
         let label = UILabel()
@@ -97,7 +94,7 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return currntPlayList.countTotal - currntPlayList.countOfPrivatVideos
     }
     
     
@@ -107,10 +104,24 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     
     
-   
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectonView.dequeueReusableCell(withReuseIdentifier: secondCellID, for: indexPath) as! SecondCollectionViewCell
+  
+        if !currntPlayList.videos.indices.contains(indexPath.row){
+            cell.imageView.image = UIImage(named: "cellImage")
+        } else {
+            cell.setmarlerwidth(mar: CGFloat(drowMarker(fullTime: currntPlayList.videos[indexPath.row].fullTime, stopTime: currntPlayList.videos[indexPath.row].stopdTime)))
+            cell.imageView.image = UIImage(data: (currntPlayList.videos[indexPath.row].imageData!))
+            cell.episodesNumber.text = String(currntPlayList.countTotal - indexPath.row)
+            cell.headerLabelofCell.text = currntPlayList.videos[indexPath.row].videoTitle
+           
+//            cell.marlerwidth = CGFloat(drowMarker(fullTime: currntPlayList.videos[indexPath.row].fullTime, stopTime: currntPlayList.videos[indexPath.row].stopdTime))
+//             cell.marlerwidth?.advanced(by: 50)
+          
+            
+        }
+        
         return cell
     }
     
@@ -135,6 +146,12 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+      
+        if context.nextFocusedIndexPath?.item == currntPlayList.videos.count - 5 && !currntPlayList.checkTheFullDownload() {
+            downloadVideoInPlaylistByPlayListID(Playlist: currntPlayList) {
+            }
+        }
+        
         if context.nextFocusedIndexPath?.item == 0 {
             handleAnimate(collectionViewAnimation: 237, showLabelAnimation: 96)
             isExit = true
@@ -142,6 +159,7 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
             handleAnimate(collectionViewAnimation: 0, showLabelAnimation: -96)
             isExit = false
         }
+       
     }
     
     func handleAnimate(collectionViewAnimation: CGFloat, showLabelAnimation: CGFloat) {
@@ -158,29 +176,30 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let playerViewController = AVPlayerViewController()
-       
         self.present(playerViewController, animated: true, completion: nil)
         XCDYouTubeClient.default().getVideoWithIdentifier("admcvvTMRtU") { [weak playerViewController] (video: XCDYouTubeVideo?, error: Error?) in
             if let streamURLs = video?.streamURLs, let streamURL = (streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ?? streamURLs[YouTubeVideoQuality.hd1080] ?? streamURLs[YouTubeVideoQuality.hd720] ?? streamURLs[YouTubeVideoQuality.medium360] ?? streamURLs[YouTubeVideoQuality.small240]) {
-                print("<<<\(streamURL)>>>")
-                YouTubeExtractor.instance.info(id: "admcvvTMRtU", quality: .x1080, completion: { url in
-                    print(url?.absoluteString)
-                    
-                    
+                YouTubeExtractor.instance.info(id: currntPlayList.videos[indexPath.row].videoID, quality: .x1080, completion: { url in
                     playerViewController?.player = AVPlayer(url: url!)
-                    playerViewController?.player?.seek(to: CMTime(seconds: 155, preferredTimescale: 1))
+                    playerViewController?.player?.seek(to: CMTime(seconds: currntPlayList.videos[indexPath.row].stopdTime, preferredTimescale: 1))
                     playerViewController?.player?.play()
+                    var stoptime : Float = 0
+                     currntPlayList.videos[indexPath.row].fullTime = Double(CMTimeGetSeconds((playerViewController?.player?.currentItem?.asset.duration)!))
+                    while(playerViewController?.view.isUserInteractionEnabled != nil) {
+                        stoptime = Float(CMTimeGetSeconds((playerViewController?.player?.currentTime()) ?? .zero))
+                    }
+                    currntPlayList.videos[indexPath.row].stopdTime = Double(stoptime)
+                    print("sdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf")
+                    var indexPaths = [IndexPath]()
+                    indexPaths.append(indexPath)
+                 
+                    self.collectonView.reloadItems(at: indexPaths)
                     
-                    var  currentItem  = playerViewController?.player?.currentItem
-                    var duration = currentItem?.duration
-                    var currentTime = currentItem?.currentTime
-                    var ggg = Float(CMTimeGetSeconds((playerViewController?.player?.currentTime())!))
-                    print("-----fgdfgdfggfgdg\(CMTimeGetSeconds((playerViewController?.player?.currentItem?.asset.duration)!))")
-//                    while(playerViewController?.view.isUserInteractionEnabled != nil) {
-//                        ggg = Float(CMTimeGetSeconds((playerViewController?.player?.currentTime())!))
-//                    }
-                    print("-------->>>>>>\(ggg)")
-                
+                    
+//                    var indexPaths = [IndexPath]()
+//                    indexPaths.append(indexPath)
+//                    collectionView.reloadItems(at: indexPaths)
+//                    self.collectonView.reloadData()
                 })
             } else {
                 self.dismiss(animated: true, completion: nil)

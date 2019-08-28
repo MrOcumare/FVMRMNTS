@@ -18,7 +18,10 @@ class FirstCoordinator: Coordinator {
         self.navigationController = navigationController
     }
     
+    
+    
     func start() {
+        
         let firstViewController : FirstViewController = FirstViewController()
         firstViewController.delegate = self
         self.navigationController.viewControllers = [firstViewController]

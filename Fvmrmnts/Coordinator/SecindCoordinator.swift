@@ -14,6 +14,8 @@ protocol BackToFirstViewControllerDelegate: class {
     
 }
 
+var currntPlayList = PlaylistYouTube()
+
 class SecondCoordinator: Coordinator {
     
     var childCoordinators: [Coordinator] = []

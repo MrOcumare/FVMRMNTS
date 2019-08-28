@@ -22,6 +22,9 @@
 		CF5D5DD722E8B05F0023138E /* CollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF5D5DD522E8B05F0023138E /* CollectionReusableView.xib */; };
 		CF5D5DD922E9EFBF0023138E /* gt-walsheim-regular-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF5D5DD822E9EFBF0023138E /* gt-walsheim-regular-web.ttf */; };
 		CF6DE2142306D574001E8747 /* Extractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6DE2132306D574001E8747 /* Extractor.swift */; };
+		CF6DE21623153749001E8747 /* LoaderCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6DE21523153749001E8747 /* LoaderCoordinator.swift */; };
+		CF6DE21823153A32001E8747 /* LoaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6DE21723153A32001E8747 /* LoaderViewController.swift */; };
+		CF6DE21A23154F54001E8747 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6DE21923154F54001E8747 /* Spinner.swift */; };
 		CF9E099B22F1C1CC001A362E /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9E099A22F1C1CC001A362E /* Coordinator.swift */; };
 		CF9E099D22F1C89F001A362E /* FirstCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9E099C22F1C89F001A362E /* FirstCoordinator.swift */; };
 		CF9E099F22F1C950001A362E /* SecindCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9E099E22F1C950001A362E /* SecindCoordinator.swift */; };
@@ -56,6 +59,9 @@
 		CF5D5DD522E8B05F0023138E /* CollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionReusableView.xib; sourceTree = "<group>"; };
 		CF5D5DD822E9EFBF0023138E /* gt-walsheim-regular-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-regular-web.ttf"; sourceTree = "<group>"; };
 		CF6DE2132306D574001E8747 /* Extractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extractor.swift; sourceTree = "<group>"; };
+		CF6DE21523153749001E8747 /* LoaderCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderCoordinator.swift; sourceTree = "<group>"; };
+		CF6DE21723153A32001E8747 /* LoaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderViewController.swift; sourceTree = "<group>"; };
+		CF6DE21923154F54001E8747 /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		CF9E099A22F1C1CC001A362E /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		CF9E099C22F1C89F001A362E /* FirstCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstCoordinator.swift; sourceTree = "<group>"; };
 		CF9E099E22F1C950001A362E /* SecindCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecindCoordinator.swift; sourceTree = "<group>"; };
@@ -112,6 +118,7 @@
 				CF9E099922F1C18E001A362E /* Coordinator */,
 				CF54EAC522F311BE00431EE6 /* FirstViewShow */,
 				CF54EAC622F3123D00431EE6 /* SecondViewShow */,
+				CF6DE21B23168192001E8747 /* Loader */,
 				CFEE5A0022F2F37B002E8C9D /* ThirdViewController.swift */,
 				CFEE5A0122F2F37B002E8C9D /* ThirdViewController.xib */,
 				CFE6B45D22E6031A00EE72CB /* TextFonts */,
@@ -170,12 +177,22 @@
 			path = SecondViewShow;
 			sourceTree = "<group>";
 		};
+		CF6DE21B23168192001E8747 /* Loader */ = {
+			isa = PBXGroup;
+			children = (
+				CF6DE21723153A32001E8747 /* LoaderViewController.swift */,
+				CF6DE21923154F54001E8747 /* Spinner.swift */,
+			);
+			path = Loader;
+			sourceTree = "<group>";
+		};
 		CF9E099922F1C18E001A362E /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
 				CF9E099A22F1C1CC001A362E /* Coordinator.swift */,
 				CF9E099C22F1C89F001A362E /* FirstCoordinator.swift */,
 				CF9E099E22F1C950001A362E /* SecindCoordinator.swift */,
+				CF6DE21523153749001E8747 /* LoaderCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -346,12 +363,15 @@
 				CF9E099D22F1C89F001A362E /* FirstCoordinator.swift in Sources */,
 				CFE11F2E23017A1900402B1F /* RequestUtils.swift in Sources */,
 				CFE11F3023017AC900402B1F /* VideoPlayerUtils.swift in Sources */,
+				CF6DE21A23154F54001E8747 /* Spinner.swift in Sources */,
 				CF045E9C22E711400013DE41 /* CollectionViewCell.swift in Sources */,
 				CF34AC2F22E081D50075E203 /* NetHexColors.swift in Sources */,
 				CF34AC1E22E0779D0075E203 /* Fvmrmnts.xcdatamodeld in Sources */,
 				CF9E099F22F1C950001A362E /* SecindCoordinator.swift in Sources */,
 				CFE11F2C2301799900402B1F /* ShowUtils.swift in Sources */,
+				CF6DE21823153A32001E8747 /* LoaderViewController.swift in Sources */,
 				CFE11F2A2301790E00402B1F /* Consts.swift in Sources */,
+				CF6DE21623153749001E8747 /* LoaderCoordinator.swift in Sources */,
 				CFEE5A0222F2F37B002E8C9D /* ThirdViewController.swift in Sources */,
 				CF34AC1922E0779D0075E203 /* AppDelegate.swift in Sources */,
 			);

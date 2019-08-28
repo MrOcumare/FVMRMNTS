@@ -17,3 +17,11 @@ struct YouTubeVideoQuality {
     static let small240 = NSNumber(value: XCDYouTubeVideoQuality.small240.rawValue)
 }
 
+func drowMarker(fullTime: Double, stopTime : Double) -> Double{
+    let onePercentOfPlay = fullTime / 100
+    if onePercentOfPlay == 0 {
+        return 0
+    }
+    let countPercent = stopTime / onePercentOfPlay
+    return (268 * countPercent / 100)
+}

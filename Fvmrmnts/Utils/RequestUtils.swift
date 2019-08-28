@@ -9,14 +9,32 @@
 import Foundation
 import Alamofire
 import UIKit
+
+
+//func preloaderShowsAPI(arrayShows: inout [CollectionOfShow]) {
+//    
+//    for item in ArrayOFShow {
+//        let showCollection = CollectionOfShow()
+//        print("=====================\(item)")
+//        for id in item {
+//            print("==========================================\(id)")
+//            let buffer = PlaylistYouTube()
+//            buffer.setPlaylistId(playlistId: id)
+//            downloadVideoInPlaylistByPlayListID(Playlist: buffer, completion: {
+//                print("success download playlistinfo by id \(item)")
+//                showCollection.addToCollectionOfShow(show: buffer)
+//            })
+//        }
+//        arrayShows.append(showCollection)
+//    }
+//}
+
+
 //    COMMENT(mrocumare): функция запроса видеофайлов по ID плейдиста
 func downloadVideoInPlaylistByPlayListID(Playlist: PlaylistYouTube, collectionVideos: UICollectionView? = nil, completion :  @escaping ()->()) {
     
     //    COMMENT(mrocumare): массив параметров запроса
     var parametrs = [String:String]()
-    
-    //    TODO(mrocumare): убрать из продакшна
-    print("iter in enter whit playListID->\(Playlist.playlistId)")
     
     //    COMMENT(mrocumare): в зависимости от наличия pageToken формируем массив параметров запроса
     if Playlist.pageToken != "" {
@@ -29,7 +47,6 @@ func downloadVideoInPlaylistByPlayListID(Playlist: PlaylistYouTube, collectionVi
         response in
         switch response.result {
         case .success:
-            
             //    COMMENT(mrocumare): конвертирование ответа в словарь
             let dictResponse = convertToDictionary(data: response.data!)
             let getcountTotal = (dictResponse! as NSDictionary).value(forKeyPath: "pageInfo.totalResults") as! Int
@@ -87,7 +104,7 @@ func downloadVideoInPlaylistByPlayListID(Playlist: PlaylistYouTube, collectionVi
 //    COMMENT(mrocumare): функция запроса видеофайлов по ID плейдиста
 func downloadPlayListBunnerByID(Playlist: PlaylistYouTube, completion : @escaping ()->()) {
     
-    print("Strt downloading Banner")
+   
     //    COMMENT(mrocumare): массив параметров запроса
     let parametrs = ["part":"brandingSettings", "id":Playlist.channelID, "key":API_KEY]
     

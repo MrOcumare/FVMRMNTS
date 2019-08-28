@@ -159,9 +159,6 @@ class YouTubeExtractor {
         
         // Run UI Updates or call completion block
         //DispatchQueue.main.async { }
-        
-        print(extractionURL)
-        print(extractionQuality)
         completion(extractionURL)
     }
     

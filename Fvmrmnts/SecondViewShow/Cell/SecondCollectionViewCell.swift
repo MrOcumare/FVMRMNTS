@@ -15,11 +15,23 @@ import ParallaxView
 
 class SecondCollectionViewCell: UICollectionViewCell {
     
+   
+    var markerwidth : CGFloat?
+    var dfdf : Int?
+    func setmarlerwidth(mar : CGFloat) {
+        markerwidth = mar
+        print("-->\(markerwidth)")
+        setUpViewCell()
+        
+    }
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        print(dfdf)
+        print(markerwidth)
         
-        setUpViewCell()
         
         
     }
@@ -29,7 +41,7 @@ class SecondCollectionViewCell: UICollectionViewCell {
     }
     
     
-    
+   
     
     
     let conteinerView : UIView = {
@@ -71,6 +83,12 @@ class SecondCollectionViewCell: UICollectionViewCell {
         return episodesNumber
     }()
     
+    let marker : UILabel = {
+       let marker = UILabel()
+       marker.backgroundColor = UIColor.Fvmrmnts.Color.Red
+        return marker
+    }()
+    
     
     func setUpViewCell() {
         addSubview(conteinerView)
@@ -78,6 +96,7 @@ class SecondCollectionViewCell: UICollectionViewCell {
         conteinerView.addSubview(imageView)
         conteinerView.addSubview(headerLabelofCell)
         conteinerView.addSubview(episodesNumber)
+        imageView.addSubview(marker)
 //        conteinerView.addSubview(translucentView)
         //        conteinerView.addSubview(translucentView_2)
 //        translucentView.addSubview(headerLabelofCell)
@@ -89,6 +108,8 @@ class SecondCollectionViewCell: UICollectionViewCell {
 
         setUpheaderLabelofCell()
         setUpepisodesNumber()
+        
+        setUpMarker()
     }
     
     
@@ -129,11 +150,20 @@ class SecondCollectionViewCell: UICollectionViewCell {
         episodesNumber.topAnchor.constraint(equalTo: conteinerView.topAnchor, constant: 69).isActive = true
     }
     
-
+    var markerWidthAnchor : NSLayoutConstraint?
     
+    
+    func setUpMarker() {
+        marker.translatesAutoresizingMaskIntoConstraints = false
+        marker.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 0).isActive = true
+        marker.leftAnchor.constraint(equalTo: imageView.leftAnchor, constant: 0).isActive = true
+        markerWidthAnchor = marker.widthAnchor.constraint(equalToConstant: markerwidth ?? 0)
+        markerWidthAnchor!.isActive = true
+        marker.heightAnchor.constraint(equalToConstant: 4).isActive = true
+    }
+
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         if self.isFocused {
-            print("now")
             conteinerView.backgroundColor = UIColor.Fvmrmnts.Color.White.withAlphaComponent(0.12)
         } else {
             conteinerView.backgroundColor = UIColor.Fvmrmnts.Color.Black
