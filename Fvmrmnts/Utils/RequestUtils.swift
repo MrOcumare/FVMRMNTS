@@ -31,74 +31,89 @@ import UIKit
 
 
 //    COMMENT(mrocumare): функция запроса видеофайлов по ID плейдиста
-func downloadVideoInPlaylistByPlayListID(Playlist: PlaylistYouTube, collectionVideos: UICollectionView? = nil, completion :  @escaping ()->()) {
+func downloadVideoInPlaylistByPlayListID(Playlist: PlaylistYouTube, collectionVideos: UICollectionView? = nil, fulldownload: Bool? = false, completion :  @escaping ()->()) {
     
     //    COMMENT(mrocumare): массив параметров запроса
     var parametrs = [String:String]()
     
+    //    COMMENT(mrocumare): preaploadCount - сколько видео подтягивать во время одном запросе
+    var preaploadCount = "10"
+    var loopIter = 1
+    if fulldownload == true{
+        preaploadCount = "50"
+        loopIter = (Playlist.countTotal / 50) + 1
+    }
+    
     //    COMMENT(mrocumare): в зависимости от наличия pageToken формируем массив параметров запроса
     if Playlist.pageToken != "" {
-        parametrs = ["part":"snippet", "maxResults":"10", "pageToken":Playlist.pageToken, "playlistId":Playlist.playlistId, "key":API_KEY]
+        parametrs = ["part":"snippet", "maxResults":preaploadCount, "pageToken":Playlist.pageToken, "playlistId":Playlist.playlistId, "key":API_KEY]
     } else {
-        parametrs = ["part":"snippet", "maxResults":"10", "playlistId":Playlist.playlistId, "key":API_KEY]
+        parametrs = ["part":"snippet", "maxResults":preaploadCount, "playlistId":Playlist.playlistId, "key":API_KEY]
     }
-   //    COMMENT(mrocumare): запрос к API youtube
-    AF.request(BASE_PLAY_LIST_URL, method: .get, parameters: parametrs, encoding: URLEncoding.default, headers: nil).responseJSON {
-        response in
-        switch response.result {
-        case .success:
-            //    COMMENT(mrocumare): конвертирование ответа в словарь
-            let dictResponse = convertToDictionary(data: response.data!)
-            let getcountTotal = (dictResponse! as NSDictionary).value(forKeyPath: "pageInfo.totalResults") as! Int
-            let pageToken = (dictResponse! as NSDictionary).value(forKeyPath: "nextPageToken") as? String
-            var isAddBasicInfo = 0
-            var moreVideosForAdd = [Video]()
-            var cnt = 0;
-            
-            for video in dictResponse!["items"] as! NSArray {
-                cnt += 1;
-                if (video as! NSDictionary).value(forKeyPath: "snippet.description") as! String == "This video is private." {
-                    Playlist.incrementCountOfPrivar()
-                    continue
-                }
-                let videObj = Video()
-                videObj.videoID = (video as! NSDictionary).value(forKeyPath: "snippet.resourceId.videoId") as! String
-                videObj.videoTitle = (video as! NSDictionary).value(forKeyPath: "snippet.title") as! String
-                videObj.position = (video as! NSDictionary).value(forKeyPath: "snippet.position") as! Int
-                videObj.channelTitle = (video as! NSDictionary).value(forKeyPath: "snippet.channelTitle") as! String
-                videObj.playlistId = (video as! NSDictionary).value(forKeyPath: "snippet.playlistId") as! String
-                videObj.imgUrl = getUrlImg(video: video as! NSDictionary)
-                if let data = try? Data(contentsOf: NSURL(string: videObj.imgUrl)! as URL) {
-                    videObj.imageData = data
-                }
-                moreVideosForAdd.append(videObj)
-                if isAddBasicInfo == 0 {
-                    let channelID = (video as! NSDictionary).value(forKeyPath: "snippet.channelId") as! String
-                    Playlist.addBasicInfo(channelTitle: videObj.channelTitle, playlistId: videObj.playlistId, countTotal: getcountTotal, pageToken: pageToken ?? "End", channelID: channelID)
-                    isAddBasicInfo = 1
-                }
-            }
-            if collectionVideos != nil {
-                var paths = [IndexPath]()
+    
+    let afRequestGroup = DispatchGroup()
+    for i in 0..<loopIter {
+        afRequestGroup.enter()
+        AF.request(BASE_PLAY_LIST_URL, method: .get, parameters: parametrs, encoding: URLEncoding.default, headers: nil).responseJSON {
+            response in
+            switch response.result {
+            case .success:
+                //    COMMENT(mrocumare): конвертирование ответа в словарь
+                let dictResponse = convertToDictionary(data: response.data!)
+                let getcountTotal = (dictResponse! as NSDictionary).value(forKeyPath: "pageInfo.totalResults") as! Int
+                let pageToken = (dictResponse! as NSDictionary).value(forKeyPath: "nextPageToken") as? String
+                var isAddBasicInfo = 0
+                var moreVideosForAdd = [Video]()
+                var cnt = 0;
                 
-                for item in 0...moreVideosForAdd.count - 1 {
-                    let indexPath = IndexPath(row: item + Playlist.videos.count, section: 0)
-                    paths.append(indexPath)
+                for video in dictResponse!["items"] as! NSArray {
+                    cnt += 1;
+                    if (video as! NSDictionary).value(forKeyPath: "snippet.description") as! String == "This video is private." {
+                        Playlist.incrementCountOfPrivar()
+                        continue
+                    }
+                    let videObj = Video()
+                    videObj.videoID = (video as! NSDictionary).value(forKeyPath: "snippet.resourceId.videoId") as! String
+                    videObj.videoTitle = (video as! NSDictionary).value(forKeyPath: "snippet.title") as! String
+                    videObj.position = (video as! NSDictionary).value(forKeyPath: "snippet.position") as! Int
+                    videObj.channelTitle = (video as! NSDictionary).value(forKeyPath: "snippet.channelTitle") as! String
+                    videObj.playlistId = (video as! NSDictionary).value(forKeyPath: "snippet.playlistId") as! String
+                    videObj.imgUrl = getUrlImg(video: video as! NSDictionary)
+                    if let data = try? Data(contentsOf: NSURL(string: videObj.imgUrl)! as URL) {
+                        videObj.imageData = data
+                    }
+                    moreVideosForAdd.append(videObj)
+                    if isAddBasicInfo == 0 {
+                        let channelID = (video as! NSDictionary).value(forKeyPath: "snippet.channelId") as! String
+                        Playlist.addBasicInfo(channelTitle: videObj.channelTitle, playlistId: videObj.playlistId, countTotal: getcountTotal, pageToken: pageToken ?? "End", channelID: channelID)
+                        isAddBasicInfo = 1
+                    }
                 }
-                Playlist.videos.append(contentsOf: moreVideosForAdd)
-                collectionVideos!.insertItems(at: paths)
-            } else {
-                Playlist.videos.append(contentsOf: moreVideosForAdd)
+                print("iter->\(i)")
+                afRequestGroup.leave()
+                if collectionVideos != nil {
+                    var paths = [IndexPath]()
+                    for item in 0...moreVideosForAdd.count - 1 {
+                        let indexPath = IndexPath(row: item + Playlist.videos.count, section: 0)
+                        paths.append(indexPath)
+                    }
+                    Playlist.videos.append(contentsOf: moreVideosForAdd)
+                    collectionVideos!.insertItems(at: paths)
+                } else {
+                    Playlist.videos.append(contentsOf: moreVideosForAdd)
+                }
+                break
+            case .failure(let error):
+                print(error)
             }
-            
-            completion()
-            
-            break
-        case .failure(let error):
-            print(error)
         }
-       
     }
+    
+    afRequestGroup.notify(queue: .main) {
+        print("Finished all requests.")
+        completion()
+    }
+    
 }
 
 //    COMMENT(mrocumare): функция запроса видеофайлов по ID плейдиста

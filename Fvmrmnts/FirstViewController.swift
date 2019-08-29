@@ -103,7 +103,6 @@ class FirstViewController: UIViewController {
     }
 }
 
-
 extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

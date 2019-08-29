@@ -8,11 +8,16 @@
 
 import UIKit
 
+
+var coordinatorPlayList: PlaylistYouTube?
+
 class LoaderCoordinator: Coordinator {
     
     var childCoordinators: [Coordinator] = []
     
     unowned let navigationController : UINavigationController
+    
+    weak var delegate: BackToFirstViewControllerDelegate?
     
     required init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -30,11 +35,18 @@ extension LoaderCoordinator: LoaderCoordinatorDelegate {
     
     func navigateToNextPage() {
         let firstCoordinator = FirstCoordinator(navigationController: navigationController)
-//        childCoordinators.removeLast()
         childCoordinators.append(firstCoordinator)
         firstCoordinator.start()
     }
     
+    func navigateToPlayList() {
+//        let secondCoordinator = SecondCoordinator(navigationController: navigationController)
+//        childCoordinators.append(secondCoordinator)
+//        secondCoordinator.start()
+        let secondCoordinator = SecondCoordinator(navigationController: navigationController)
+        childCoordinators.append(secondCoordinator)
+        secondCoordinator.start()
+    }
     //    COMMENT(mrocumare): вызов в родительской коллекции
    
     

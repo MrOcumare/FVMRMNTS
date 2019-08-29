@@ -21,13 +21,9 @@ class FirstCoordinator: Coordinator {
     
     
     func start() {
-        
         let firstViewController : FirstViewController = FirstViewController()
         firstViewController.delegate = self
         self.navigationController.viewControllers = [firstViewController]
-        let customeCell :CustomCell = CustomCell()
-        customeCell.delegate = self
-        
     }
 }
 
@@ -45,10 +41,10 @@ extension FirstCoordinator: FirstViewControllerDelegate {
 extension FirstCoordinator: FirstViewControllerDelegateInCell {
     //    COMMENT(mrocumare): вызов в дочерней коллекции
     func navigateToSecondController() {
-        let secondCoordinator = SecondCoordinator(navigationController: navigationController)
-        secondCoordinator.delegate = self
-        childCoordinators.append(secondCoordinator)
-        secondCoordinator.start()
+        let loader = LoaderCoordinator(navigationController: navigationController)
+        loader.delegate = self
+        childCoordinators.append(loader)
+        loader.start()
     }
 
     
@@ -56,7 +52,12 @@ extension FirstCoordinator: FirstViewControllerDelegateInCell {
 extension FirstCoordinator: BackToFirstViewControllerDelegate {
 
     func navigateBackToFirstPage(newOrderCoordinator: SecondCoordinator) {
-        navigationController.popToRootViewController(animated: true)
-        childCoordinators.removeLast()
+        print("cvxcvxcvx")
+        childCoordinators.removeAll()
+        let firstViewController : FirstViewController = FirstViewController()
+        firstViewController.delegate = self
+        self.navigationController.viewControllers = [firstViewController]
+//        navigationController.popToRootViewController(animated: true)
+//        childCoordinators.removeLast()
     }
 }

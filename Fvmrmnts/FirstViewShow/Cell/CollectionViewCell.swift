@@ -83,7 +83,8 @@ extension CustomCell:  UICollectionViewDelegate, UICollectionViewDataSource, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        currntPlayList = (show?.shows[indexPath.row])!
+        coordinatorPlayList = (show?.shows[indexPath.row])!
+       
         self.delegate?.navigateToSecondController()
     }
     

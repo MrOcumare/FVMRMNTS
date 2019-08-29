@@ -9,6 +9,7 @@
 import UIKit
 public protocol LoaderCoordinatorDelegate: class {
     func navigateToNextPage()
+    func navigateToPlayList()
     
 }
 
@@ -22,36 +23,51 @@ class LoaderViewController: UIViewController {
         return spinner
     }()
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(spinner)
         setupSpinner()
         self.spinner.startAnimating()
-        let requestGroup =  DispatchGroup()
-        for item in ArrayOFShow {
-            let showCollection = CollectionOfShow()
-    
-            for id in item {
-               
-                let buffer = PlaylistYouTube()
-                buffer.setPlaylistId(playlistId: id)
-                requestGroup.enter()
-                downloadVideoInPlaylistByPlayListID(Playlist: buffer, completion: {
-                   
-                    showCollection.addToCollectionOfShow(show: buffer)
-                    requestGroup.leave()
-                })
+        if isFirstInput {
+            let requestGroup =  DispatchGroup()
+            for item in ArrayOFShow {
+                let showCollection = CollectionOfShow()
+                for id in item {
+                    let buffer = PlaylistYouTube()
+                    buffer.setPlaylistId(playlistId: id)
+                    requestGroup.enter()
+                    downloadVideoInPlaylistByPlayListID(Playlist: buffer, completion: {
+                        showCollection.addToCollectionOfShow(show: buffer)
+                        requestGroup.leave()
+                    })
+                }
+                arrayOfShow.append(showCollection)
             }
-            arrayOfShow.append(showCollection)
+            requestGroup.notify(queue: DispatchQueue.main) {
+                isFirstInput = false
+                self.delegate?.navigateToNextPage()
+            }
+        } else if !(coordinatorPlayList?.checkTheFullDownload())!{
+            let requestGroup =  DispatchGroup()
+            requestGroup.enter()
+            downloadVideoInPlaylistByPlayListID(Playlist: coordinatorPlayList!, fulldownload: true) {
+                requestGroup.leave()
+            }
+            requestGroup.notify(queue: DispatchQueue.main) {
+                currntPlayList = coordinatorPlayList!
+                self.delegate?.navigateToPlayList()
+            }
+        } else {
+            currntPlayList = coordinatorPlayList!
+            self.delegate?.navigateToPlayList()
         }
-        requestGroup.notify(queue: DispatchQueue.main) {
-          
-            self.delegate?.navigateToNextPage()
-        }
+       
+        
+
+        
         // Do any additional setup after loading the view.
     }
+    
     func setupSpinner() {
         spinner.translatesAutoresizingMaskIntoConstraints = false
         spinner.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 0).isActive = true

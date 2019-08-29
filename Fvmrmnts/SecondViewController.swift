@@ -12,6 +12,8 @@ import AVKit
 import XCDYouTubeKit
 
 
+var coordinatorPlaylist : PlaylistYouTube?
+
 public protocol SecondViewControllerDelegate: class {
     func navigateToFirstPage()
     func navigateToThirdPage()
@@ -94,8 +96,8 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return currntPlayList.countOfUpload
         return currntPlayList.videos.count
+//        return coordinatorPlaylist!.videos.count
     }
     
     
@@ -135,6 +137,7 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
 
     @objc func menuButtonAction(recognizer:UITapGestureRecognizer) {
         if isExit {
+            print("XUY")
            self.delegate?.navigateToFirstPage()
         } else {
             isExit = true

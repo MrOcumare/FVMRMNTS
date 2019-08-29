@@ -17,6 +17,7 @@ class SecondCollectionViewCell: UICollectionViewCell {
     
    
     var currentVideo : UnsafeMutablePointer<Video>?
+    
     var markerwidth : CGFloat?
     var dfdf : Int?
     func setmarlerwidth(marker : CGFloat, currentVideo : UnsafeMutablePointer<Video>) {
