@@ -31,7 +31,7 @@ import UIKit
 
 
 //    COMMENT(mrocumare): функция запроса видеофайлов по ID плейдиста
-func downloadVideoInPlaylistByPlayListID(Playlist: PlaylistYouTube, collectionVideos: UICollectionView? = nil, fulldownload: Bool? = false, completion :  @escaping ()->()) {
+func downloadVideoInPlaylistByPlayListID(Playlist: PlaylistYouTube, fulldownload: Bool? = false, completion :  @escaping ()->()) {
     
     //    COMMENT(mrocumare): массив параметров запроса
     var parametrs = [String:String]()
@@ -52,8 +52,7 @@ func downloadVideoInPlaylistByPlayListID(Playlist: PlaylistYouTube, collectionVi
     }
     
     let afRequestGroup = DispatchGroup()
-    for i in 0..<loopIter {
-        afRequestGroup.enter()
+    afRequestGroup.enter()
         AF.request(BASE_PLAY_LIST_URL, method: .get, parameters: parametrs, encoding: URLEncoding.default, headers: nil).responseJSON {
             response in
             switch response.result {
@@ -89,19 +88,15 @@ func downloadVideoInPlaylistByPlayListID(Playlist: PlaylistYouTube, collectionVi
                         isAddBasicInfo = 1
                     }
                 }
-              
-                print("iter->\(i)")
+               
                 
-                if collectionVideos != nil {
-                    var paths = [IndexPath]()
-                    for item in 0...moreVideosForAdd.count - 1 {
-                        let indexPath = IndexPath(row: item + Playlist.videos.count, section: 0)
-                        paths.append(indexPath)
+               
+                Playlist.videos.append(contentsOf: moreVideosForAdd)
+                if fulldownload! && !Playlist.checkTheFullDownload(){
+                    afRequestGroup.enter()
+                    downloadVideoInPlaylistByPlayListID(Playlist: Playlist, fulldownload: true) {
+                        afRequestGroup.leave()
                     }
-                    Playlist.videos.append(contentsOf: moreVideosForAdd)
-                    collectionVideos!.insertItems(at: paths)
-                } else {
-                    Playlist.videos.append(contentsOf: moreVideosForAdd)
                 }
                 break
             case .failure(let error):
@@ -109,8 +104,9 @@ func downloadVideoInPlaylistByPlayListID(Playlist: PlaylistYouTube, collectionVi
             }
             afRequestGroup.leave()
         }
-      
-    }
+        
+        
+    
     
     afRequestGroup.notify(queue: .main) {
         print("Finished all requests.")

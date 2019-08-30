@@ -28,7 +28,8 @@ class LoaderViewController: UIViewController {
         self.view.addSubview(spinner)
         setupSpinner()
         self.spinner.startAnimating()
-        if isFirstInput {
+        if arrayOfShow.isEmpty {
+            print("input")
             let requestGroup =  DispatchGroup()
             for item in ArrayOFShow {
                 let showCollection = CollectionOfShow()
