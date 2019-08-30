@@ -30,3 +30,26 @@ let ArrayOfPlayListsID = ["PLceIIEa--FBItjKiza2srvy89YkSR_Ovs", "PLZfRjCZl2NuS1s
 
 let UPLOAD_PLAY_LIST = "PLceIIEa--FBItjKiza2srvy89YkSR_Ovs"
 
+
+func sortShow(arrayOfShow: [CollectionOfShow]) -> [CollectionOfShow]{
+    
+    for showSlice in 0...ArrayOFShow.count - 1{
+        for itemInShowSlice in 0...ArrayOFShow[showSlice].count - 1{
+            var isInCorrectPosition = false
+            var positionInSliseShow = 0
+            
+            while !isInCorrectPosition {
+                if arrayOfShow[showSlice].shows[positionInSliseShow].playlistId == ArrayOFShow[showSlice][itemInShowSlice] {
+                    isInCorrectPosition = true
+                    let buffer = arrayOfShow[showSlice].shows[positionInSliseShow]
+                    arrayOfShow[showSlice].shows[positionInSliseShow] = arrayOfShow[showSlice].shows[itemInShowSlice]
+                    arrayOfShow[showSlice].shows[itemInShowSlice] = buffer
+                } else {
+                    print("in ArrayOFShow -> \(ArrayOFShow[showSlice][itemInShowSlice]) in arrayOfShow -> \(arrayOfShow[showSlice].shows[positionInSliseShow].playlistId)")
+                    positionInSliseShow = positionInSliseShow + 1
+                }
+            }
+        }
+    }
+    return arrayOfShow
+}

@@ -81,20 +81,21 @@ class SecondCollectionViewCell: UICollectionViewCell {
     }()
     
     let marker : UILabel = {
-       let marker = UILabel()
-       marker.backgroundColor = UIColor.Fvmrmnts.Color.Red
+        let marker = UILabel()
+        marker.backgroundColor = UIColor.Fvmrmnts.Color.Red.withAlphaComponent(0.32)
+        marker.layer.masksToBounds = true
+        marker.layer.cornerRadius = 4
         return marker
     }()
     
     
     func setUpViewCell() {
         addSubview(conteinerView)
-        
+        conteinerView.addSubview(marker)
         conteinerView.addSubview(imageView)
         conteinerView.addSubview(headerLabelofCell)
         conteinerView.addSubview(episodesNumber)
-        imageView.addSubview(marker)
-//        conteinerView.addSubview(translucentView)
+        //        conteinerView.addSubview(translucentView)
         //        conteinerView.addSubview(translucentView_2)
 //        translucentView.addSubview(headerLabelofCell)
 //        translucentView.addSubview(episodesNumber)
@@ -133,8 +134,6 @@ class SecondCollectionViewCell: UICollectionViewCell {
         imageView.widthAnchor.constraint(equalToConstant: 268).isActive = true
     }
     
-    
-    
     func setUpheaderLabelofCell() {
         headerLabelofCell.translatesAutoresizingMaskIntoConstraints = false
         headerLabelofCell.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 48).isActive = true
@@ -152,27 +151,25 @@ class SecondCollectionViewCell: UICollectionViewCell {
     
     func setUpMarker() {
         marker.translatesAutoresizingMaskIntoConstraints = false
-        marker.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 0).isActive = true
-        marker.leftAnchor.constraint(equalTo: imageView.leftAnchor, constant: 0).isActive = true
-        markerWidthAnchor = marker.widthAnchor.constraint(equalToConstant: CGFloat(drowMarker(fullTime: (self.currentVideo?.pointee.fullTime)!, stopTime: (self.currentVideo?.pointee.stopdTime)!)))
+        marker.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
+        marker.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 0).isActive = true
+        markerWidthAnchor = marker.widthAnchor.constraint(equalToConstant: markerwidth!)
         markerWidthAnchor!.isActive = true
-        marker.heightAnchor.constraint(equalToConstant: 4).isActive = true
+        marker.heightAnchor.constraint(equalToConstant: self.frame.size.height).isActive = true
     }
 
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         if self.isFocused {
-           markerAnimate(markerwidth: CGFloat(drowMarker(fullTime: (self.currentVideo?.pointee.fullTime)!, stopTime: (self.currentVideo?.pointee.stopdTime)!)))
-                currentVideo?.pointee.isPlayed = false
-            
             conteinerView.backgroundColor = UIColor.Fvmrmnts.Color.White.withAlphaComponent(0.12)
         } else {
             conteinerView.backgroundColor = UIColor.Fvmrmnts.Color.Black
         }
     }
     
-    func markerAnimate(markerwidth: CGFloat) {
+    func markerAnimate(markerwidth: CGFloat, duration: Double) {
         markerWidthAnchor?.constant =  markerwidth
-        UIView.animate(withDuration: 0.35, delay: 0, options: .curveEaseOut, animations: {
+        print(self.frame.size.width)
+        UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: {
             self.layoutIfNeeded()
         }, completion: nil)
     }

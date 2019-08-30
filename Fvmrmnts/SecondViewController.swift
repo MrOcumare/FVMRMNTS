@@ -11,9 +11,6 @@ import AVFoundation
 import AVKit
 import XCDYouTubeKit
 
-
-var coordinatorPlaylist : PlaylistYouTube?
-
 public protocol SecondViewControllerDelegate: class {
     func navigateToFirstPage()
     func navigateToThirdPage()
@@ -31,7 +28,7 @@ class SecondViewController: UIViewController {
         let label = UILabel()
         label.font = UIFont(name: "GTWalsheimProBold", size: 64)
         label.numberOfLines = 0
-        label.text = "вДудь"
+        label.text = currntPlayList.channelTitle
         label.textColor = UIColor.Fvmrmnts.Color.White
         label.adjustsFontSizeToFitWidth = true
         return label
@@ -92,38 +89,20 @@ class SecondViewController: UIViewController {
 
 extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-
-    
-
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return currntPlayList.videos.count
-//        return coordinatorPlaylist!.videos.count
     }
-    
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    
-    
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectonView.dequeueReusableCell(withReuseIdentifier: secondCellID, for: indexPath) as! SecondCollectionViewCell
-  
-       
-//            cell.setmarlerwidth(mar: CGFloat(drowMarker(fullTime: currntPlayList.videos[indexPath.row].fullTime, stopTime: currntPlayList.videos[indexPath.row].stopdTime)))
-            cell.setmarlerwidth(marker: CGFloat(drowMarker(fullTime: currntPlayList.videos[indexPath.row].fullTime, stopTime: currntPlayList.videos[indexPath.row].stopdTime)), currentVideo: &currntPlayList.videos[indexPath.row])
-            cell.imageView.image = UIImage(data: (currntPlayList.videos[indexPath.row].imageData!))
-            cell.episodesNumber.text = String(currntPlayList.countTotal - indexPath.row)
-            cell.headerLabelofCell.text = currntPlayList.videos[indexPath.row].videoTitle
-           
-//            cell.marlerwidth = CGFloat(drowMarker(fullTime: currntPlayList.videos[indexPath.row].fullTime, stopTime: currntPlayList.videos[indexPath.row].stopdTime))
-//             cell.marlerwidth?.advanced(by: 50)
-          
-            
-        
-        
+        cell.setmarlerwidth(marker:  currntPlayList.videos[indexPath.row].stopMarker, currentVideo: &currntPlayList.videos[indexPath.row])
+        cell.imageView.image = UIImage(data: (currntPlayList.videos[indexPath.row].imageData!))
+        cell.episodesNumber.text = "Эпизод \(String(currntPlayList.videos.count - indexPath.row))"
+        cell.headerLabelofCell.text = currntPlayList.videos[indexPath.row].videoTitle
         return cell
     }
     
@@ -136,28 +115,13 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
 
     @objc func menuButtonAction(recognizer:UITapGestureRecognizer) {
-        if isExit {
-            print("XUY")
            self.delegate?.navigateToFirstPage()
-        } else {
-            isExit = true
-            self.handleAnimate(collectionViewAnimation: 237, showLabelAnimation: 96)
-            
-        }
-       
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
-      
-        if context.nextFocusedIndexPath?.item == currntPlayList.videos.count - 5 && !currntPlayList.checkTheFullDownload() {
-            downloadVideoInPlaylistByPlayListID(Playlist: currntPlayList, collectionVideos: self.collectonView, completion: {
-                print("UPload Data is succes")
-            })
+ 
+        if context.nextFocusedIndexPath?.item ?? 0 <= context.previouslyFocusedIndexPath?.item ?? 0 {
             
-        }
-        
-        if context.nextFocusedIndexPath?.item == 0 {
             handleAnimate(collectionViewAnimation: 237, showLabelAnimation: 96)
             isExit = true
         } else {
@@ -186,18 +150,17 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
             if let streamURLs = video?.streamURLs, let streamURL = (streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ?? streamURLs[YouTubeVideoQuality.hd1080] ?? streamURLs[YouTubeVideoQuality.hd720] ?? streamURLs[YouTubeVideoQuality.medium360] ?? streamURLs[YouTubeVideoQuality.small240]) {
                 YouTubeExtractor.instance.info(id: currntPlayList.videos[indexPath.row].videoID, quality: .x1080, completion: { url in
                     playerViewController?.player = AVPlayer(url: url!)
-                    playerViewController?.player?.seek(to: CMTime(seconds: currntPlayList.videos[indexPath.row].stopdTime, preferredTimescale: 1))
-                    
+                    playerViewController?.player?.seek(to: CMTime(seconds: currntPlayList.videos[indexPath.row].stopTime, preferredTimescale: 1))
                     playerViewController?.player?.play()
-                  
                     var stoptime : Double = 0
                     currntPlayList.videos[indexPath.row].fullTime = Double(CMTimeGetSeconds((playerViewController?.player?.currentItem?.asset.duration)!))
-                    currntPlayList.videos[indexPath.row].isPlayed = true
+                    var stopTime : Double = 0
                     //    TODO(mrocumare): убрать данный костыль сделать через асинхронщину
                     while(playerViewController?.view.isUserInteractionEnabled != nil) {
-                        currntPlayList.videos[indexPath.row].stopdTime = Double(CMTimeGetSeconds((playerViewController?.player?.currentTime()) ?? .zero))
+                        stopTime = Double(CMTimeGetSeconds((playerViewController?.player?.currentTime()) ?? .zero))
                     }
-                    currntPlayList.videos[indexPath.row].stopdTime = stoptime
+                    currntPlayList.videos[indexPath.row].stopTime = stopTime
+                    currntPlayList.videos[indexPath.row].stopMarker = CGFloat(drowMarker(fullTime: currntPlayList.videos[indexPath.row].fullTime, stopTime: stopTime))
                     self.collectonView.reloadData()
                     print("sdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf")
 

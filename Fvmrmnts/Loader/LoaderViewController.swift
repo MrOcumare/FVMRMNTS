@@ -45,9 +45,12 @@ class LoaderViewController: UIViewController {
             }
             requestGroup.notify(queue: DispatchQueue.main) {
                 isFirstInput = false
+                arrayOfShow = sortShow(arrayOfShow: arrayOfShow)
                 self.delegate?.navigateToNextPage()
             }
+            
         } else if !(coordinatorPlayList?.checkTheFullDownload())!{
+            //    TODO(mrocumare): происходит некорректное заполнение плейлиста
             let requestGroup =  DispatchGroup()
             requestGroup.enter()
             downloadVideoInPlaylistByPlayListID(Playlist: coordinatorPlayList!, fulldownload: true) {

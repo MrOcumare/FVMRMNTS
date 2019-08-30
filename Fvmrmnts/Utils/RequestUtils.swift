@@ -58,7 +58,7 @@ func downloadVideoInPlaylistByPlayListID(Playlist: PlaylistYouTube, collectionVi
             response in
             switch response.result {
             case .success:
-                //    COMMENT(mrocumare): конвертирование ответа в словарь
+//                    COMMENT(mrocumare): конвертирование ответа в словарь
                 let dictResponse = convertToDictionary(data: response.data!)
                 let getcountTotal = (dictResponse! as NSDictionary).value(forKeyPath: "pageInfo.totalResults") as! Int
                 let pageToken = (dictResponse! as NSDictionary).value(forKeyPath: "nextPageToken") as? String
@@ -89,8 +89,9 @@ func downloadVideoInPlaylistByPlayListID(Playlist: PlaylistYouTube, collectionVi
                         isAddBasicInfo = 1
                     }
                 }
+              
                 print("iter->\(i)")
-                afRequestGroup.leave()
+                
                 if collectionVideos != nil {
                     var paths = [IndexPath]()
                     for item in 0...moreVideosForAdd.count - 1 {
@@ -106,14 +107,16 @@ func downloadVideoInPlaylistByPlayListID(Playlist: PlaylistYouTube, collectionVi
             case .failure(let error):
                 print(error)
             }
+            afRequestGroup.leave()
         }
+      
     }
     
     afRequestGroup.notify(queue: .main) {
         print("Finished all requests.")
         completion()
     }
-    
+
 }
 
 //    COMMENT(mrocumare): функция запроса видеофайлов по ID плейдиста

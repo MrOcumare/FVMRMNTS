@@ -97,7 +97,7 @@ class FirstViewController: UIViewController {
     
     func setupMainProjectLabel() {
         mainProjectLabel.translatesAutoresizingMaskIntoConstraints = false
-        mainProjectLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 140).isActive = true
+        mainProjectLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 130).isActive = true
         mainProjectLabelTopAnchor = mainProjectLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 64)
         mainProjectLabelTopAnchor!.isActive = true
     }

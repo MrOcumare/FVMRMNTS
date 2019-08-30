@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class Video : NSObject {
     var videoID : String = ""
@@ -16,9 +17,10 @@ class Video : NSObject {
     var playlistId : String = ""
     var imageData : Data? = nil
     var imgUrl : String = ""
-    var stopdTime : Double = 0
+    var stopMarker : CGFloat = 0
+    var stopTime : Double = 0
     var fullTime : Double = 0
-    var isPlayed : Bool = false
+    
 }
 
 

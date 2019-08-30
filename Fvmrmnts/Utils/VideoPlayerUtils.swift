@@ -23,5 +23,5 @@ func drowMarker(fullTime: Double, stopTime : Double) -> Double{
         return 0
     }
     let countPercent = stopTime / onePercentOfPlay
-    return (268 * countPercent / 100)
+    return (1736 * countPercent / 100)
 }
