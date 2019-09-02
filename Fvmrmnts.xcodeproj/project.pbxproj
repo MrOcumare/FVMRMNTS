@@ -38,7 +38,6 @@
 		CFE11F36230180B600402B1F /* XCDYouTubeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFE11F35230180B600402B1F /* XCDYouTubeKit.framework */; };
 		CFE4703322F84BB100CB1CFC /* ParallaxView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFE4703222F84BB100CB1CFC /* ParallaxView.framework */; };
 		CFEE5A0222F2F37B002E8C9D /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEE5A0022F2F37B002E8C9D /* ThirdViewController.swift */; };
-		CFEE5A0322F2F37B002E8C9D /* ThirdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFEE5A0122F2F37B002E8C9D /* ThirdViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,7 +74,6 @@
 		CFE11F35230180B600402B1F /* XCDYouTubeKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCDYouTubeKit.framework; path = Carthage/Build/tvOS/XCDYouTubeKit.framework; sourceTree = "<group>"; };
 		CFE4703222F84BB100CB1CFC /* ParallaxView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParallaxView.framework; path = Carthage/Build/tvOS/ParallaxView.framework; sourceTree = "<group>"; };
 		CFEE5A0022F2F37B002E8C9D /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
-		CFEE5A0122F2F37B002E8C9D /* ThirdViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThirdViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,7 +118,6 @@
 				CF54EAC622F3123D00431EE6 /* SecondViewShow */,
 				CF6DE21B23168192001E8747 /* Loader */,
 				CFEE5A0022F2F37B002E8C9D /* ThirdViewController.swift */,
-				CFEE5A0122F2F37B002E8C9D /* ThirdViewController.xib */,
 				CFE6B45D22E6031A00EE72CB /* TextFonts */,
 				CF34AC2A22E07AA70075E203 /* Styles */,
 				CF34AC2222E077A00075E203 /* Assets.xcassets */,
@@ -312,7 +309,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFEE5A0322F2F37B002E8C9D /* ThirdViewController.xib in Resources */,
 				CF5D5DD722E8B05F0023138E /* CollectionReusableView.xib in Resources */,
 				CF045E9622E709F50013DE41 /* gt-walsheim-bold-oblique-web.ttf in Resources */,
 				CF045E9A22E70BD90013DE41 /* gt-walsheim-medium-web.ttf in Resources */,

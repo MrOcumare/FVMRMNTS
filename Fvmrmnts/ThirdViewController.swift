@@ -26,8 +26,6 @@ public class ThirdViewController: UIViewController {
         title = "ThirdViewController"
     }
     
-    @IBAction func navigateToFirstPageAction(_ sender: Any) {
-        self.delegate?.navigateToFirstPage()
-    }
+
 }
 
