@@ -8,9 +8,14 @@
 
 import UIKit
 
-public protocol FirstViewControllerDelegate: class {
-    func navigateToNextPage()
-    
+//public protocol FirstViewControllerDelegate: class {
+//    func navigateToNextPage()
+//
+//}
+
+protocol FirstViewControllerDelegateInCell: class {
+    func navigateToSecondController()
+    func exitFromApp()
 }
 
 class FirstViewController: UIViewController {
@@ -19,8 +24,9 @@ class FirstViewController: UIViewController {
     fileprivate let cellID = "cellID"
     fileprivate let header = "CollectionReusableView"
     
+     public weak var delegate: FirstViewControllerDelegateInCell!
     
-    public weak var delegate: FirstViewControllerDelegate?
+//    public weak var delegate: FirstViewControllerDelegate?
     
     let arrayOfSectionsTittle = ["Музыка немузыканта","Блог на блогера","Скандал интриги расследования","Интервью и подкасты","5","6","7","8","9","10","11","12"]
     
@@ -119,7 +125,7 @@ extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectonView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! CustomCell
-        cell.delegate = self.delegate as? FirstViewControllerDelegateInCell
+        cell.delegate = self.delegate
         cell.show = arrayOfShow[indexPath.section]
         return cell
     }
@@ -132,6 +138,19 @@ extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSou
         return UIEdgeInsets(top: 60, left: 0, bottom: 120, right: 0)
     }
     
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        let menuPressRecognizer = UITapGestureRecognizer()
+//        menuPressRecognizer.addTarget(self, action: #selector(FirstViewController.menuButtonAction(recognizer:)))
+//        menuPressRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.menu.rawValue)]
+//        self.view.addGestureRecognizer(menuPressRecognizer)
+//    }
+//    
+//    @objc func menuButtonAction(recognizer:UITapGestureRecognizer) {
+//        self.delegate?.exitFromApp()
+//    }
+
     
     func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         if context.nextFocusedIndexPath?.section == 0 {

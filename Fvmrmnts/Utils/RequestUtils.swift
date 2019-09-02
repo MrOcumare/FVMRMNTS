@@ -32,7 +32,7 @@ import UIKit
 
 //    COMMENT(mrocumare): функция запроса видеофайлов по ID плейдиста
 func downloadVideoInPlaylistByPlayListID(Playlist: PlaylistYouTube, fulldownload: Bool? = false, completion :  @escaping ()->()) {
-    
+    print("XUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUY")
     //    COMMENT(mrocumare): массив параметров запроса
     var parametrs = [String:String]()
     

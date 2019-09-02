@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 import ParallaxView
 
-protocol FirstViewControllerDelegateInCell: class {
-    func navigateToSecondController()
-}
+//protocol FirstViewControllerDelegateInCell: class {
+//    func navigateToSecondController()
+//}
 
 class CustomCell: UICollectionViewCell{
     
@@ -83,8 +83,8 @@ extension CustomCell:  UICollectionViewDelegate, UICollectionViewDataSource, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         coordinatorPlayList = (show?.shows[indexPath.row])!
-       
         self.delegate?.navigateToSecondController()
     }
     

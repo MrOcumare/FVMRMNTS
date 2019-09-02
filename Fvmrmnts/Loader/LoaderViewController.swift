@@ -8,10 +8,11 @@
 
 import UIKit
 public protocol LoaderCoordinatorDelegate: class {
-    func navigateToNextPage()
     func navigateToPlayList()
-    
+    func navigateToFirstView()
 }
+
+
 
 class LoaderViewController: UIViewController {
 
@@ -28,7 +29,7 @@ class LoaderViewController: UIViewController {
         self.view.addSubview(spinner)
         setupSpinner()
         self.spinner.startAnimating()
-        if arrayOfShow.isEmpty {
+        if isFirstInput {
             print("input")
             let requestGroup =  DispatchGroup()
             for item in ArrayOFShow {
@@ -47,7 +48,7 @@ class LoaderViewController: UIViewController {
             requestGroup.notify(queue: DispatchQueue.main) {
                 isFirstInput = false
                 arrayOfShow = sortShow(arrayOfShow: arrayOfShow)
-                self.delegate?.navigateToNextPage()
+                self.delegate?.navigateToFirstView()
             }
             
         } else if !(coordinatorPlayList?.checkTheFullDownload())!{

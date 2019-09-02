@@ -21,43 +21,79 @@ class FirstCoordinator: Coordinator {
     
     
     func start() {
-        let firstViewController : FirstViewController = FirstViewController()
-        firstViewController.delegate = self
-        self.navigationController.viewControllers = [firstViewController]
+        
+        let loaderViewController: LoaderViewController = LoaderViewController()
+        loaderViewController.delegate = self
+        self.navigationController.viewControllers = [loaderViewController]
+//            let firstViewController : FirstViewController = FirstViewController()
+//            firstViewController.delegate = self
+//            self.navigationController.viewControllers = [firstViewController]
+        
+       
     }
 }
 
-extension FirstCoordinator: FirstViewControllerDelegate {
-    //    COMMENT(mrocumare): вызов в родительской коллекции
-    func navigateToNextPage() {
+extension FirstCoordinator: LoaderCoordinatorDelegate {
+    func navigateToPlayList() {
         let secondCoordinator = SecondCoordinator(navigationController: navigationController)
         secondCoordinator.delegate = self
         childCoordinators.append(secondCoordinator)
         secondCoordinator.start()
     }
     
+    
+    func navigateToFirstView() {
+        let firstViewController : FirstViewController = FirstViewController()
+        firstViewController.delegate = self
+        self.navigationController.viewControllers = [firstViewController]
+    }
+    
+    
 }
 
+//extension FirstCoordinator: FirstViewControllerDelegate {
+//    //    COMMENT(mrocumare): вызов в родительской коллекции
+//    func navigateToNextPage() {
+//        let secondCoordinator = SecondCoordinator(navigationController: navigationController)
+//        secondCoordinator.delegate = self
+//        childCoordinators.append(secondCoordinator)
+//        secondCoordinator.start()
+//    }
+//    
+//}
+
 extension FirstCoordinator: FirstViewControllerDelegateInCell {
-    //    COMMENT(mrocumare): вызов в дочерней коллекции
     func navigateToSecondController() {
-        let loader = LoaderCoordinator(navigationController: navigationController)
-        loader.delegate = self
-        childCoordinators.append(loader)
-        loader.start()
+        let loaderViewController: LoaderViewController = LoaderViewController()
+        loaderViewController.delegate = self
+        self.navigationController.viewControllers.append(loaderViewController)
+//        self.navigationController.pushViewController(loaderViewController, animated: true)
     }
+    
+    
+    func exitFromApp() {
+        self.navigationController.viewControllers.removeAll()
+        childCoordinators.removeAll()
+        exit(EXIT_SUCCESS)
+        
+    }
+    
+    //    COMMENT(mrocumare): вызов в дочерней коллекции
+//    func navigateToSecondController() {
+//        let loader = LoaderCoordinator(navigationController: navigationController)
+//        loader.delegate = self
+//        childCoordinators.append(loader)
+//        loader.start()
+//    }
 
     
 }
 extension FirstCoordinator: BackToFirstViewControllerDelegate {
 
     func navigateBackToFirstPage(newOrderCoordinator: SecondCoordinator) {
-        print("cvxcvxcvx")
-        childCoordinators.removeAll()
         let firstViewController : FirstViewController = FirstViewController()
         firstViewController.delegate = self
         self.navigationController.viewControllers = [firstViewController]
-//        navigationController.popToRootViewController(animated: true)
-//        childCoordinators.removeLast()
+        childCoordinators.removeLast()
     }
 }

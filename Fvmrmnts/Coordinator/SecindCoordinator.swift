@@ -48,8 +48,6 @@ extension SecondCoordinator : SecondViewControllerDelegate {
     func navigateToFirstPage() {
         let firstCoordinator = FirstCoordinator(navigationController: navigationController)
         childCoordinators.append(firstCoordinator)
-        firstCoordinator.start()
-//        print("MMMM")
-//        self.delegate?.navigateBackToFirstPage(newOrderCoordinator: self)
+        self.delegate?.navigateBackToFirstPage(newOrderCoordinator: self)
     }
 }
