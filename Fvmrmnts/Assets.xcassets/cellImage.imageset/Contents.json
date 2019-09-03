@@ -11,12 +11,6 @@
     {
       "idiom" : "universal",
       "scale" : "3x"
-    },
-    {
-      "idiom" : "universal",
-      "filename" : "cellImage.pdf",
-      "unassigned" : true,
-      "scale" : "1x"
     }
   ],
   "info" : {
