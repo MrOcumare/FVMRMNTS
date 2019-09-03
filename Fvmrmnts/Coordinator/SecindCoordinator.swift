@@ -8,6 +8,15 @@
 
 import UIKit
 
+class SecondFocus {
+    public var section : Int
+    public var cell : Int
+    init(section: Int, cell: Int) {
+        self.section = section
+        self.cell = cell
+    }
+}
+var secondFocus = SecondFocus(section: 0, cell: 0)
 protocol BackToFirstViewControllerDelegate: class {
     
     func navigateBackToFirstPage(newOrderCoordinator: SecondCoordinator)
@@ -41,6 +50,7 @@ extension SecondCoordinator : SecondViewControllerDelegate {
     
     // Navigate to third page
     func navigateToThirdPage() {
+        
         let thirdViewController : ThirdViewController = ThirdViewController()
         thirdViewController.delegate = self
         self.navigationController.pushViewController(thirdViewController, animated: true)
@@ -52,4 +62,18 @@ extension SecondCoordinator : SecondViewControllerDelegate {
         childCoordinators.append(firstCoordinator)
         self.delegate?.navigateBackToFirstPage(newOrderCoordinator: self)
     }
+}
+
+extension SecondCoordinator : ThirdViewControllerDelegate {
+    
+    // Navigate to third page
+    func navigateBackToSecondPage() {
+        print("rgsrt")
+        let secondViewController : SecondViewController = SecondViewController()
+        secondViewController.delegate = self
+        self.navigationController.viewControllers = [secondViewController]
+    }
+    
+    // Navigate to first page
+
 }

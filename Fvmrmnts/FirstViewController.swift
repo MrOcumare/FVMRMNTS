@@ -28,7 +28,7 @@ class FirstViewController: UIViewController {
     
 //    public weak var delegate: FirstViewControllerDelegate?
     
-    let arrayOfSectionsTittle = ["Музыка немузыканта","Блог на блогера","Скандал интриги расследования","Интервью и подкасты","5","6","7","8","9","10","11","12"]
+    let arrayOfSectionsTittle = ["Mix","Specially for Volkonsky","Swift","Творческое объединение «420»","Гуфовский"]
     
 //    var arrayOfShow = [CollectionOfShow]()
     
@@ -56,12 +56,6 @@ class FirstViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectonView.reloadData()
-
-        
-        
-       
-        
-        
         let headerlayout = UICollectionViewFlowLayout()
         headerlayout.headerReferenceSize = CGSize(width: self.collectonView.frame.size.width, height: 80)
         collectonView.collectionViewLayout = headerlayout
@@ -123,9 +117,13 @@ extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSou
         return false
     }
     
+    
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectonView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! CustomCell
         cell.delegate = self.delegate
+        print(indexPath.section)
+        cell.show = nil
         cell.show = arrayOfShow[indexPath.section]
         return cell
     }

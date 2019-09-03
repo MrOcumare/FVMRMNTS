@@ -8,6 +8,17 @@
 
 import UIKit
 
+class FirstFocus {
+    public var section : Int
+    public var cell : Int
+    init(section: Int, cell: Int) {
+        self.section = section
+        self.cell = cell
+    }
+}
+
+var firstFocusPosition = FirstFocus(section: 0, cell: 0)
+
 class FirstCoordinator: Coordinator {
     
     var childCoordinators: [Coordinator] = []

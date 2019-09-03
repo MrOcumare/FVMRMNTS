@@ -11,26 +11,24 @@ import UIKit
 import ParallaxView
 //    COMMENT(mrocumare): описание ячейки
 
-
-
 class SecondCollectionViewCell: UICollectionViewCell {
     
    
     var currentVideo : UnsafeMutablePointer<Video>?
     
-    var markerwidth : CGFloat?
-    var dfdf : Int?
-    func setmarlerwidth(marker : CGFloat, currentVideo : UnsafeMutablePointer<Video>) {
-        self.currentVideo = currentVideo
-        markerwidth = marker
-        print("-->\(markerwidth)")
-        setUpViewCell()
-    }
+//    var markerwidth : CGFloat?
+//    var dfdf : Int?
+//    func setmarkerwidth(marker : CGFloat, currentVideo : UnsafeMutablePointer<Video>) {
+//        self.currentVideo = currentVideo
+//        markerwidth = marker
+//        print("-->\(markerwidth)")
+//
+//    }
     
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-    
+        setUpViewCell()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -38,6 +36,12 @@ class SecondCollectionViewCell: UICollectionViewCell {
     }
     
     
+//    override func prepareForReuse() {
+//        super.prepareForReuse()
+//        imageView.image = nil
+//        headerLabelofCell.text = ""
+//        marker.frame.size.width = 0
+//    }
    
     
     
@@ -153,7 +157,7 @@ class SecondCollectionViewCell: UICollectionViewCell {
         marker.translatesAutoresizingMaskIntoConstraints = false
         marker.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
         marker.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 0).isActive = true
-        markerWidthAnchor = marker.widthAnchor.constraint(equalToConstant: markerwidth!)
+        markerWidthAnchor = marker.widthAnchor.constraint(equalToConstant: 0)
         markerWidthAnchor!.isActive = true
         marker.heightAnchor.constraint(equalToConstant: self.frame.size.height).isActive = true
     }

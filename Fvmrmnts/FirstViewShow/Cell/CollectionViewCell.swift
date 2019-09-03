@@ -39,6 +39,9 @@ class CustomCell: UICollectionViewCell{
         categoryCollectonView.dataSource = self as UICollectionViewDataSource
         categoryCollectonView.register(CategoryCustomCell.self, forCellWithReuseIdentifier: categoryCellID)
         setUpViewCell()
+        
+        
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -47,7 +50,6 @@ class CustomCell: UICollectionViewCell{
     
     func setUpViewCell() {
         addSubview(categoryCollectonView)
-        
         setUPCategoryCollectonView()
     }
     
@@ -58,6 +60,7 @@ class CustomCell: UICollectionViewCell{
         categoryCollectonView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 0).isActive = true
         categoryCollectonView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: 0).isActive = true
     }
+    
     
 }
 
@@ -78,12 +81,12 @@ extension CustomCell:  UICollectionViewDelegate, UICollectionViewDataSource, UIC
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = categoryCollectonView.dequeueReusableCell(withReuseIdentifier: categoryCellID, for: indexPath) as! CategoryCustomCell
+        cell.imageView.image = nil
         cell.imageView.image = UIImage(data: (show?.shows[indexPath.row].videos[0].imageData)!)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         coordinatorPlayList = (show?.shows[indexPath.row])!
         self.delegate?.navigateToSecondController()
     }
