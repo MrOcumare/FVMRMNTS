@@ -59,18 +59,29 @@ func downloadVideoInPlaylistByPlayListID(Playlist: PlaylistYouTube, fulldownload
             case .success:
 //                    COMMENT(mrocumare): конвертирование ответа в словарь
                 let dictResponse = convertToDictionary(data: response.data!)
+                print("now we heare\(Playlist.playlistId)")
+                print(dictResponse)
                 let getcountTotal = (dictResponse! as NSDictionary).value(forKeyPath: "pageInfo.totalResults") as! Int
                 let pageToken = (dictResponse! as NSDictionary).value(forKeyPath: "nextPageToken") as? String
                 var isAddBasicInfo = 0
                 var moreVideosForAdd = [Video]()
-                var cnt = 0;
-                
+                var cnt = 0
+                //    COMMENT(mrocumare): обработка удаленных видео
+                var prevPosition = -1
                 for video in dictResponse!["items"] as! NSArray {
                     cnt += 1;
                     if (video as! NSDictionary).value(forKeyPath: "snippet.description") as! String == "This video is private." {
-                        Playlist.incrementCountOfPrivar()
+                        Playlist.incrementCountOfPrivat()
+                        prevPosition = (video as! NSDictionary).value(forKeyPath: "snippet.position") as! Int
                         continue
                     }
+                    if (video as! NSDictionary).value(forKeyPath: "snippet.position") as! Int - prevPosition != 1 {
+                        Playlist.incrementCountOfPrivat()
+                        prevPosition = (video as! NSDictionary).value(forKeyPath: "snippet.position") as! Int
+                    }
+                    
+                    prevPosition = (video as! NSDictionary).value(forKeyPath: "snippet.position") as! Int
+                    
                     let videObj = Video()
                     videObj.videoID = (video as! NSDictionary).value(forKeyPath: "snippet.resourceId.videoId") as! String
                     videObj.videoTitle = (video as! NSDictionary).value(forKeyPath: "snippet.title") as! String

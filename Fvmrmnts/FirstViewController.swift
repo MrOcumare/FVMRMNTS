@@ -149,7 +149,6 @@ extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSou
 //        self.delegate?.exitFromApp()
 //    }
 
-    
     func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         if context.nextFocusedIndexPath?.section == 0 {
             handleAnimate(collectionViewAnimation: 214, showLabelAnimation: 64)

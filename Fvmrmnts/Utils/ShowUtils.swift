@@ -73,7 +73,7 @@ class PlaylistYouTube {
         print("countTotal--->\(self.countTotal)")
     }
     
-    func incrementCountOfPrivar() {
+    func incrementCountOfPrivat() {
         self.countOfPrivatVideos = self.countOfPrivatVideos + 1
     }
     func printElementOfPlayList(j : Int) {

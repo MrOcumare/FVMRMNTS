@@ -30,21 +30,17 @@ class SessionTestCase: BaseTestCase {
 
     // MARK: Helper Types
 
-    private class HTTPMethodAdapter: RequestInterceptor {
+    private class HTTPMethodAdapter: RequestAdapter {
         let method: HTTPMethod
         let throwsError: Bool
-
-        var adaptedCount = 0
 
         init(method: HTTPMethod, throwsError: Bool = false) {
             self.method = method
             self.throwsError = throwsError
         }
 
-        func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (AFResult<URLRequest>) -> Void) {
-            adaptedCount += 1
-
-            let result: AFResult<URLRequest> = AFResult {
+        func adapt(_ urlRequest: URLRequest, completion: @escaping (Result<URLRequest>) -> Void) {
+            let result: Result<URLRequest> = Result {
                 guard !throwsError else { throw AFError.invalidURL(url: "") }
 
                 var urlRequest = urlRequest
@@ -57,63 +53,19 @@ class SessionTestCase: BaseTestCase {
         }
     }
 
-    private class HeaderAdapter: RequestInterceptor {
-        let headers: HTTPHeaders
-        let throwsError: Bool
-
-        var adaptedCount = 0
-
-        init(headers: HTTPHeaders = ["field": "value"], throwsError: Bool = false) {
-            self.headers = headers
-            self.throwsError = throwsError
-        }
-
-        func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (AFResult<URLRequest>) -> Void) {
-            adaptedCount += 1
-
-            let result: AFResult<URLRequest> = AFResult {
-                guard !throwsError else { throw AFError.invalidURL(url: "") }
-
-                var urlRequest = urlRequest
-
-                var finalHeaders = urlRequest.headers
-                headers.forEach { finalHeaders.add($0) }
-
-                urlRequest.headers = finalHeaders
-
-                return urlRequest
-            }
-
-            completion(result)
-        }
-    }
-
-    private class RequestHandler: RequestInterceptor {
-        var adaptCalledCount = 0
+    private class RequestHandler: RequestAdapter, RequestRetrier {
         var adaptedCount = 0
         var retryCount = 0
-        var retryCalledCount = 0
         var retryErrors: [Error] = []
 
         var shouldApplyAuthorizationHeader = false
-        var throwsErrorOnFirstAdapt = false
         var throwsErrorOnSecondAdapt = false
-        var throwsErrorOnRetry = false
-        var shouldRetry = true
-        var retryDelay: TimeInterval?
 
-        func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (AFResult<URLRequest>) -> Void) {
-            adaptCalledCount += 1
-
-            let result: AFResult<URLRequest> = AFResult {
-                if throwsErrorOnFirstAdapt {
-                    throwsErrorOnFirstAdapt = false
-                    throw AFError.invalidURL(url: "/adapt/error/1")
-                }
-
+        func adapt(_ urlRequest: URLRequest, completion: @escaping (Result<URLRequest>) -> Void) {
+            let result: Result<URLRequest> = Result {
                 if throwsErrorOnSecondAdapt && adaptedCount == 1 {
                     throwsErrorOnSecondAdapt = false
-                    throw AFError.invalidURL(url: "/adapt/error/2")
+                    throw AFError.invalidURL(url: "")
                 }
 
                 var urlRequest = urlRequest
@@ -121,7 +73,7 @@ class SessionTestCase: BaseTestCase {
                 adaptedCount += 1
 
                 if shouldApplyAuthorizationHeader && adaptedCount > 1 {
-                    urlRequest.headers.update(.authorization(username: "user", password: "password"))
+                    urlRequest.httpHeaders.update(.authorization(username: "user", password: "password"))
                 }
 
                 return urlRequest
@@ -130,48 +82,25 @@ class SessionTestCase: BaseTestCase {
             completion(result)
         }
 
-        func retry(
-            _ request: Request,
-            for session: Session,
-            dueTo error: Error,
-            completion: @escaping (RetryResult) -> Void)
-        {
-            retryCalledCount += 1
-
-            if throwsErrorOnRetry {
-                let error = AFError.invalidURL(url: "/invalid/url/\(retryCalledCount)")
-                completion(.doNotRetryWithError(error))
-                return
-            }
-
-            guard shouldRetry else { completion(.doNotRetry); return }
-
+        func should(_ manager: Session, retry request: Request, with error: Error, completion: @escaping RequestRetryCompletion) {
             retryCount += 1
             retryErrors.append(error)
 
             if retryCount < 2 {
-                if let retryDelay = retryDelay {
-                    completion(.retryWithDelay(retryDelay))
-                } else {
-                    completion(.retry)
-                }
+                completion(true, 0.0)
             } else {
-                completion(.doNotRetry)
+                completion(false, 0.0)
             }
         }
     }
 
-    private class UploadHandler: RequestInterceptor {
-        var adaptCalledCount = 0
+    private class UploadHandler: RequestAdapter, RequestRetrier {
         var adaptedCount = 0
-        var retryCalledCount = 0
         var retryCount = 0
         var retryErrors: [Error] = []
 
-        func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (AFResult<URLRequest>) -> Void) {
-            adaptCalledCount += 1
-
-            let result: AFResult<URLRequest> = AFResult {
+        func adapt(_ urlRequest: URLRequest, completion: @escaping (Result<URLRequest>) -> Void) {
+            let result: Result<URLRequest> = Result {
                 adaptedCount += 1
 
                 if adaptedCount == 1 { throw AFError.invalidURL(url: "") }
@@ -182,18 +111,11 @@ class SessionTestCase: BaseTestCase {
             completion(result)
         }
 
-        func retry(
-            _ request: Request,
-            for session: Session,
-            dueTo error: Error,
-            completion: @escaping (RetryResult) -> Void)
-        {
-            retryCalledCount += 1
-
+        func should(_ manager: Session, retry request: Request, with error: Error, completion: @escaping RequestRetryCompletion) {
             retryCount += 1
             retryErrors.append(error)
 
-            completion(.retry)
+            completion(true, 0.0)
         }
     }
 
@@ -201,12 +123,12 @@ class SessionTestCase: BaseTestCase {
 
     func testInitializerWithDefaultArguments() {
         // Given, When
-        let session = Session()
+        let manager = Session()
 
         // Then
-        XCTAssertNotNil(session.session.delegate, "session delegate should not be nil")
-        XCTAssertTrue(session.delegate === session.session.delegate, "manager delegate should equal session delegate")
-        XCTAssertNil(session.serverTrustManager, "session server trust policy manager should be nil")
+        XCTAssertNotNil(manager.session.delegate, "session delegate should not be nil")
+        XCTAssertTrue(manager.delegate === manager.session.delegate, "manager delegate should equal session delegate")
+        XCTAssertNil(manager.serverTrustManager, "session server trust policy manager should be nil")
     }
 
     func testInitializerWithSpecifiedArguments() {
@@ -216,39 +138,39 @@ class SessionTestCase: BaseTestCase {
         let serverTrustManager = ServerTrustManager(evaluators: [:])
 
         // When
-        let session = Session(configuration: configuration,
+        let manager = Session(configuration: configuration,
                                      delegate: delegate,
                                      serverTrustManager: serverTrustManager)
 
         // Then
-        XCTAssertNotNil(session.session.delegate, "session delegate should not be nil")
-        XCTAssertTrue(session.delegate === session.session.delegate, "manager delegate should equal session delegate")
-        XCTAssertNotNil(session.serverTrustManager, "session server trust policy manager should not be nil")
+        XCTAssertNotNil(manager.session.delegate, "session delegate should not be nil")
+        XCTAssertTrue(manager.delegate === manager.session.delegate, "manager delegate should equal session delegate")
+        XCTAssertNotNil(manager.serverTrustManager, "session server trust policy manager should not be nil")
     }
 
     func testThatSessionInitializerSucceedsWithDefaultArguments() {
         // Given
         let delegate = SessionDelegate()
         let underlyingQueue = DispatchQueue(label: "underlyingQueue")
-        let urlSession: URLSession = {
+        let session: URLSession = {
             let configuration = URLSessionConfiguration.default
             let queue = OperationQueue(underlyingQueue: underlyingQueue, name: "delegateQueue")
             return URLSession(configuration: configuration, delegate: delegate, delegateQueue: queue)
         }()
 
         // When
-        let session = Session(session: urlSession, delegate: delegate, rootQueue: underlyingQueue)
+        let manager = Session(session: session, delegate: delegate, rootQueue: underlyingQueue)
 
         // Then
-        XCTAssertTrue(session.delegate === session.session.delegate, "manager delegate should equal session delegate")
-        XCTAssertNil(session.serverTrustManager, "session server trust policy manager should be nil")
+        XCTAssertTrue(manager.delegate === manager.session.delegate, "manager delegate should equal session delegate")
+        XCTAssertNil(manager.serverTrustManager, "session server trust policy manager should be nil")
     }
 
     func testThatSessionInitializerSucceedsWithSpecifiedArguments() {
         // Given
         let delegate = SessionDelegate()
         let underlyingQueue = DispatchQueue(label: "underlyingQueue")
-        let urlSession: URLSession = {
+        let session: URLSession = {
             let configuration = URLSessionConfiguration.default
             let queue = OperationQueue(underlyingQueue: underlyingQueue, name: "delegateQueue")
             return URLSession(configuration: configuration, delegate: delegate, delegateQueue: queue)
@@ -257,14 +179,14 @@ class SessionTestCase: BaseTestCase {
         let serverTrustManager = ServerTrustManager(evaluators: [:])
 
         // When
-        let session = Session(session: urlSession,
+        let manager = Session(session: session,
                                      delegate: delegate,
                                      rootQueue: underlyingQueue,
                                      serverTrustManager: serverTrustManager)
 
         // Then
-        XCTAssertTrue(session.delegate === session.session.delegate, "manager delegate should equal session delegate")
-        XCTAssertNotNil(session.serverTrustManager, "session server trust policy manager should not be nil")
+        XCTAssertTrue(manager.delegate === manager.session.delegate, "manager delegate should equal session delegate")
+        XCTAssertNotNil(manager.serverTrustManager, "session server trust policy manager should not be nil")
     }
 
     // MARK: Tests - Default HTTP Headers
@@ -306,9 +228,8 @@ class SessionTestCase: BaseTestCase {
             return "Alamofire/\(build)"
         }()
 
-        XCTAssertTrue(userAgent?.contains(alamofireVersion) == true)
-        XCTAssertTrue(userAgent?.contains(osNameVersion) == true)
-        XCTAssertTrue(userAgent?.contains("Unknown/Unknown") == true)
+        let expectedUserAgent = "Unknown/Unknown (Unknown; build:Unknown; \(osNameVersion)) \(alamofireVersion)"
+        XCTAssertEqual(userAgent, expectedUserAgent)
     }
 
     // MARK: Tests - Supported Accept-Encodings
@@ -326,17 +247,17 @@ class SessionTestCase: BaseTestCase {
         var deflateResponse: DataResponse<Any>?
 
         // When
-        AF.request(brotliURL).responseJSON { response in
+        AF.request(brotliURL).responseJSON { (response) in
             brotliResponse = response
             brotliExpectation.fulfill()
         }
 
-        AF.request(gzipURL).responseJSON { response in
+        AF.request(gzipURL).responseJSON { (response) in
             gzipResponse = response
             gzipExpectation.fulfill()
         }
 
-        AF.request(deflateURL).responseJSON { response in
+        AF.request(deflateURL).responseJSON { (response) in
             deflateResponse = response
             deflateExpectation.fulfill()
         }
@@ -358,7 +279,7 @@ class SessionTestCase: BaseTestCase {
 
     func testSetStartRequestsImmediatelyToFalseAndResumeRequest() {
         // Given
-        let session = Session(startRequestsImmediately: false)
+        let manager = Session(startRequestsImmediately: false)
 
         let url = URL(string: "https://httpbin.org/get")!
         let urlRequest = URLRequest(url: url)
@@ -368,7 +289,7 @@ class SessionTestCase: BaseTestCase {
         var response: HTTPURLResponse?
 
         // When
-        session.request(urlRequest)
+        manager.request(urlRequest)
             .response { resp in
                 response = resp.response
                 expectation.fulfill()
@@ -384,7 +305,7 @@ class SessionTestCase: BaseTestCase {
 
     func testSetStartRequestsImmediatelyToFalseAndCancelledCallsResponseHandlers() {
         // Given
-        let session = Session(startRequestsImmediately: false)
+        let manager = Session(startRequestsImmediately: false)
 
         let url = URL(string: "https://httpbin.org/get")!
         let urlRequest = URLRequest(url: url)
@@ -394,7 +315,7 @@ class SessionTestCase: BaseTestCase {
         var response: DataResponse<Data?>?
 
         // When
-        let request = session.request(urlRequest)
+        let request = manager.request(urlRequest)
             .cancel()
             .response { resp in
                 response = resp
@@ -407,7 +328,6 @@ class SessionTestCase: BaseTestCase {
         XCTAssertNotNil(response, "response should not be nil")
         XCTAssertTrue(request.isCancelled)
         XCTAssertTrue((request.task == nil) || (request.task?.state == .canceling || request.task?.state == .completed))
-
         guard let error = request.error?.asAFError, case .explicitlyCancelled = error else {
             XCTFail("Request should have an .explicitlyCancelled error.")
             return
@@ -416,7 +336,7 @@ class SessionTestCase: BaseTestCase {
 
     func testSetStartRequestsImmediatelyToFalseAndResumeThenCancelRequestHasCorrectOutput() {
         // Given
-        let session = Session(startRequestsImmediately: false)
+        let manager = Session(startRequestsImmediately: false)
 
         let url = URL(string: "https://httpbin.org/get")!
         let urlRequest = URLRequest(url: url)
@@ -426,7 +346,7 @@ class SessionTestCase: BaseTestCase {
         var response: DataResponse<Data?>?
 
         // When
-        let request = session.request(urlRequest)
+        let request = manager.request(urlRequest)
             .resume()
             .cancel()
             .response { resp in
@@ -441,7 +361,6 @@ class SessionTestCase: BaseTestCase {
         XCTAssertNotNil(response, "response should not be nil")
         XCTAssertTrue(request.isCancelled)
         XCTAssertTrue((request.task == nil) || (request.task?.state == .canceling || request.task?.state == .completed))
-
         guard let error = request.error?.asAFError, case .explicitlyCancelled = error else {
             XCTFail("Request should have an .explicitlyCancelled error.")
             return
@@ -450,7 +369,7 @@ class SessionTestCase: BaseTestCase {
 
     func testSetStartRequestsImmediatelyToFalseAndCancelThenResumeRequestDoesntCreateTaskAndStaysCancelled() {
         // Given
-        let session = Session(startRequestsImmediately: false)
+        let manager = Session(startRequestsImmediately: false)
 
         let url = URL(string: "https://httpbin.org/get")!
         let urlRequest = URLRequest(url: url)
@@ -460,7 +379,7 @@ class SessionTestCase: BaseTestCase {
         var response: DataResponse<Data?>?
 
         // When
-        let request = session.request(urlRequest)
+        let request = manager.request(urlRequest)
             .cancel()
             .resume()
             .response { resp in
@@ -468,13 +387,13 @@ class SessionTestCase: BaseTestCase {
                 expectation.fulfill()
             }
 
+
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertNotNil(response, "response should not be nil")
         XCTAssertTrue(request.isCancelled)
         XCTAssertTrue((request.task == nil) || (request.task?.state == .canceling || request.task?.state == .completed))
-
         guard let error = request.error?.asAFError, case .explicitlyCancelled = error else {
             XCTFail("Request should have an .explicitlyCancelled error.")
             return
@@ -487,53 +406,52 @@ class SessionTestCase: BaseTestCase {
         // Given
         let monitor = ClosureEventMonitor()
         let expectation = self.expectation(description: "Request created")
-        monitor.requestDidCreateTask = { _, _ in expectation.fulfill() }
-        var session: Session? = Session(startRequestsImmediately: false, eventMonitors: [monitor])
+        monitor.requestDidCreateTask = { (_, _) in expectation.fulfill() }
+        var manager: Session? = Session(startRequestsImmediately: false, eventMonitors: [monitor])
 
         let url = URL(string: "https://httpbin.org/get")!
         let urlRequest = URLRequest(url: url)
 
         // When
-        let request = session?.request(urlRequest)
-        session = nil
+        let request = manager?.request(urlRequest)
+        manager = nil
 
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertEqual(request?.task?.state, .suspended)
-        XCTAssertNil(session, "manager should be nil")
+        XCTAssertNil(manager, "manager should be nil")
     }
 
     func testReleasingManagerWithPendingCanceledRequestDeinitializesSuccessfully() {
         // Given
-        var session: Session? = Session(startRequestsImmediately: false)
+        var manager: Session? = Session(startRequestsImmediately: false)
 
         let url = URL(string: "https://httpbin.org/get")!
         let urlRequest = URLRequest(url: url)
 
         // When
-        let request = session?.request(urlRequest)
+        let request = manager?.request(urlRequest)
         request?.cancel()
-        session = nil
-
-        let state = request?.state
+        manager = nil
 
         // Then
+        let state = request?.state
         XCTAssertTrue(state == .cancelled, "state should be .cancelled")
-        XCTAssertNil(session, "manager should be nil")
+        XCTAssertNil(manager, "manager should be nil")
     }
 
     // MARK: Tests - Bad Requests
 
     func testThatDataRequestWithInvalidURLStringThrowsResponseHandlerError() {
         // Given
-        let session = Session()
+        let sessionManager = Session()
         let expectation = self.expectation(description: "Request should fail with error")
 
         var response: DataResponse<Data?>?
 
         // When
-        session.request("https://httpbin.org/get/äëïöü").response { resp in
+        sessionManager.request("https://httpbin.org/get/äëïöü").response { resp in
             response = resp
             expectation.fulfill()
         }
@@ -556,13 +474,13 @@ class SessionTestCase: BaseTestCase {
 
     func testThatDownloadRequestWithInvalidURLStringThrowsResponseHandlerError() {
         // Given
-        let session = Session()
+        let sessionManager = Session()
         let expectation = self.expectation(description: "Download should fail with error")
 
         var response: DownloadResponse<URL?>?
 
         // When
-        session.download("https://httpbin.org/get/äëïöü").response { resp in
+        sessionManager.download("https://httpbin.org/get/äëïöü").response { resp in
             response = resp
             expectation.fulfill()
         }
@@ -586,13 +504,13 @@ class SessionTestCase: BaseTestCase {
 
     func testThatUploadDataRequestWithInvalidURLStringThrowsResponseHandlerError() {
         // Given
-        let session = Session()
+        let sessionManager = Session()
         let expectation = self.expectation(description: "Upload should fail with error")
 
         var response: DataResponse<Data?>?
 
         // When
-        session.upload(Data(), to: "https://httpbin.org/get/äëïöü").response { resp in
+        sessionManager.upload(Data(), to: "https://httpbin.org/get/äëïöü").response { resp in
             response = resp
             expectation.fulfill()
         }
@@ -615,13 +533,13 @@ class SessionTestCase: BaseTestCase {
 
     func testThatUploadFileRequestWithInvalidURLStringThrowsResponseHandlerError() {
         // Given
-        let session = Session()
+        let sessionManager = Session()
         let expectation = self.expectation(description: "Upload should fail with error")
 
         var response: DataResponse<Data?>?
 
         // When
-        session.upload(URL(fileURLWithPath: "/invalid"), to: "https://httpbin.org/get/äëïöü").response { resp in
+        sessionManager.upload(URL(fileURLWithPath: "/invalid"), to: "https://httpbin.org/get/äëïöü").response { resp in
             response = resp
             expectation.fulfill()
         }
@@ -644,13 +562,13 @@ class SessionTestCase: BaseTestCase {
 
     func testThatUploadStreamRequestWithInvalidURLStringThrowsResponseHandlerError() {
         // Given
-        let session = Session()
+        let sessionManager = Session()
         let expectation = self.expectation(description: "Upload should fail with error")
 
         var response: DataResponse<Data?>?
 
         // When
-        session.upload(InputStream(data: Data()), to: "https://httpbin.org/get/äëïöü").response { resp in
+        sessionManager.upload(InputStream(data: Data()), to: "https://httpbin.org/get/äëïöü").response { resp in
             response = resp
             expectation.fulfill()
         }
@@ -673,213 +591,132 @@ class SessionTestCase: BaseTestCase {
 
     // MARK: Tests - Request Adapter
 
-    func testThatSessionCallsRequestAdaptersWhenCreatingDataRequest() {
+    func testThatSessionManagerCallsRequestAdapterWhenCreatingDataRequest() {
         // Given
-        let urlString = "https://httpbin.org/get"
-
-        let methodAdapter = HTTPMethodAdapter(method: .post)
-        let headerAdapter = HeaderAdapter()
+        let adapter = HTTPMethodAdapter(method: .post)
         let monitor = ClosureEventMonitor()
-
-        let session = Session(startRequestsImmediately: false, interceptor: methodAdapter, eventMonitors: [monitor])
+        let expectation = self.expectation(description: "Request created")
+        monitor.requestDidCreateTask = { (_, _) in expectation.fulfill() }
+        let sessionManager = Session(startRequestsImmediately: false, adapter: adapter, eventMonitors: [monitor])
 
         // When
-        let expectation1 = self.expectation(description: "Request 1 created")
-        monitor.requestDidCreateTask = { _, _ in expectation1.fulfill() }
+        let request = sessionManager.request("https://httpbin.org/get")
 
-        let request1 = session.request(urlString)
-        waitForExpectations(timeout: timeout, handler: nil)
-
-        let expectation2 = self.expectation(description: "Request 2 created")
-        monitor.requestDidCreateTask = { _, _ in expectation2.fulfill() }
-
-        let request2 = session.request(urlString, interceptor: headerAdapter)
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
-        XCTAssertEqual(request1.task?.originalRequest?.httpMethod, methodAdapter.method.rawValue)
-        XCTAssertEqual(request2.task?.originalRequest?.httpMethod, methodAdapter.method.rawValue)
-        XCTAssertEqual(request2.task?.originalRequest?.allHTTPHeaderFields?.count, 1)
-        XCTAssertEqual(methodAdapter.adaptedCount, 2)
-        XCTAssertEqual(headerAdapter.adaptedCount, 1)
+        XCTAssertEqual(request.task?.originalRequest?.httpMethod, adapter.method.rawValue)
     }
 
-    func testThatSessionCallsRequestAdaptersWhenCreatingDownloadRequest() {
+    func testThatSessionManagerCallsRequestAdapterWhenCreatingDownloadRequest() {
         // Given
-        let urlString = "https://httpbin.org/get"
-
-        let methodAdapter = HTTPMethodAdapter(method: .post)
-        let headerAdapter = HeaderAdapter()
+        let adapter = HTTPMethodAdapter(method: .post)
         let monitor = ClosureEventMonitor()
-
-        let session = Session(startRequestsImmediately: false, interceptor: methodAdapter, eventMonitors: [monitor])
+        let expectation = self.expectation(description: "Request created")
+        monitor.requestDidCreateTask = { (_, _) in expectation.fulfill() }
+        let sessionManager = Session(startRequestsImmediately: false, adapter: adapter, eventMonitors: [monitor])
 
         // When
-        let expectation1 = self.expectation(description: "Request 1 created")
-        monitor.requestDidCreateTask = { _, _ in expectation1.fulfill() }
+        let request = sessionManager.download("https://httpbin.org/get")
 
-        let request1 = session.download(urlString)
-        waitForExpectations(timeout: timeout, handler: nil)
-
-        let expectation2 = self.expectation(description: "Request 2 created")
-        monitor.requestDidCreateTask = { _, _ in expectation2.fulfill() }
-
-        let request2 = session.download(urlString, interceptor: headerAdapter)
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
-        XCTAssertEqual(request1.task?.originalRequest?.httpMethod, methodAdapter.method.rawValue)
-        XCTAssertEqual(request2.task?.originalRequest?.httpMethod, methodAdapter.method.rawValue)
-        XCTAssertEqual(request2.task?.originalRequest?.allHTTPHeaderFields?.count, 1)
-        XCTAssertEqual(methodAdapter.adaptedCount, 2)
-        XCTAssertEqual(headerAdapter.adaptedCount, 1)
+        XCTAssertEqual(request.task?.originalRequest?.httpMethod, adapter.method.rawValue)
     }
 
-    func testThatSessionCallsRequestAdaptersWhenCreatingUploadRequestWithData() {
+    func testThatSessionManagerCallsRequestAdapterWhenCreatingUploadRequestWithData() {
         // Given
-        let data = Data("data".utf8)
-        let urlString = "https://httpbin.org/post"
+        let adapter = HTTPMethodAdapter(method: .get)
 
-        let methodAdapter = HTTPMethodAdapter(method: .get)
-        let headerAdapter = HeaderAdapter()
         let monitor = ClosureEventMonitor()
-
-        let session = Session(startRequestsImmediately: false, interceptor: methodAdapter, eventMonitors: [monitor])
+        let expectation = self.expectation(description: "Request created")
+        monitor.requestDidCreateTask = { (_, _) in expectation.fulfill() }
+        let sessionManager = Session(startRequestsImmediately: false, adapter: adapter, eventMonitors: [monitor])
 
         // When
-        let expectation1 = self.expectation(description: "Request 1 created")
-        monitor.requestDidCreateTask = { _, _ in expectation1.fulfill() }
+        let request = sessionManager.upload(Data("data".utf8), to: "https://httpbin.org/post")
 
-        let request1 = session.upload(data, to: urlString)
-        waitForExpectations(timeout: timeout, handler: nil)
-
-        let expectation2 = self.expectation(description: "Request 2 created")
-        monitor.requestDidCreateTask = { _, _ in expectation2.fulfill() }
-
-        let request2 = session.upload(data, to: urlString, interceptor: headerAdapter)
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
-        XCTAssertEqual(request1.task?.originalRequest?.httpMethod, methodAdapter.method.rawValue)
-        XCTAssertEqual(request2.task?.originalRequest?.httpMethod, methodAdapter.method.rawValue)
-        XCTAssertEqual(request2.task?.originalRequest?.allHTTPHeaderFields?.count, 1)
-        XCTAssertEqual(methodAdapter.adaptedCount, 2)
-        XCTAssertEqual(headerAdapter.adaptedCount, 1)
+        XCTAssertEqual(request.task?.originalRequest?.httpMethod, adapter.method.rawValue)
     }
 
-    func testThatSessionCallsRequestAdaptersWhenCreatingUploadRequestWithFile() {
+    func testThatSessionManagerCallsRequestAdapterWhenCreatingUploadRequestWithFile() {
         // Given
+        let adapter = HTTPMethodAdapter(method: .get)
+
+        let monitor = ClosureEventMonitor()
+        let expectation = self.expectation(description: "Request created")
+        monitor.requestDidCreateTask = { (_, _) in expectation.fulfill() }
+        let sessionManager = Session(startRequestsImmediately: false, adapter: adapter, eventMonitors: [monitor])
+
+        // When
         let fileURL = URL(fileURLWithPath: "/path/to/some/file.txt")
-        let urlString = "https://httpbin.org/post"
+        let request = sessionManager.upload(fileURL, to: "https://httpbin.org/post")
 
-        let methodAdapter = HTTPMethodAdapter(method: .get)
-        let headerAdapter = HeaderAdapter()
-        let monitor = ClosureEventMonitor()
-
-        let session = Session(startRequestsImmediately: false, interceptor: methodAdapter, eventMonitors: [monitor])
-
-        // When
-        let expectation1 = self.expectation(description: "Request 1 created")
-        monitor.requestDidCreateTask = { _, _ in expectation1.fulfill() }
-
-        let request1 = session.upload(fileURL, to: urlString)
-        waitForExpectations(timeout: timeout, handler: nil)
-
-        let expectation2 = self.expectation(description: "Request 2 created")
-        monitor.requestDidCreateTask = { _, _ in expectation2.fulfill() }
-
-        let request2 = session.upload(fileURL, to: urlString, interceptor: headerAdapter)
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
-        XCTAssertEqual(request1.task?.originalRequest?.httpMethod, methodAdapter.method.rawValue)
-        XCTAssertEqual(request2.task?.originalRequest?.httpMethod, methodAdapter.method.rawValue)
-        XCTAssertEqual(request2.task?.originalRequest?.allHTTPHeaderFields?.count, 1)
-        XCTAssertEqual(methodAdapter.adaptedCount, 2)
-        XCTAssertEqual(headerAdapter.adaptedCount, 1)
+        XCTAssertEqual(request.task?.originalRequest?.httpMethod, adapter.method.rawValue)
     }
 
-    func testThatSessionCallsRequestAdaptersWhenCreatingUploadRequestWithInputStream() {
+    func testThatSessionManagerCallsRequestAdapterWhenCreatingUploadRequestWithInputStream() {
         // Given
+        let adapter = HTTPMethodAdapter(method: .get)
+
+        let monitor = ClosureEventMonitor()
+        let expectation = self.expectation(description: "Request created")
+        monitor.requestDidCreateTask = { (_, _) in expectation.fulfill() }
+        let sessionManager = Session(startRequestsImmediately: false, adapter: adapter, eventMonitors: [monitor])
+
+        // When
         let inputStream = InputStream(data: Data("data".utf8))
-        let urlString = "https://httpbin.org/post"
+        let request = sessionManager.upload(inputStream, to: "https://httpbin.org/post")
 
-        let methodAdapter = HTTPMethodAdapter(method: .get)
-        let headerAdapter = HeaderAdapter()
-        let monitor = ClosureEventMonitor()
-
-        let session = Session(startRequestsImmediately: false, interceptor: methodAdapter, eventMonitors: [monitor])
-
-        // When
-        let expectation1 = self.expectation(description: "Request 1 created")
-        monitor.requestDidCreateTask = { _, _ in expectation1.fulfill() }
-
-        let request1 = session.upload(inputStream, to: urlString)
-        waitForExpectations(timeout: timeout, handler: nil)
-
-        let expectation2 = self.expectation(description: "Request 2 created")
-        monitor.requestDidCreateTask = { _, _ in expectation2.fulfill() }
-
-        let request2 = session.upload(inputStream, to: urlString, interceptor: headerAdapter)
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
-        XCTAssertEqual(request1.task?.originalRequest?.httpMethod, methodAdapter.method.rawValue)
-        XCTAssertEqual(request2.task?.originalRequest?.httpMethod, methodAdapter.method.rawValue)
-        XCTAssertEqual(request2.task?.originalRequest?.allHTTPHeaderFields?.count, 1)
-        XCTAssertEqual(methodAdapter.adaptedCount, 2)
-        XCTAssertEqual(headerAdapter.adaptedCount, 1)
+        XCTAssertEqual(request.task?.originalRequest?.httpMethod, adapter.method.rawValue)
     }
 
-    func testThatSessionReturnsRequestAdaptationErrorWhenRequestAdapterThrowsError() {
+    func testThatRequestAdapterErrorThrowsResponseHandlerError() {
         // Given
-        let urlString = "https://httpbin.org/get"
+        let adapter = HTTPMethodAdapter(method: .post, throwsError: true)
 
-        let methodAdapter = HTTPMethodAdapter(method: .post, throwsError: true)
-        let headerAdapter = HeaderAdapter(throwsError: true)
         let monitor = ClosureEventMonitor()
-
-        let session = Session(startRequestsImmediately: false, interceptor: methodAdapter, eventMonitors: [monitor])
+        let expectation = self.expectation(description: "Request created")
+        monitor.requestDidFailToAdaptURLRequestWithError = { (_, _, _) in expectation.fulfill() }
+        let sessionManager = Session(startRequestsImmediately: false, adapter: adapter, eventMonitors: [monitor])
 
         // When
-        let expectation1 = self.expectation(description: "Request 1 created")
-        monitor.requestDidFailToAdaptURLRequestWithError = { _, _, _ in expectation1.fulfill() }
+        let request = sessionManager.request("https://httpbin.org/get")
 
-        let request1 = session.request(urlString)
         waitForExpectations(timeout: timeout, handler: nil)
-
-        let expectation2 = self.expectation(description: "Request 2 created")
-        monitor.requestDidFailToAdaptURLRequestWithError = { _, _, _ in expectation2.fulfill() }
-
-        let request2 = session.request(urlString, interceptor: headerAdapter)
-        waitForExpectations(timeout: timeout, handler: nil)
-
-        let requests = [request1, request2]
 
         // Then
-        for request in requests {
-            if let error = request.error?.asAFError {
-                XCTAssertTrue(error.isRequestAdaptationError)
-                XCTAssertEqual(error.underlyingError?.asAFError?.urlConvertible as? String, "")
-            } else {
-                XCTFail("error should not be nil")
-            }
+        if let error = request.error?.asAFError {
+            XCTAssertTrue(error.isInvalidURLError)
+            XCTAssertEqual(error.urlConvertible as? String, "")
+        } else {
+            XCTFail("error should not be nil")
         }
     }
 
     // MARK: Tests - Request Retrier
 
-    func testThatSessionCallsRequestRetrierWhenRequestEncountersError() {
+    func testThatSessionManagerCallsRequestRetrierWhenRequestEncountersError() {
         // Given
         let handler = RequestHandler()
 
-        let session = Session()
+        let sessionManager = Session(adapter: handler, retrier: handler)
 
         let expectation = self.expectation(description: "request should eventually fail")
         var response: DataResponse<Any>?
 
         // When
-        let request = session.request("https://httpbin.org/basic-auth/user/password", interceptor: handler)
+        let request = sessionManager.request("https://httpbin.org/basic-auth/user/password")
             .validate()
             .responseJSON { jsonResponse in
                 response = jsonResponse
@@ -889,63 +726,27 @@ class SessionTestCase: BaseTestCase {
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
-        XCTAssertEqual(handler.adaptCalledCount, 2)
         XCTAssertEqual(handler.adaptedCount, 2)
-        XCTAssertEqual(handler.retryCalledCount, 3)
-        XCTAssertEqual(handler.retryCount, 3)
+        XCTAssertEqual(handler.retryCount, 2)
         XCTAssertEqual(request.retryCount, 1)
         XCTAssertEqual(response?.result.isSuccess, false)
-        XCTAssertTrue(session.requestTaskMap.isEmpty)
+        XCTAssertTrue(sessionManager.requestTaskMap.isEmpty)
     }
 
-    func testThatSessionCallsRequestRetrierThenSessionRetrierWhenRequestEncountersError() {
-        // Given
-        let sessionHandler = RequestHandler()
-        let requestHandler = RequestHandler()
-
-        let session = Session(interceptor: sessionHandler)
-
-        let expectation = self.expectation(description: "request should eventually fail")
-        var response: DataResponse<Any>?
-
-        // When
-        let request = session.request("https://httpbin.org/basic-auth/user/password", interceptor: requestHandler)
-            .validate()
-            .responseJSON { jsonResponse in
-                response = jsonResponse
-                expectation.fulfill()
-            }
-
-        waitForExpectations(timeout: timeout, handler: nil)
-
-        // Then
-        XCTAssertEqual(sessionHandler.adaptCalledCount, 3)
-        XCTAssertEqual(sessionHandler.adaptedCount, 3)
-        XCTAssertEqual(sessionHandler.retryCalledCount, 3)
-        XCTAssertEqual(sessionHandler.retryCount, 3)
-        XCTAssertEqual(requestHandler.adaptCalledCount, 3)
-        XCTAssertEqual(requestHandler.adaptedCount, 3)
-        XCTAssertEqual(requestHandler.retryCalledCount, 4)
-        XCTAssertEqual(requestHandler.retryCount, 4)
-        XCTAssertEqual(request.retryCount, 2)
-        XCTAssertEqual(response?.result.isSuccess, false)
-        XCTAssertTrue(session.requestTaskMap.isEmpty)
-    }
-
-    func testThatSessionCallsRequestRetrierWhenRequestInitiallyEncountersAdaptError() {
+    func testThatSessionManagerCallsRequestRetrierWhenRequestInitiallyEncountersAdaptError() {
         // Given
         let handler = RequestHandler()
         handler.adaptedCount = 1
         handler.throwsErrorOnSecondAdapt = true
         handler.shouldApplyAuthorizationHeader = true
 
-        let session = Session()
+        let sessionManager = Session(adapter: handler, retrier: handler)
 
         let expectation = self.expectation(description: "request should eventually fail")
         var response: DataResponse<Any>?
 
         // When
-        session.request("https://httpbin.org/basic-auth/user/password", interceptor: handler)
+        sessionManager.request("https://httpbin.org/basic-auth/user/password")
             .validate()
             .responseJSON { jsonResponse in
                 response = jsonResponse
@@ -955,22 +756,20 @@ class SessionTestCase: BaseTestCase {
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
-        XCTAssertEqual(handler.adaptCalledCount, 2)
         XCTAssertEqual(handler.adaptedCount, 2)
-        XCTAssertEqual(handler.retryCalledCount, 1)
         XCTAssertEqual(handler.retryCount, 1)
         XCTAssertEqual(response?.result.isSuccess, true)
-        XCTAssertTrue(session.requestTaskMap.isEmpty)
+        XCTAssertTrue(sessionManager.requestTaskMap.isEmpty)
     }
 
-    func testThatSessionCallsRequestRetrierWhenDownloadInitiallyEncountersAdaptError() {
+    func testThatSessionManagerCallsRequestRetrierWhenDownloadInitiallyEncountersAdaptError() {
         // Given
         let handler = RequestHandler()
         handler.adaptedCount = 1
         handler.throwsErrorOnSecondAdapt = true
         handler.shouldApplyAuthorizationHeader = true
 
-        let session = Session()
+        let sessionManager = Session(adapter: handler, retrier: handler)
 
         let expectation = self.expectation(description: "request should eventually fail")
         var response: DownloadResponse<Any>?
@@ -981,7 +780,7 @@ class SessionTestCase: BaseTestCase {
         }
 
         // When
-        session.download("https://httpbin.org/basic-auth/user/password", interceptor: handler, to: destination)
+        sessionManager.download("https://httpbin.org/basic-auth/user/password", to: destination)
             .validate()
             .responseJSON { jsonResponse in
                 response = jsonResponse
@@ -991,18 +790,17 @@ class SessionTestCase: BaseTestCase {
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
-        XCTAssertEqual(handler.adaptCalledCount, 2)
         XCTAssertEqual(handler.adaptedCount, 2)
-        XCTAssertEqual(handler.retryCalledCount, 1)
         XCTAssertEqual(handler.retryCount, 1)
         XCTAssertEqual(response?.result.isSuccess, true)
-        XCTAssertTrue(session.requestTaskMap.isEmpty)
+        XCTAssertTrue(sessionManager.requestTaskMap.isEmpty)
     }
 
-    func testThatSessionCallsRequestRetrierWhenUploadInitiallyEncountersAdaptError() {
+    func testThatSessionManagerCallsRequestRetrierWhenUploadInitiallyEncountersAdaptError() {
         // Given
         let handler = UploadHandler()
-        let session = Session(interceptor: handler)
+
+        let sessionManager = Session(adapter: handler, retrier: handler)
 
         let expectation = self.expectation(description: "request should eventually fail")
         var response: DataResponse<Any>?
@@ -1010,7 +808,7 @@ class SessionTestCase: BaseTestCase {
         let uploadData = Data("upload data".utf8)
 
         // When
-        session.upload(uploadData, to: "https://httpbin.org/post")
+        sessionManager.upload(uploadData, to: "https://httpbin.org/post")
             .validate()
             .responseJSON { jsonResponse in
                 response = jsonResponse
@@ -1020,26 +818,24 @@ class SessionTestCase: BaseTestCase {
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
-        XCTAssertEqual(handler.adaptCalledCount, 2)
         XCTAssertEqual(handler.adaptedCount, 2)
-        XCTAssertEqual(handler.retryCalledCount, 1)
         XCTAssertEqual(handler.retryCount, 1)
         XCTAssertEqual(response?.result.isSuccess, true)
-        XCTAssertTrue(session.requestTaskMap.isEmpty)
+        XCTAssertTrue(sessionManager.requestTaskMap.isEmpty)
     }
 
-    func testThatSessionCallsAdapterWhenRequestIsRetried() {
+    func testThatSessionManagerCallsAdapterWhenRequestIsRetried() {
         // Given
         let handler = RequestHandler()
         handler.shouldApplyAuthorizationHeader = true
 
-        let session = Session(interceptor: handler)
+        let sessionManager = Session(adapter: handler, retrier: handler)
 
         let expectation = self.expectation(description: "request should eventually succeed")
         var response: DataResponse<Any>?
 
         // When
-        let request = session.request("https://httpbin.org/basic-auth/user/password")
+        let request = sessionManager.request("https://httpbin.org/basic-auth/user/password")
             .validate()
             .responseJSON { jsonResponse in
                 response = jsonResponse
@@ -1049,27 +845,25 @@ class SessionTestCase: BaseTestCase {
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
-        XCTAssertEqual(handler.adaptCalledCount, 2)
         XCTAssertEqual(handler.adaptedCount, 2)
-        XCTAssertEqual(handler.retryCalledCount, 1)
         XCTAssertEqual(handler.retryCount, 1)
         XCTAssertEqual(request.retryCount, 1)
         XCTAssertEqual(response?.result.isSuccess, true)
-        XCTAssertTrue(session.requestTaskMap.isEmpty)
+        XCTAssertTrue(sessionManager.requestTaskMap.isEmpty)
     }
-
-    func testThatSessionReturnsRequestAdaptationErrorWhenRequestIsRetried() {
+    // TODO: Confirm retry logic.
+    func testThatRequestAdapterErrorThrowsResponseHandlerErrorWhenRequestIsRetried() {
         // Given
         let handler = RequestHandler()
         handler.throwsErrorOnSecondAdapt = true
 
-        let session = Session(interceptor: handler)
+        let sessionManager = Session(adapter: handler, retrier: handler)
 
         let expectation = self.expectation(description: "request should eventually fail")
         var response: DataResponse<Any>?
 
         // When
-        let request = session.request("https://httpbin.org/basic-auth/user/password")
+        let request = sessionManager.request("https://httpbin.org/basic-auth/user/password")
             .validate()
             .responseJSON { jsonResponse in
                 response = jsonResponse
@@ -1079,420 +873,18 @@ class SessionTestCase: BaseTestCase {
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
-        XCTAssertEqual(handler.adaptCalledCount, 2)
         XCTAssertEqual(handler.adaptedCount, 1)
-        XCTAssertEqual(handler.retryCalledCount, 3)
-        XCTAssertEqual(handler.retryCount, 3)
+        XCTAssertEqual(handler.retryCount, 2)
         XCTAssertEqual(request.retryCount, 1)
         XCTAssertEqual(response?.result.isSuccess, false)
-        XCTAssertTrue(session.requestTaskMap.isEmpty)
+        XCTAssertTrue(sessionManager.requestTaskMap.isEmpty)
 
         if let error = response?.result.error?.asAFError {
-            XCTAssertTrue(error.isRequestAdaptationError)
-            XCTAssertEqual(error.underlyingError?.asAFError?.urlConvertible as? String, "/adapt/error/2")
+            XCTAssertTrue(error.isInvalidURLError)
+            XCTAssertEqual(error.urlConvertible as? String, "")
         } else {
             XCTFail("error should not be nil")
         }
-    }
-
-    func testThatSessionRetriesRequestWithDelayWhenRetryResultContainsDelay() {
-        // Given
-        let handler = RequestHandler()
-        handler.retryDelay = 0.01
-        handler.throwsErrorOnSecondAdapt = true
-
-        let session = Session(interceptor: handler)
-
-        let expectation = self.expectation(description: "request should eventually fail")
-        var response: DataResponse<Any>?
-
-        // When
-        let request = session.request("https://httpbin.org/basic-auth/user/password")
-            .validate()
-            .responseJSON { jsonResponse in
-                response = jsonResponse
-                expectation.fulfill()
-            }
-
-        waitForExpectations(timeout: timeout, handler: nil)
-
-        // Then
-        XCTAssertEqual(handler.adaptCalledCount, 2)
-        XCTAssertEqual(handler.adaptedCount, 1)
-        XCTAssertEqual(handler.retryCalledCount, 3)
-        XCTAssertEqual(handler.retryCount, 3)
-        XCTAssertEqual(request.retryCount, 1)
-        XCTAssertEqual(response?.result.isSuccess, false)
-        XCTAssertTrue(session.requestTaskMap.isEmpty)
-
-        if let error = response?.result.error?.asAFError {
-            XCTAssertTrue(error.isRequestAdaptationError)
-            XCTAssertEqual(error.underlyingError?.asAFError?.urlConvertible as? String, "/adapt/error/2")
-        } else {
-            XCTFail("error should not be nil")
-        }
-    }
-
-    func testThatSessionReturnsRequestRetryErrorWhenRequestRetrierThrowsError() {
-        // Given
-        let handler = RequestHandler()
-        handler.throwsErrorOnRetry = true
-
-        let session = Session(interceptor: handler)
-
-        let expectation = self.expectation(description: "request should eventually fail")
-        var response: DataResponse<Any>?
-
-        // When
-        let request = session.request("https://httpbin.org/basic-auth/user/password")
-            .validate()
-            .responseJSON { jsonResponse in
-                response = jsonResponse
-                expectation.fulfill()
-            }
-
-        waitForExpectations(timeout: timeout, handler: nil)
-
-        // Then
-        XCTAssertEqual(handler.adaptCalledCount, 1)
-        XCTAssertEqual(handler.adaptedCount, 1)
-        XCTAssertEqual(handler.retryCalledCount, 2)
-        XCTAssertEqual(handler.retryCount, 0)
-        XCTAssertEqual(request.retryCount, 0)
-        XCTAssertEqual(response?.result.isSuccess, false)
-        XCTAssertTrue(session.requestTaskMap.isEmpty)
-
-        if let error = response?.result.error?.asAFError {
-            XCTAssertTrue(error.isRequestRetryError)
-            XCTAssertEqual(error.underlyingError?.asAFError?.urlConvertible as? String, "/invalid/url/2")
-        } else {
-            XCTFail("error should not be nil")
-        }
-    }
-
-    // MARK: Tests - Response Serializer Retry
-
-    func testThatSessionCallsRequestRetrierWhenResponseSerializerThrowsError() {
-        // Given
-        let handler = RequestHandler()
-        handler.shouldRetry = false
-
-        let session = Session()
-
-        let expectation = self.expectation(description: "request should eventually fail")
-        var response: DataResponse<Any>?
-
-        // When
-        let request = session.request("https://httpbin.org/image/jpeg", interceptor: handler)
-            .validate()
-            .responseJSON { jsonResponse in
-                response = jsonResponse
-                expectation.fulfill()
-            }
-
-        waitForExpectations(timeout: timeout, handler: nil)
-
-        // Then
-        XCTAssertEqual(handler.adaptCalledCount, 1)
-        XCTAssertEqual(handler.adaptedCount, 1)
-        XCTAssertEqual(handler.retryCalledCount, 1)
-        XCTAssertEqual(handler.retryCount, 0)
-        XCTAssertEqual(request.retryCount, 0)
-        XCTAssertEqual(response?.result.isSuccess, false)
-        XCTAssertTrue(session.requestTaskMap.isEmpty)
-
-        if let error = response?.error?.asAFError {
-            XCTAssertTrue(error.isResponseSerializationError)
-            XCTAssertTrue(error.localizedDescription.starts(with: "JSON could not be serialized"))
-        } else {
-            XCTFail("error should not be nil")
-        }
-    }
-
-    func testThatSessionCallsRequestRetrierForAllResponseSerializersThatThrowError() throws {
-        // Given
-        let handler = RequestHandler()
-        handler.throwsErrorOnRetry = true
-
-        let session = Session()
-
-        let json1Expectation = self.expectation(description: "request should eventually fail")
-        var json1Response: DataResponse<Any>?
-
-        let json2Expectation = self.expectation(description: "request should eventually fail")
-        var json2Response: DataResponse<Any>?
-
-        // When
-        let request = session.request("https://httpbin.org/image/jpeg", interceptor: handler)
-            .validate()
-            .responseJSON { response in
-                json1Response = response
-                json1Expectation.fulfill()
-            }
-            .responseJSON { response in
-                json2Response = response
-                json2Expectation.fulfill()
-            }
-
-        waitForExpectations(timeout: timeout, handler: nil)
-
-        // Then
-        XCTAssertEqual(handler.adaptCalledCount, 1)
-        XCTAssertEqual(handler.adaptedCount, 1)
-        XCTAssertEqual(handler.retryCalledCount, 2)
-        XCTAssertEqual(handler.retryCount, 0)
-        XCTAssertEqual(request.retryCount, 0)
-        XCTAssertEqual(json1Response?.result.isSuccess, false)
-        XCTAssertEqual(json2Response?.result.isSuccess, false)
-        XCTAssertTrue(session.requestTaskMap.isEmpty)
-
-        let errors: [AFError] = [json1Response, json2Response].compactMap { $0?.error?.asAFError }
-        XCTAssertEqual(errors.count, 2)
-
-        for (index, error) in errors.enumerated() {
-            XCTAssertTrue(error.isRequestRetryError)
-            XCTAssertEqual(error.localizedDescription.starts(with: "Request retry failed with retry error"), true)
-
-            if case let .requestRetryFailed(retryError, originalError) = error {
-                XCTAssertEqual(try retryError.asAFError?.urlConvertible?.asURL().absoluteString, "/invalid/url/\(index + 1)")
-                XCTAssertTrue(originalError.localizedDescription.starts(with: "JSON could not be serialized"))
-            } else {
-                XCTFail("Error failure reason should be response serialization failure")
-            }
-        }
-    }
-
-    func testThatSessionRetriesRequestImmediatelyWhenResponseSerializerRequestsRetry() throws {
-        // Given
-        let handler = RequestHandler()
-        let session = Session()
-
-        let json1Expectation = self.expectation(description: "request should eventually fail")
-        var json1Response: DataResponse<Any>?
-
-        let json2Expectation = self.expectation(description: "request should eventually fail")
-        var json2Response: DataResponse<Any>?
-
-        // When
-        let request = session.request("https://httpbin.org/image/jpeg", interceptor: handler)
-            .validate()
-            .responseJSON { response in
-                json1Response = response
-                json1Expectation.fulfill()
-            }
-            .responseJSON { response in
-                json2Response = response
-                json2Expectation.fulfill()
-            }
-
-        waitForExpectations(timeout: 10, handler: nil)
-
-        // Then
-        XCTAssertEqual(handler.adaptCalledCount, 2)
-        XCTAssertEqual(handler.adaptedCount, 2)
-        XCTAssertEqual(handler.retryCalledCount, 3)
-        XCTAssertEqual(handler.retryCount, 3)
-        XCTAssertEqual(request.retryCount, 1)
-        XCTAssertEqual(json1Response?.result.isSuccess, false)
-        XCTAssertEqual(json2Response?.result.isSuccess, false)
-        XCTAssertTrue(session.requestTaskMap.isEmpty)
-
-        let errors: [AFError] = [json1Response, json2Response].compactMap { $0?.error?.asAFError }
-        XCTAssertEqual(errors.count, 2)
-
-        for error in errors {
-            XCTAssertTrue(error.isResponseSerializationError)
-            XCTAssertTrue(error.localizedDescription.starts(with: "JSON could not be serialized"))
-        }
-    }
-
-    func testThatSessionCallsResponseSerializerCompletionsWhenAdapterThrowsErrorDuringRetry() {
-        // Four retries should occur given this scenario:
-        // 1) Retrier is called from first response serializer failure (trips retry)
-        // 2) Retrier is called by Session for adapt error thrown
-        // 3) Retrier is called again from first response serializer failure
-        // 4) Retrier is called from second response serializer failure
-
-        // Given
-        let handler = RequestHandler()
-        handler.throwsErrorOnSecondAdapt = true
-
-        let session = Session()
-
-        let json1Expectation = self.expectation(description: "request should eventually fail")
-        var json1Response: DataResponse<Any>?
-
-        let json2Expectation = self.expectation(description: "request should eventually fail")
-        var json2Response: DataResponse<Any>?
-
-        // When
-        let request = session.request("https://httpbin.org/image/jpeg", interceptor: handler)
-            .validate()
-            .responseJSON { response in
-                json1Response = response
-                json1Expectation.fulfill()
-            }
-            .responseJSON { response in
-                json2Response = response
-                json2Expectation.fulfill()
-            }
-
-        waitForExpectations(timeout: 10, handler: nil)
-
-        // Then
-        XCTAssertEqual(handler.adaptCalledCount, 2)
-        XCTAssertEqual(handler.adaptedCount, 1)
-        XCTAssertEqual(handler.retryCalledCount, 4)
-        XCTAssertEqual(handler.retryCount, 4)
-        XCTAssertEqual(request.retryCount, 1)
-        XCTAssertEqual(json1Response?.result.isSuccess, false)
-        XCTAssertEqual(json2Response?.result.isSuccess, false)
-        XCTAssertTrue(session.requestTaskMap.isEmpty)
-
-        let errors: [AFError] = [json1Response, json2Response].compactMap { $0?.error?.asAFError }
-        XCTAssertEqual(errors.count, 2)
-
-        for error in errors {
-            XCTAssertTrue(error.isRequestAdaptationError)
-            XCTAssertEqual(error.localizedDescription, "Request adaption failed with error: URL is not valid: /adapt/error/2")
-        }
-    }
-
-    func testThatSessionCallsResponseSerializerCompletionsWhenAdapterThrowsErrorDuringRetryForDownloads() {
-        // Four retries should occur given this scenario:
-        // 1) Retrier is called from first response serializer failure (trips retry)
-        // 2) Retrier is called by Session for adapt error thrown
-        // 3) Retrier is called again from first response serializer failure
-        // 4) Retrier is called from second response serializer failure
-
-        // Given
-        let handler = RequestHandler()
-        handler.throwsErrorOnSecondAdapt = true
-
-        let session = Session()
-
-        let json1Expectation = self.expectation(description: "request should eventually fail")
-        var json1Response: DownloadResponse<Any>?
-
-        let json2Expectation = self.expectation(description: "request should eventually fail")
-        var json2Response: DownloadResponse<Any>?
-
-        // When
-        let request = session.download("https://httpbin.org/image/jpeg", interceptor: handler)
-            .validate()
-            .responseJSON { response in
-                json1Response = response
-                json1Expectation.fulfill()
-            }
-            .responseJSON { response in
-                json2Response = response
-                json2Expectation.fulfill()
-            }
-
-        waitForExpectations(timeout: 10, handler: nil)
-
-        // Then
-        XCTAssertEqual(handler.adaptCalledCount, 2)
-        XCTAssertEqual(handler.adaptedCount, 1)
-        XCTAssertEqual(handler.retryCalledCount, 4)
-        XCTAssertEqual(handler.retryCount, 4)
-        XCTAssertEqual(request.retryCount, 1)
-        XCTAssertEqual(json1Response?.result.isSuccess, false)
-        XCTAssertEqual(json2Response?.result.isSuccess, false)
-        XCTAssertTrue(session.requestTaskMap.isEmpty)
-
-        let errors: [AFError] = [json1Response, json2Response].compactMap { $0?.error?.asAFError }
-        XCTAssertEqual(errors.count, 2)
-
-        for error in errors {
-            XCTAssertTrue(error.isRequestAdaptationError)
-            XCTAssertEqual(error.localizedDescription, "Request adaption failed with error: URL is not valid: /adapt/error/2")
-        }
-    }
-
-    // MARK: Tests - Session Invalidation
-
-    func testThatSessionIsInvalidatedAndAllRequestsCompleteWhenSessionIsDeinitialized() {
-        // Given
-        let invalidationExpectation = expectation(description: "sessionDidBecomeInvalidWithError should be called")
-        let events = ClosureEventMonitor()
-        events.sessionDidBecomeInvalidWithError = { (_, _) in
-            invalidationExpectation.fulfill()
-        }
-        var session: Session? = Session(startRequestsImmediately: false, eventMonitors: [events])
-        var error: Error?
-        let requestExpectation = expectation(description: "request should complete")
-
-        // When
-        session?.request(URLRequest.makeHTTPBinRequest()).response { (response) in
-            error = response.error
-            requestExpectation.fulfill()
-        }
-        session = nil
-
-        waitForExpectations(timeout: timeout, handler: nil)
-
-        // Then
-        assertErrorIsAFError(error) { XCTAssertTrue($0.isSessionDeinitializedError) }
-    }
-
-    // MARK: Tests - Request Cancellation
-
-    func testThatSessionOnlyCallsResponseSerializerCompletionWhenCancellingInsideCompletion() {
-        // Given
-        let handler = RequestHandler()
-        let session = Session()
-
-        let expectation = self.expectation(description: "request should complete")
-        var response: DataResponse<Any>?
-        var completionCallCount = 0
-
-        // When
-        let request = session.request("https://httpbin.org/get", interceptor: handler)
-        request.validate()
-
-        request.responseJSON { resp in
-            request.cancel()
-
-            response = resp
-            completionCallCount += 1
-
-            DispatchQueue.main.after(0.01) { expectation.fulfill() }
-        }
-
-        waitForExpectations(timeout: timeout, handler: nil)
-
-        // Then
-        XCTAssertEqual(handler.adaptCalledCount, 1)
-        XCTAssertEqual(handler.adaptedCount, 1)
-        XCTAssertEqual(handler.retryCalledCount, 0)
-        XCTAssertEqual(handler.retryCount, 0)
-        XCTAssertEqual(request.retryCount, 0)
-        XCTAssertEqual(response?.result.isSuccess, true)
-        XCTAssertTrue(session.requestTaskMap.isEmpty)
-        XCTAssertEqual(completionCallCount, 1)
-    }
-
-    // MARK: Tests - Request State
-
-    func testThatSessionSetsRequestStateWhenStartRequestsImmediatelyIsTrue() {
-        // Given
-        let session = Session()
-
-        let expectation = self.expectation(description: "request should complete")
-        var response: DataResponse<Any>?
-
-        // When
-        let request = session.request("https://httpbin.org/get").responseJSON { resp in
-            response = resp
-            expectation.fulfill()
-        }
-
-        waitForExpectations(timeout: timeout, handler: nil)
-
-        // Then
-        XCTAssertEqual(request.state, .resumed)
-        XCTAssertEqual(response?.result.isSuccess, true)
     }
 }
 
@@ -1521,7 +913,7 @@ class SessionManagerConfigurationHeadersTestCase: BaseTestCase {
 
     private func executeAuthorizationHeaderTest(for type: ConfigurationType) {
         // Given
-        let session: Session = {
+        let manager: Session = {
             let configuration: URLSessionConfiguration = {
                 let configuration: URLSessionConfiguration
 
@@ -1537,7 +929,7 @@ class SessionManagerConfigurationHeadersTestCase: BaseTestCase {
 
                 var headers = HTTPHeaders.default
                 headers["Authorization"] = "Bearer 123456"
-                configuration.headers = headers
+                configuration.httpHeaders = headers
 
                 return configuration
             }()
@@ -1550,7 +942,7 @@ class SessionManagerConfigurationHeadersTestCase: BaseTestCase {
         var response: DataResponse<Any>?
 
         // When
-        session.request("https://httpbin.org/headers")
+        manager.request("https://httpbin.org/headers")
             .responseJSON { closureResponse in
                 response = closureResponse
                 expectation.fulfill()
