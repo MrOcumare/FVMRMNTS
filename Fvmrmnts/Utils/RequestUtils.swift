@@ -60,7 +60,6 @@ func downloadVideoInPlaylistByPlayListID(Playlist: PlaylistYouTube, fulldownload
 //                    COMMENT(mrocumare): конвертирование ответа в словарь
                 let dictResponse = convertToDictionary(data: response.data!)
                 print("now we heare\(Playlist.playlistId)")
-                print(dictResponse)
                 let getcountTotal = (dictResponse! as NSDictionary).value(forKeyPath: "pageInfo.totalResults") as! Int
                 let pageToken = (dictResponse! as NSDictionary).value(forKeyPath: "nextPageToken") as? String
                 var isAddBasicInfo = 0

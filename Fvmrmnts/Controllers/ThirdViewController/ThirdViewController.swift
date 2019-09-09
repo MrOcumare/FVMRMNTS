@@ -43,13 +43,24 @@ public class ThirdViewController: UIViewController, AVPlayerViewControllerDelega
         self.addChild(playerViewController)
         self.view.addSubview(playerViewController.view)
         playerViewController.view.frame = self.view.frame
+        XCDYouTubeClient.default().getVideoWithIdentifier(currentVideoForPlay?.videoID) { [weak playerViewController] (video: XCDYouTubeVideo?, error: Error?) in
+            if let streamURLs = video?.streamURLs, let streamURL = (streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ?? streamURLs[YouTubeVideoQuality.hd1080] ?? streamURLs[YouTubeVideoQuality.hd720] ?? streamURLs[YouTubeVideoQuality.medium360] ?? streamURLs[YouTubeVideoQuality.small240]) {
+                self.playerViewController.player = AVPlayer(url: streamURL)
+                self.playerViewController.player?.seek(to: CMTime(seconds: currentVideoForPlay!.stopTime, preferredTimescale: 1))
+                self.playerViewController.player?.play()
+                currentVideoForPlay!.fullTime = Double(CMTimeGetSeconds((self.playerViewController.player?.currentItem?.asset.duration)!))
+            } else {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
         
-        YouTubeExtractor.instance.info(id: currentVideoForPlay?.videoID, quality: .x1080, completion: { url in
-            self.playerViewController.player = AVPlayer(url: url!)
-            self.playerViewController.player?.seek(to: CMTime(seconds: currentVideoForPlay!.stopTime, preferredTimescale: 1))
-            self.playerViewController.player?.play()
-            currentVideoForPlay!.fullTime = Double(CMTimeGetSeconds((self.playerViewController.player?.currentItem?.asset.duration)!))
-        })
+        
+//        YouTubeExtractor.instance.info(id: currentVideoForPlay?.videoID, quality: .x1080, completion: { url in
+//            self.playerViewController.player = AVPlayer(url: url!)
+//            self.playerViewController.player?.seek(to: CMTime(seconds: currentVideoForPlay!.stopTime, preferredTimescale: 1))
+//            self.playerViewController.player?.play()
+//            currentVideoForPlay!.fullTime = Double(CMTimeGetSeconds((self.playerViewController.player?.currentItem?.asset.duration)!))
+//        })
         
         
     }
