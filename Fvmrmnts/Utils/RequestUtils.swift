@@ -10,29 +10,9 @@ import Foundation
 import Alamofire
 import UIKit
 
-
-//func preloaderShowsAPI(arrayShows: inout [CollectionOfShow]) {
-//    
-//    for item in ArrayOFShow {
-//        let showCollection = CollectionOfShow()
-//        print("=====================\(item)")
-//        for id in item {
-//            print("==========================================\(id)")
-//            let buffer = PlaylistYouTube()
-//            buffer.setPlaylistId(playlistId: id)
-//            downloadVideoInPlaylistByPlayListID(Playlist: buffer, completion: {
-//                print("success download playlistinfo by id \(item)")
-//                showCollection.addToCollectionOfShow(show: buffer)
-//            })
-//        }
-//        arrayShows.append(showCollection)
-//    }
-//}
-
-
 //    COMMENT(mrocumare): функция запроса видеофайлов по ID плейдиста
 func downloadVideoInPlaylistByPlayListID(Playlist: PlaylistYouTube, fulldownload: Bool? = false, completion :  @escaping ()->()) {
-    print("XUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUYXUY")
+    
     //    COMMENT(mrocumare): массив параметров запроса
     var parametrs = [String:String]()
     
@@ -59,7 +39,7 @@ func downloadVideoInPlaylistByPlayListID(Playlist: PlaylistYouTube, fulldownload
             case .success:
 //                    COMMENT(mrocumare): конвертирование ответа в словарь
                 let dictResponse = convertToDictionary(data: response.data!)
-                print("now we heare\(Playlist.playlistId)")
+                
                 let getcountTotal = (dictResponse! as NSDictionary).value(forKeyPath: "pageInfo.totalResults") as! Int
                 let pageToken = (dictResponse! as NSDictionary).value(forKeyPath: "nextPageToken") as? String
                 var isAddBasicInfo = 0
@@ -128,7 +108,6 @@ func downloadVideoInPlaylistByPlayListID(Playlist: PlaylistYouTube, fulldownload
 //    COMMENT(mrocumare): функция запроса видеофайлов по ID плейдиста
 func downloadPlayListBunnerByID(Playlist: PlaylistYouTube, completion : @escaping ()->()) {
     
-   
     //    COMMENT(mrocumare): массив параметров запроса
     let parametrs = ["part":"brandingSettings", "id":Playlist.channelID, "key":API_KEY]
     
@@ -178,6 +157,12 @@ func getUrlImg(video: NSDictionary) -> String {
         return video.value(forKeyPath: "snippet.thumbnails.medium.url") as! String
     } else {
         return video.value(forKeyPath: "snippet.thumbnails.default.url") as! String
+    }
+}
+
+class Connectivity {
+    class func isConnectedToInternet() ->Bool {
+        return NetworkReachabilityManager()!.isReachable
     }
 }
 
