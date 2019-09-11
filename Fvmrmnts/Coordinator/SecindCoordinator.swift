@@ -23,7 +23,7 @@ protocol BackToFirstViewControllerDelegate: class {
     
 }
 
-var currentVideoForPlay : Video?
+var indexOfVideoForPlay : Int?
 
 var currntPlayList = PlaylistYouTube()
 
@@ -68,12 +68,8 @@ extension SecondCoordinator : ThirdViewControllerDelegate {
     
     // Navigate to third page
     func navigateBackToSecondPage() {
-        print("rgsrt")
         let secondViewController : SecondViewController = SecondViewController()
         secondViewController.delegate = self
         self.navigationController.viewControllers = [secondViewController]
     }
-    
-    // Navigate to first page
-
 }

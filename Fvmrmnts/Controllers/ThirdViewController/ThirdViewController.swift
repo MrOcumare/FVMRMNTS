@@ -26,57 +26,62 @@ public protocol ThirdViewControllerDelegate: class {
 
 public class ThirdViewController: UIViewController, AVPlayerViewControllerDelegate{
     
+    var currentVideo = Video()
+    
     public weak var delegate: ThirdViewControllerDelegate?
     
     let playerViewController = AVPlayerViewController()
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        
-//        addChild(playerViewController)
-//        view.addSubview(playerViewController.view)
-//        playerViewController.didMove(toParent: self)
-//
-//        self.present(playerViewController, animated: true, completion: nil)
-        
-        
         self.addChild(playerViewController)
         self.view.addSubview(playerViewController.view)
         playerViewController.view.frame = self.view.frame
-        XCDYouTubeClient.default().getVideoWithIdentifier(currentVideoForPlay?.videoID) { [weak playerViewController] (video: XCDYouTubeVideo?, error: Error?) in
+        
+        playVideo(currentVideo: currntPlayList.videos[indexOfVideoForPlay!])
+        
+        NotificationCenter.default.addObserver(self, selector:#selector(self.playerDidFinishPlaying(note:)),name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playerViewController.player?.currentItem)
+    }
+    
+    func playVideo(currentVideo: Video) {
+        XCDYouTubeClient.default().getVideoWithIdentifier(currentVideo.videoID) { [weak playerViewController] (video: XCDYouTubeVideo?, error: Error?) in
             if let streamURLs = video?.streamURLs, let streamURL = (streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ?? streamURLs[YouTubeVideoQuality.hd1080] ?? streamURLs[YouTubeVideoQuality.hd720] ?? streamURLs[YouTubeVideoQuality.medium360] ?? streamURLs[YouTubeVideoQuality.small240]) {
                 self.playerViewController.player = AVPlayer(url: streamURL)
-                self.playerViewController.player?.seek(to: CMTime(seconds: currentVideoForPlay!.stopTime, preferredTimescale: 1))
+                self.playerViewController.player?.seek(to: CMTime(seconds: currentVideo.stopTime, preferredTimescale: 1))
                 self.playerViewController.player?.play()
-                currentVideoForPlay!.fullTime = Double(CMTimeGetSeconds((self.playerViewController.player?.currentItem?.asset.duration)!))
+                currentVideo.fullTime = Double(CMTimeGetSeconds((self.playerViewController.player?.currentItem?.asset.duration)!))
             } else {
                 self.dismiss(animated: true, completion: nil)
             }
         }
-        
-        
-//        YouTubeExtractor.instance.info(id: currentVideoForPlay?.videoID, quality: .x1080, completion: { url in
-//            self.playerViewController.player = AVPlayer(url: url!)
-//            self.playerViewController.player?.seek(to: CMTime(seconds: currentVideoForPlay!.stopTime, preferredTimescale: 1))
-//            self.playerViewController.player?.play()
-//            currentVideoForPlay!.fullTime = Double(CMTimeGetSeconds((self.playerViewController.player?.currentItem?.asset.duration)!))
-//        })
-        
-        
     }
-    func sdd() {
+    
+    func navigateBack() {
         self.delegate?.navigateBackToSecondPage()
     }
     
+    @objc func playerDidFinishPlaying(note: NSNotification) {
+        setStopTime()
+        if indexOfVideoForPlay! + 1 < currntPlayList.videos.count {
+            indexOfVideoForPlay = indexOfVideoForPlay! + 1
+            playVideo(currentVideo: currntPlayList.videos[indexOfVideoForPlay!])
+        } else {
+            self.navigateBack()
+        }
+    }
+    
+    func setStopTime() {
+        let STOPTIME = Double(CMTimeGetSeconds((playerViewController.player?.currentTime()) ?? .zero))
+        currntPlayList.videos[indexOfVideoForPlay!].stopTime = STOPTIME
+        currntPlayList.videos[indexOfVideoForPlay!].stopMarker = CGFloat(drowMarker(fullTime:  currntPlayList.videos[indexOfVideoForPlay!].fullTime, stopTime: STOPTIME))
+    }
 }
 
 
 
 
-extension AVPlayerViewController : AVPlayerViewControllerDelegate{
+extension AVPlayerViewController : AVPlayerViewControllerDelegate {
    
-    
-    
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let menuPressRecognizer = UITapGestureRecognizer()
@@ -86,17 +91,18 @@ extension AVPlayerViewController : AVPlayerViewControllerDelegate{
     }
     
     @objc func menuButtonAction(recognizer:UITapGestureRecognizer) {
-        print("finish")
         
         self.requiresLinearPlayback = false
-        self.player?.play()
-        let STOPTIME = Double(CMTimeGetSeconds((self.player?.currentTime()) ?? .zero))
-        currentVideoForPlay!.stopTime = STOPTIME
-        currentVideoForPlay!.stopMarker = CGFloat(drowMarker(fullTime:  currentVideoForPlay!.fullTime, stopTime: STOPTIME))
+        self.player?.pause()
+        
+        if let myParent = self.parent as? ThirdViewController {
+            myParent.setStopTime()
+        }
+        
         self.player?.replaceCurrentItem(with: nil)
         
         if let myParent = self.parent as? ThirdViewController {
-            myParent.sdd()
+            myParent.navigateBack()
         }
         
         

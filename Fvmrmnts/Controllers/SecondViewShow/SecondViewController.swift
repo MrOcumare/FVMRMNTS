@@ -57,7 +57,7 @@ class SecondViewController: UIViewController {
         
         setupCollectionView()
         collectonView.layoutIfNeeded()
-        collectonView.scrollToItem(at: IndexPath(item: secondFocus.cell, section: 0), at: .top, animated: false)
+        collectonView.scrollToItem(at: IndexPath(item: secondFocus.cell, section: 0), at: .centeredVertically, animated: false)
     }
     var collectionViewTopAnchor : NSLayoutConstraint?
     
@@ -146,7 +146,7 @@ extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        currentVideoForPlay = currntPlayList.videos[indexPath.row]
+        indexOfVideoForPlay = indexPath.row
         secondFocus.cell = indexPath.row
         self.delegate?.navigateToThirdPage()
         
