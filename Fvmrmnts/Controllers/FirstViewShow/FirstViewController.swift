@@ -134,19 +134,6 @@ extension FirstViewController: UICollectionViewDelegate, UICollectionViewDataSou
         return UIEdgeInsets(top: 60, left: 0, bottom: 120, right: 0)
     }
     
-    
-    //    override func viewWillAppear(_ animated: Bool) {
-    //        super.viewWillAppear(animated)
-    //        let menuPressRecognizer = UITapGestureRecognizer()
-    //        menuPressRecognizer.addTarget(self, action: #selector(FirstViewController.menuButtonAction(recognizer:)))
-    //        menuPressRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.menu.rawValue)]
-    //        self.view.addGestureRecognizer(menuPressRecognizer)
-    //    }
-    //
-    //    @objc func menuButtonAction(recognizer:UITapGestureRecognizer) {
-    //        self.delegate?.exitFromApp()
-    //    }
-    
     func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         if context.nextFocusedIndexPath?.section == 0 {
             handleAnimate(collectionViewAnimation: 214, showLabelAnimation: 64)

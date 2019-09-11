@@ -86,7 +86,7 @@ extension CustomCell:  UICollectionViewDelegate, UICollectionViewDataSource, UIC
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = categoryCollectonView.dequeueReusableCell(withReuseIdentifier: categoryCellID, for: indexPath) as! CategoryCustomCell
         cell.imageView.image = nil
-        cell.imageView.image = UIImage(data: (show?.shows[indexPath.row].videos[0].imageData)!)
+        cell.imageView.image = resizedImage(at: UIImage(data: (show?.shows[indexPath.row].videos[0].imageData)!)!, for: CGSize(width: 350, height: 286))
         return cell
     }
     
@@ -133,6 +133,7 @@ class CategoryCustomCell: UICollectionViewCell {
         headerLabelofCell.text = "Blitz and \nCpipz"
         headerLabelofCell.textColor = UIColor.Fvmrmnts.Color.White
         headerLabelofCell.adjustsFontSizeToFitWidth = true
+        headerLabelofCell.isHidden = true
         return headerLabelofCell
     }()
     
@@ -144,6 +145,7 @@ class CategoryCustomCell: UICollectionViewCell {
         episodesNumber.adjustsFontSizeToFitWidth = true
         episodesNumber.textAlignment = .left
         episodesNumber.layer.cornerRadius = 2
+        episodesNumber.isHidden = true
         return episodesNumber
     }()
     

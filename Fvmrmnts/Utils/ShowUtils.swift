@@ -32,8 +32,6 @@ class PlaylistYouTube {
     var channelID : String
     var countOfPrivatVideos : Int
     var pageToken : String
-    //    TODO(mrocumare): выпилить channelBanner 
-    var channelBanner : Data?
     var videos = [Video]()
     
     init() {
@@ -44,7 +42,6 @@ class PlaylistYouTube {
         self.countTotal = 0
         self.channelID = ""
         self.countOfPrivatVideos = 0
-        self.channelBanner = nil
     }
     
     func addToVideoArray(video: Video){
@@ -98,5 +95,12 @@ class CollectionOfShow {
     }
     func addToCollectionOfShow(show: PlaylistYouTube){
         self.shows.append(show)
+    }
+}
+
+func resizedImage(at image: UIImage, for size: CGSize) -> UIImage? {
+    let renderer = UIGraphicsImageRenderer(size: size)
+    return renderer.image { (context) in
+        image.draw(in: CGRect(origin: .zero, size: size))
     }
 }

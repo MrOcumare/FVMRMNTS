@@ -105,35 +105,6 @@ func downloadVideoInPlaylistByPlayListID(Playlist: PlaylistYouTube, fulldownload
 
 }
 
-//    COMMENT(mrocumare): функция запроса видеофайлов по ID плейдиста
-func downloadPlayListBunnerByID(Playlist: PlaylistYouTube, completion : @escaping ()->()) {
-    
-    //    COMMENT(mrocumare): массив параметров запроса
-    let parametrs = ["part":"brandingSettings", "id":Playlist.channelID, "key":API_KEY]
-    
-    //    COMMENT(mrocumare): запрос к API youtube
-    AF.request(BASE_CHANNEL_URL, method: .get, parameters: parametrs, encoding: URLEncoding.default, headers: nil).responseJSON {
-        response in
-        switch response.result {
-        case .success:
-            
-            //    COMMENT(mrocumare): конвертирование ответа в словарь
-            let dictResponse = convertToDictionary(data: response.data!)
-            for channel in dictResponse!["items"] as! NSArray {
-                
-                let imageChannelBanner = (channel as! NSDictionary).value(forKeyPath: "brandingSettings.image.bannerTabletExtraHdImageUrl") as! String
-                if let data = try? Data(contentsOf: NSURL(string: imageChannelBanner)! as URL) {
-                    Playlist.channelBanner = data
-                }
-            }
-            completion()
-            
-            break
-        case .failure(let error):
-            print(error)
-        }
-    }
-}
 
 //    COMMENT(mrocumare): функция для конвертирования response в словарь с ключем string
 func convertToDictionary(data: Data) -> [String: Any]? {
