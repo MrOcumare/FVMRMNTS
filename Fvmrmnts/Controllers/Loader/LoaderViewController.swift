@@ -45,7 +45,6 @@ class LoaderViewController: UIViewController {
         let networkObserver = DispatchGroup()
         networkObserver.enter()
         timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] _ in
-            print("hear")
             print(Connectivity.isConnectedToInternet())
             if Connectivity.isConnectedToInternet() {
                 self!.lowInternetConnection.isHidden = true
