@@ -18,6 +18,7 @@ import UIKit
 import AVFoundation
 import AVKit
 import XCDYouTubeKit
+import YoutubeDirectLinkExtractor
 
 public protocol ThirdViewControllerDelegate: class {
     
@@ -43,6 +44,7 @@ public class ThirdViewController: UIViewController, AVPlayerViewControllerDelega
         NotificationCenter.default.addObserver(self, selector:#selector(self.playerDidFinishPlaying(note:)),name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playerViewController.player?.currentItem)
     }
     
+    
     func playVideo(currentVideo: Video) {
         XCDYouTubeClient.default().getVideoWithIdentifier(currentVideo.videoID) { [weak playerViewController] (video: XCDYouTubeVideo?, error: Error?) in
             if let streamURLs = video?.streamURLs, let streamURL = (streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ?? streamURLs[YouTubeVideoQuality.hd1080] ?? streamURLs[YouTubeVideoQuality.hd720] ?? streamURLs[YouTubeVideoQuality.medium360] ?? streamURLs[YouTubeVideoQuality.small240]) {
@@ -55,7 +57,7 @@ public class ThirdViewController: UIViewController, AVPlayerViewControllerDelega
             }
         }
     }
-    
+
     func navigateBack() {
         self.delegate?.navigateBackToSecondPage()
     }

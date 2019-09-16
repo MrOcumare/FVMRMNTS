@@ -45,7 +45,6 @@ func sortShow(arrayOfShow: [CollectionOfShow]) -> [CollectionOfShow]{
                     arrayOfShow[showSlice].shows[positionInSliseShow] = arrayOfShow[showSlice].shows[itemInShowSlice]
                     arrayOfShow[showSlice].shows[itemInShowSlice] = buffer
                 } else {
-                    print("in ArrayOFShow -> \(ArrayOFShow[showSlice][itemInShowSlice]) in arrayOfShow -> \(arrayOfShow[showSlice].shows[positionInSliseShow].playlistId)")
                     positionInSliseShow = positionInSliseShow + 1
                 }
             }

@@ -45,7 +45,6 @@ class LoaderViewController: UIViewController {
         let networkObserver = DispatchGroup()
         networkObserver.enter()
         timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] _ in
-            print(Connectivity.isConnectedToInternet())
             if Connectivity.isConnectedToInternet() {
                 self!.lowInternetConnection.isHidden = true
                 self!.timer?.invalidate()
@@ -57,7 +56,6 @@ class LoaderViewController: UIViewController {
         networkObserver.notify(queue: DispatchQueue.main) {
             //    COMMENT(mrocumare): при первом запуске происходит загрузка сразу всех плейлистов по 10 элементов
             if isFirstInput {
-                print("input")
                 let requestGroup =  DispatchGroup()
                 for item in ArrayOFShow {
                     let showCollection = CollectionOfShow()
@@ -72,12 +70,6 @@ class LoaderViewController: UIViewController {
                     }
                     arrayOfShow.append(showCollection)
                 }
-                //    TODO(mrocumare): проверка на локализацию потом убрать
-                print(self.pineapplesCountUniversal(count: 0))
-                print(self.pineapplesCountUniversal(count: 4))
-                print(self.pineapplesCountUniversal(count: 1345))
-                print(self.pineapplesCountUniversal(count: 56))
-                print(self.pineapplesCountUniversal(count: 101))
                 requestGroup.notify(queue: DispatchQueue.main) {
                     isFirstInput = false
                     arrayOfShow = sortShow(arrayOfShow: arrayOfShow)

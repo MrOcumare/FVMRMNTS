@@ -15,17 +15,7 @@ class SecondCollectionViewCell: UICollectionViewCell {
     
    
     var currentVideo : UnsafeMutablePointer<Video>?
-    
-//    var markerwidth : CGFloat?
-//    var dfdf : Int?
-//    func setmarkerwidth(marker : CGFloat, currentVideo : UnsafeMutablePointer<Video>) {
-//        self.currentVideo = currentVideo
-//        markerwidth = marker
-//        print("-->\(markerwidth)")
-//
-//    }
-    
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpViewCell()
@@ -34,17 +24,7 @@ class SecondCollectionViewCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
-//    override func prepareForReuse() {
-//        super.prepareForReuse()
-//        imageView.image = nil
-//        headerLabelofCell.text = ""
-//        marker.frame.size.width = 0
-//    }
-   
-    
-    
+  
     let conteinerView : UIView = {
         let conteinerView = UIView()
         conteinerView.layer.cornerRadius = 12
@@ -172,7 +152,6 @@ class SecondCollectionViewCell: UICollectionViewCell {
     
     func markerAnimate(markerwidth: CGFloat, duration: Double) {
         markerWidthAnchor?.constant =  markerwidth
-        print(self.frame.size.width)
         UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: {
             self.layoutIfNeeded()
         }, completion: nil)

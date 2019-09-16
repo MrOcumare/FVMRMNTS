@@ -17,7 +17,7 @@ func downloadVideoInPlaylistByPlayListID(Playlist: PlaylistYouTube, fulldownload
     var parametrs = [String:String]()
     
     //    COMMENT(mrocumare): preaploadCount - сколько видео подтягивать во время одном запросе
-    var preaploadCount = "10"
+    var preaploadCount = "1"
     var loopIter = 1
     if fulldownload == true{
         preaploadCount = "50"
@@ -94,10 +94,6 @@ func downloadVideoInPlaylistByPlayListID(Playlist: PlaylistYouTube, fulldownload
             }
             afRequestGroup.leave()
         }
-        
-        
-    
-    
     afRequestGroup.notify(queue: .main) {
         print("Finished all requests.")
         completion()
