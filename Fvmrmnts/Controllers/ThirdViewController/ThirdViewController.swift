@@ -50,6 +50,7 @@ public class ThirdViewController: UIViewController, AVPlayerViewControllerDelega
             if let streamURLs = video?.streamURLs, let streamURL = (streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming] ?? streamURLs[YouTubeVideoQuality.hd1080] ?? streamURLs[YouTubeVideoQuality.hd720] ?? streamURLs[YouTubeVideoQuality.medium360] ?? streamURLs[YouTubeVideoQuality.small240]) {
                 self.playerViewController.player = AVPlayer(url: streamURL)
                 self.playerViewController.player?.seek(to: CMTime(seconds: currentVideo.stopTime, preferredTimescale: 1))
+    
                 self.playerViewController.player?.play()
                 currentVideo.fullTime = Double(CMTimeGetSeconds((self.playerViewController.player?.currentItem?.asset.duration)!))
             } else {

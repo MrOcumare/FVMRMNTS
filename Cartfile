@@ -1,4 +1,4 @@
-github "PGSSoft/ParallaxView"
+github "vadymmarkov/RetroProgress"
 github "Alamofire/Alamofire" ~> 5.0.0
 github "devandsev/YoutubeDirectLinkExtractor"
 github "0xced/XCDYouTubeKit" ~> 2.7

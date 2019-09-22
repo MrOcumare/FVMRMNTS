@@ -29,7 +29,6 @@
 		CF9E099B22F1C1CC001A362E /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9E099A22F1C1CC001A362E /* Coordinator.swift */; };
 		CF9E099D22F1C89F001A362E /* FirstCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9E099C22F1C89F001A362E /* FirstCoordinator.swift */; };
 		CF9E099F22F1C950001A362E /* SecindCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9E099E22F1C950001A362E /* SecindCoordinator.swift */; };
-		CFCFFED62327FF4300D9BFB5 /* test.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = CFCFFED52327FF4300D9BFB5 /* test.stringsdict */; };
 		CFE11F2A2301790E00402B1F /* Consts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE11F292301790E00402B1F /* Consts.swift */; };
 		CFE11F2C2301799900402B1F /* ShowUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE11F2B2301799900402B1F /* ShowUtils.swift */; };
 		CFE11F2E23017A1900402B1F /* RequestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE11F2D23017A1900402B1F /* RequestUtils.swift */; };
@@ -39,6 +38,7 @@
 		CFE11F36230180B600402B1F /* XCDYouTubeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFE11F35230180B600402B1F /* XCDYouTubeKit.framework */; };
 		CFE4703322F84BB100CB1CFC /* ParallaxView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFE4703222F84BB100CB1CFC /* ParallaxView.framework */; };
 		CFEE5A0222F2F37B002E8C9D /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEE5A0022F2F37B002E8C9D /* ThirdViewController.swift */; };
+		CFF97E0B2337BBAA004B111C /* RetroProgress.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFF97E0A2337BBAA004B111C /* RetroProgress.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,7 +66,6 @@
 		CF9E099A22F1C1CC001A362E /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		CF9E099C22F1C89F001A362E /* FirstCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstCoordinator.swift; sourceTree = "<group>"; };
 		CF9E099E22F1C950001A362E /* SecindCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecindCoordinator.swift; sourceTree = "<group>"; };
-		CFCFFED52327FF4300D9BFB5 /* test.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = test.stringsdict; sourceTree = "<group>"; };
 		CFE11F292301790E00402B1F /* Consts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consts.swift; sourceTree = "<group>"; };
 		CFE11F2B2301799900402B1F /* ShowUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowUtils.swift; sourceTree = "<group>"; };
 		CFE11F2D23017A1900402B1F /* RequestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestUtils.swift; sourceTree = "<group>"; };
@@ -76,6 +75,7 @@
 		CFE11F35230180B600402B1F /* XCDYouTubeKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCDYouTubeKit.framework; path = Carthage/Build/tvOS/XCDYouTubeKit.framework; sourceTree = "<group>"; };
 		CFE4703222F84BB100CB1CFC /* ParallaxView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParallaxView.framework; path = Carthage/Build/tvOS/ParallaxView.framework; sourceTree = "<group>"; };
 		CFEE5A0022F2F37B002E8C9D /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
+		CFF97E0A2337BBAA004B111C /* RetroProgress.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RetroProgress.framework; path = Carthage/Build/tvOS/RetroProgress.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFF97E0B2337BBAA004B111C /* RetroProgress.framework in Frameworks */,
 				CFE11F36230180B600402B1F /* XCDYouTubeKit.framework in Frameworks */,
 				CFE11F3323017C6900402B1F /* YoutubeDirectLinkExtractor.framework in Frameworks */,
 				CFE11F3423017C6900402B1F /* Alamofire.framework in Frameworks */,
@@ -96,7 +97,6 @@
 		CF34AC0C22E0779D0075E203 = {
 			isa = PBXGroup;
 			children = (
-				CFCFFED52327FF4300D9BFB5 /* test.stringsdict */,
 				CF34AC1722E0779D0075E203 /* Fvmrmnts */,
 				CF34AC1622E0779D0075E203 /* Products */,
 				CFE4703122F84BB100CB1CFC /* Frameworks */,
@@ -253,6 +253,7 @@
 		CFE4703122F84BB100CB1CFC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CFF97E0A2337BBAA004B111C /* RetroProgress.framework */,
 				CFE11F35230180B600402B1F /* XCDYouTubeKit.framework */,
 				CFE11F3223017C6900402B1F /* Alamofire.framework */,
 				CFE11F3123017C6900402B1F /* YoutubeDirectLinkExtractor.framework */,
@@ -332,7 +333,6 @@
 				CF5D5DD722E8B05F0023138E /* CollectionReusableView.xib in Resources */,
 				CF045E9622E709F50013DE41 /* gt-walsheim-bold-oblique-web.ttf in Resources */,
 				CF045E9A22E70BD90013DE41 /* gt-walsheim-medium-web.ttf in Resources */,
-				CFCFFED62327FF4300D9BFB5 /* test.stringsdict in Resources */,
 				CF5D5DD922E9EFBF0023138E /* gt-walsheim-regular-web.ttf in Resources */,
 				CF5D4196232015BC00BF3537 /* Assets.xcassets in Resources */,
 				CF045E9822E70A5A0013DE41 /* gt-walsheim-bold-web.ttf in Resources */,
@@ -354,6 +354,7 @@
 				"$(SRCROOT)/Carthage/Build/tvOS/YoutubeDirectLinkExtractor.framework",
 				"$(SRCROOT)/Carthage/Build/tvOS/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/tvOS/XCDYouTubeKit.framework",
+				"$(SRCROOT)/Carthage/Build/tvOS/ParallaxView.framework",
 			);
 			outputFileListPaths = (
 			);

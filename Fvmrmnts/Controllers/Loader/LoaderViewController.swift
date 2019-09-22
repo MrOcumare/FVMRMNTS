@@ -55,6 +55,7 @@ class LoaderViewController: UIViewController {
         })
         networkObserver.notify(queue: DispatchQueue.main) {
             //    COMMENT(mrocumare): при первом запуске происходит загрузка сразу всех плейлистов по 10 элементов
+           
             if isFirstInput {
                 let requestGroup =  DispatchGroup()
                 for item in ArrayOFShow {

@@ -1,0 +1,16 @@
+PODS:
+  - RetroProgress (1.0.1)
+
+DEPENDENCIES:
+  - RetroProgress (from `../../`)
+
+EXTERNAL SOURCES:
+  RetroProgress:
+    :path: "../../"
+
+SPEC CHECKSUMS:
+  RetroProgress: b43508c9959d6b25066697bc97b01dfce03a936f
+
+PODFILE CHECKSUM: b3db78f7d70b6d792eb53110d0bce5de5f210822
+
+COCOAPODS: 1.5.3
