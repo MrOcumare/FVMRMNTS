@@ -354,7 +354,7 @@
 				"$(SRCROOT)/Carthage/Build/tvOS/YoutubeDirectLinkExtractor.framework",
 				"$(SRCROOT)/Carthage/Build/tvOS/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/tvOS/XCDYouTubeKit.framework",
-				"$(SRCROOT)/Carthage/Build/tvOS/ParallaxView.framework",
+				"$(SRCROOT)/Carthage/Build/tvOS/RetroProgress.framework",
 			);
 			outputFileListPaths = (
 			);

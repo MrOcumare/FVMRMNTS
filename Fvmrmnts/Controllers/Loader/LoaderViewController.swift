@@ -8,6 +8,7 @@
 
 import UIKit
 import Network
+import RetroProgress
 
 public protocol LoaderCoordinatorDelegate: class {
     func navigateToPlayList()
@@ -21,26 +22,33 @@ class LoaderViewController: UIViewController {
     
     public weak var delegate: LoaderCoordinatorDelegate?
     
-    lazy var spinner : Spinner = {
-       var spinner = Spinner()
-        spinner.Style = .Dark
-        return spinner
-    }()
-    
     lazy var lowInternetConnection : UIImageView = {
         let image = UIImage(named: "LowInternet")
         let imageView = UIImageView(image: image!)
         return imageView
     }()
     
+    lazy var progressBar :  ProgressView = {
+        let progressView = ProgressView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        
+        // Configure
+        progressView.layer.cornerRadius = 10
+        progressView.layer.borderColor = UIColor.white.cgColor
+        progressView.trackColor = .white
+        progressView.separatorColor = .white
+        progressView.progressColor = UIColor.Fvmrmnts.Color.DarkViolet
+        return progressView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.addSubview(spinner)
-        spinner.addSubview(lowInternetConnection)
-        setUpSpinner()
+//        self.view.addSubview(spinner)
+        self.view.addSubview(lowInternetConnection)
+        self.view.addSubview(progressBar)
+        setUpProgressBar()
         setUpImageLowInternetConnection()
         lowInternetConnection.isHidden = true
-        self.spinner.startAnimating()
+        self.progressBar.animateProgress(to: 1)
         timer?.invalidate()
         let networkObserver = DispatchGroup()
         networkObserver.enter()
@@ -55,8 +63,9 @@ class LoaderViewController: UIViewController {
         })
         networkObserver.notify(queue: DispatchQueue.main) {
             //    COMMENT(mrocumare): при первом запуске происходит загрузка сразу всех плейлистов по 10 элементов
-           
+            
             if isFirstInput {
+                
                 let requestGroup =  DispatchGroup()
                 for item in ArrayOFShow {
                     let showCollection = CollectionOfShow()
@@ -94,15 +103,16 @@ class LoaderViewController: UIViewController {
         }
         // Do any additional setup after loading the view.
     }
+
     
-    func setUpSpinner() {
-        spinner.translatesAutoresizingMaskIntoConstraints = false
-        spinner.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 0).isActive = true
-        spinner.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
-        spinner.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
-        spinner.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+    func setUpProgressBar() {
+        progressBar.translatesAutoresizingMaskIntoConstraints = false
+        progressBar.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 100).isActive = true
+        progressBar.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -100).isActive = true
+        progressBar.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 400).isActive = true
+        progressBar.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        
     }
-    
     func setUpImageLowInternetConnection() {
         lowInternetConnection.translatesAutoresizingMaskIntoConstraints = false
         lowInternetConnection.widthAnchor.constraint(equalToConstant: 300).isActive = true
