@@ -6,6 +6,7 @@
 //  Copyright © 2019 Ilya Ocumare. All rights reserved.
 //
 
+
 import UIKit
 import Network
 import RetroProgress
@@ -28,6 +29,7 @@ class LoaderViewController: UIViewController {
         return imageView
     }()
     
+    
     lazy var progressBar :  ProgressView = {
         let progressView = ProgressView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         
@@ -36,19 +38,32 @@ class LoaderViewController: UIViewController {
         progressView.layer.borderColor = UIColor.white.cgColor
         progressView.trackColor = .white
         progressView.separatorColor = .white
-        progressView.progressColor = UIColor.Fvmrmnts.Color.DarkViolet
+        progressView.progressColor = UIColor.Fvmrmnts.Color.Black
         return progressView
+    }()
+    
+    lazy var labelMian : UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "GTWalsheimProBold", size: 200)
+        label.numberOfLines = 0
+        label.text = "Five More Minutes"
+        label.textColor = UIColor.Fvmrmnts.Color.Black
+        label.adjustsFontSizeToFitWidth = true
+        label.textAlignment = .center;
+        return label
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.view.addSubview(spinner)
+        self.view.addSubview(labelMian)
         self.view.addSubview(lowInternetConnection)
         self.view.addSubview(progressBar)
         setUpProgressBar()
+        setUplabelMian()
         setUpImageLowInternetConnection()
+        labelMian.isHidden = true
         lowInternetConnection.isHidden = true
-        self.progressBar.animateProgress(to: 1)
+        self.progressBar.animateProgress(to: 4, duration: 1)
         timer?.invalidate()
         let networkObserver = DispatchGroup()
         networkObserver.enter()
@@ -62,10 +77,14 @@ class LoaderViewController: UIViewController {
             }
         })
         networkObserver.notify(queue: DispatchQueue.main) {
-            //    COMMENT(mrocumare): при первом запуске происходит загрузка сразу всех плейлистов по 10 элементов
-            
+            //    COMMENT(mrocumare): при первом запуске происходит загрузка сразу всех плейлистов по 1 элементоу
             if isFirstInput {
+                self.labelMian.isHidden = false
+                UIView.animate(withDuration: 1, delay: 0, options: [.curveEaseInOut], animations: {
+                    self.labelMian.center.y += 400
+                }, completion: nil)
                 
+                var progressBarFloat : Float = 4
                 let requestGroup =  DispatchGroup()
                 for item in ArrayOFShow {
                     let showCollection = CollectionOfShow()
@@ -75,6 +94,8 @@ class LoaderViewController: UIViewController {
                         requestGroup.enter()
                         downloadVideoInPlaylistByPlayListID(Playlist: buffer, completion: {
                             showCollection.addToCollectionOfShow(show: buffer)
+                            progressBarFloat = progressBarFloat + 0.1
+                            self.progressBar.animateProgress(to: progressBarFloat, duration: 0.3)
                             requestGroup.leave()
                         })
                     }
@@ -105,11 +126,19 @@ class LoaderViewController: UIViewController {
     }
 
     
+    func setUplabelMian() {
+        labelMian.translatesAutoresizingMaskIntoConstraints = false
+        labelMian.topAnchor.constraint(equalTo: self.view.topAnchor, constant: -100).isActive = true
+        labelMian.heightAnchor.constraint(equalToConstant: 400).isActive = true
+        labelMian.widthAnchor.constraint(equalToConstant: 1000).isActive = true
+        labelMian.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: self.view.frame.width / 2 - 500).isActive = true
+    }
+    
     func setUpProgressBar() {
         progressBar.translatesAutoresizingMaskIntoConstraints = false
         progressBar.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 100).isActive = true
         progressBar.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -100).isActive = true
-        progressBar.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 400).isActive = true
+        progressBar.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -200).isActive = true
         progressBar.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
     }
