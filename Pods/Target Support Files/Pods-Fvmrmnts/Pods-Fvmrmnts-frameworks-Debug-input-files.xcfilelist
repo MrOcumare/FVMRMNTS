@@ -1,0 +1,4 @@
+${PODS_ROOT}/Target Support Files/Pods-Fvmrmnts/Pods-Fvmrmnts-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/RetroProgress/RetroProgress.framework
+${BUILT_PRODUCTS_DIR}/XCDYouTubeKit/XCDYouTubeKit.framework

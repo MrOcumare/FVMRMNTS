@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import YoutubeDirectLinkExtractor
+
 import XCDYouTubeKit
 
 struct YouTubeVideoQuality {

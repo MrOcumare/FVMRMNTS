@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import ParallaxView
+
 
 //protocol FirstViewControllerDelegateInCell: class {
 //    func navigateToSecondController()

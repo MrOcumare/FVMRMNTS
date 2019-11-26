@@ -1,0 +1,24 @@
+PODS:
+  - Alamofire (5.0.0-rc.3)
+  - RetroProgress (1.0.1)
+  - XCDYouTubeKit (2.8.2)
+
+DEPENDENCIES:
+  - Alamofire (~> 5.0.0-rc.3)
+  - RetroProgress
+  - XCDYouTubeKit (~> 2.8)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - RetroProgress
+    - XCDYouTubeKit
+
+SPEC CHECKSUMS:
+  Alamofire: ca8c0de6906873be89d6deec5c8de279e00bf872
+  RetroProgress: a5b2514485c0ce75838ad321c77d5746150901cd
+  XCDYouTubeKit: 79baadb0560673a67c771eba45f83e353fd12c1f
+
+PODFILE CHECKSUM: 70d2a4f3fba538bb876a084954cff82b5898e2d2
+
+COCOAPODS: 1.8.4

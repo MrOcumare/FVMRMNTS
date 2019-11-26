@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import ParallaxView
+
 //    COMMENT(mrocumare): описание ячейки
 
 class SecondCollectionViewCell: UICollectionViewCell {

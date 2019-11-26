@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13C4DF2BC339040BCF34D2AC /* Pods_Fvmrmnts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6D30FB4D29C1BBBE95CEFA8 /* Pods_Fvmrmnts.framework */; };
+		5AF945E1238D99D0003B1731 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AF945E0238D99D0003B1731 /* Media.xcassets */; };
 		CF045E9622E709F50013DE41 /* gt-walsheim-bold-oblique-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF045E9522E709F50013DE41 /* gt-walsheim-bold-oblique-web.ttf */; };
 		CF045E9822E70A5A0013DE41 /* gt-walsheim-bold-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF045E9722E70A5A0013DE41 /* gt-walsheim-bold-web.ttf */; };
 		CF045E9A22E70BD90013DE41 /* gt-walsheim-medium-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF045E9922E70BD90013DE41 /* gt-walsheim-medium-web.ttf */; };
@@ -18,7 +20,6 @@
 		CF34AC1E22E0779D0075E203 /* Fvmrmnts.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CF34AC1C22E0779D0075E203 /* Fvmrmnts.xcdatamodeld */; };
 		CF34AC2D22E07AD00075E203 /* FvmrmntsColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF34AC2C22E07AD00075E203 /* FvmrmntsColors.swift */; };
 		CF34AC2F22E081D50075E203 /* NetHexColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF34AC2E22E081D50075E203 /* NetHexColors.swift */; };
-		CF5D4196232015BC00BF3537 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF5D4195232015BC00BF3537 /* Assets.xcassets */; };
 		CF5D5DD622E8B05F0023138E /* CollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5D5DD422E8B05F0023138E /* CollectionReusableView.swift */; };
 		CF5D5DD722E8B05F0023138E /* CollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF5D5DD522E8B05F0023138E /* CollectionReusableView.xib */; };
 		CF5D5DD922E9EFBF0023138E /* gt-walsheim-regular-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF5D5DD822E9EFBF0023138E /* gt-walsheim-regular-web.ttf */; };
@@ -33,15 +34,14 @@
 		CFE11F2C2301799900402B1F /* ShowUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE11F2B2301799900402B1F /* ShowUtils.swift */; };
 		CFE11F2E23017A1900402B1F /* RequestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE11F2D23017A1900402B1F /* RequestUtils.swift */; };
 		CFE11F3023017AC900402B1F /* VideoPlayerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE11F2F23017AC900402B1F /* VideoPlayerUtils.swift */; };
-		CFE11F3323017C6900402B1F /* YoutubeDirectLinkExtractor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFE11F3123017C6900402B1F /* YoutubeDirectLinkExtractor.framework */; };
-		CFE11F3423017C6900402B1F /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFE11F3223017C6900402B1F /* Alamofire.framework */; };
-		CFE11F36230180B600402B1F /* XCDYouTubeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFE11F35230180B600402B1F /* XCDYouTubeKit.framework */; };
-		CFE4703322F84BB100CB1CFC /* ParallaxView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFE4703222F84BB100CB1CFC /* ParallaxView.framework */; };
 		CFEE5A0222F2F37B002E8C9D /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEE5A0022F2F37B002E8C9D /* ThirdViewController.swift */; };
-		CFF97E0B2337BBAA004B111C /* RetroProgress.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFF97E0A2337BBAA004B111C /* RetroProgress.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		37CFD4FEB31918AF1F43AC48 /* Pods-Fvmrmnts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fvmrmnts.release.xcconfig"; path = "Target Support Files/Pods-Fvmrmnts/Pods-Fvmrmnts.release.xcconfig"; sourceTree = "<group>"; };
+		5AF945E0238D99D0003B1731 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		A76D21BE0CEB05F15C12EF1D /* Pods-Fvmrmnts.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fvmrmnts.debug.xcconfig"; path = "Target Support Files/Pods-Fvmrmnts/Pods-Fvmrmnts.debug.xcconfig"; sourceTree = "<group>"; };
+		C6D30FB4D29C1BBBE95CEFA8 /* Pods_Fvmrmnts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fvmrmnts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF045E9522E709F50013DE41 /* gt-walsheim-bold-oblique-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-bold-oblique-web.ttf"; sourceTree = "<group>"; };
 		CF045E9722E70A5A0013DE41 /* gt-walsheim-bold-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-bold-web.ttf"; sourceTree = "<group>"; };
 		CF045E9922E70BD90013DE41 /* gt-walsheim-medium-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-medium-web.ttf"; sourceTree = "<group>"; };
@@ -55,7 +55,6 @@
 		CF34AC2422E077A00075E203 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF34AC2C22E07AD00075E203 /* FvmrmntsColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FvmrmntsColors.swift; sourceTree = "<group>"; };
 		CF34AC2E22E081D50075E203 /* NetHexColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetHexColors.swift; sourceTree = "<group>"; };
-		CF5D4195232015BC00BF3537 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../../.Trash/Assets.xcassets; sourceTree = "<group>"; };
 		CF5D5DD422E8B05F0023138E /* CollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionReusableView.swift; sourceTree = "<group>"; };
 		CF5D5DD522E8B05F0023138E /* CollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionReusableView.xib; sourceTree = "<group>"; };
 		CF5D5DD822E9EFBF0023138E /* gt-walsheim-regular-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-regular-web.ttf"; sourceTree = "<group>"; };
@@ -70,12 +69,7 @@
 		CFE11F2B2301799900402B1F /* ShowUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowUtils.swift; sourceTree = "<group>"; };
 		CFE11F2D23017A1900402B1F /* RequestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestUtils.swift; sourceTree = "<group>"; };
 		CFE11F2F23017AC900402B1F /* VideoPlayerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerUtils.swift; sourceTree = "<group>"; };
-		CFE11F3123017C6900402B1F /* YoutubeDirectLinkExtractor.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YoutubeDirectLinkExtractor.framework; path = Carthage/Build/tvOS/YoutubeDirectLinkExtractor.framework; sourceTree = "<group>"; };
-		CFE11F3223017C6900402B1F /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/tvOS/Alamofire.framework; sourceTree = "<group>"; };
-		CFE11F35230180B600402B1F /* XCDYouTubeKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCDYouTubeKit.framework; path = Carthage/Build/tvOS/XCDYouTubeKit.framework; sourceTree = "<group>"; };
-		CFE4703222F84BB100CB1CFC /* ParallaxView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParallaxView.framework; path = Carthage/Build/tvOS/ParallaxView.framework; sourceTree = "<group>"; };
 		CFEE5A0022F2F37B002E8C9D /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
-		CFF97E0A2337BBAA004B111C /* RetroProgress.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RetroProgress.framework; path = Carthage/Build/tvOS/RetroProgress.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,23 +77,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFF97E0B2337BBAA004B111C /* RetroProgress.framework in Frameworks */,
-				CFE11F36230180B600402B1F /* XCDYouTubeKit.framework in Frameworks */,
-				CFE11F3323017C6900402B1F /* YoutubeDirectLinkExtractor.framework in Frameworks */,
-				CFE11F3423017C6900402B1F /* Alamofire.framework in Frameworks */,
-				CFE4703322F84BB100CB1CFC /* ParallaxView.framework in Frameworks */,
+				13C4DF2BC339040BCF34D2AC /* Pods_Fvmrmnts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		11DED51C94E66B019C29066A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A76D21BE0CEB05F15C12EF1D /* Pods-Fvmrmnts.debug.xcconfig */,
+				37CFD4FEB31918AF1F43AC48 /* Pods-Fvmrmnts.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		CF34AC0C22E0779D0075E203 = {
 			isa = PBXGroup;
 			children = (
 				CF34AC1722E0779D0075E203 /* Fvmrmnts */,
+				5AF945E0238D99D0003B1731 /* Media.xcassets */,
 				CF34AC1622E0779D0075E203 /* Products */,
 				CFE4703122F84BB100CB1CFC /* Frameworks */,
+				11DED51C94E66B019C29066A /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -123,7 +124,6 @@
 				CF34AC2422E077A00075E203 /* Info.plist */,
 				CF34AC1C22E0779D0075E203 /* Fvmrmnts.xcdatamodeld */,
 				CF6DE21923154F54001E8747 /* Spinner.swift */,
-				CF5D4195232015BC00BF3537 /* Assets.xcassets */,
 			);
 			path = Fvmrmnts;
 			sourceTree = "<group>";
@@ -253,11 +253,7 @@
 		CFE4703122F84BB100CB1CFC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CFF97E0A2337BBAA004B111C /* RetroProgress.framework */,
-				CFE11F35230180B600402B1F /* XCDYouTubeKit.framework */,
-				CFE11F3223017C6900402B1F /* Alamofire.framework */,
-				CFE11F3123017C6900402B1F /* YoutubeDirectLinkExtractor.framework */,
-				CFE4703222F84BB100CB1CFC /* ParallaxView.framework */,
+				C6D30FB4D29C1BBBE95CEFA8 /* Pods_Fvmrmnts.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -277,10 +273,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CF34AC2722E077A00075E203 /* Build configuration list for PBXNativeTarget "Fvmrmnts" */;
 			buildPhases = (
+				759F4EB5C25E6438F64B3926 /* [CP] Check Pods Manifest.lock */,
 				CF34AC1122E0779D0075E203 /* Sources */,
 				CF34AC1222E0779D0075E203 /* Frameworks */,
 				CF34AC1322E0779D0075E203 /* Resources */,
-				CFE4703422F84BCE00CB1CFC /* ShellScript */,
+				9A1BD182544AC17E2E77D128 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -334,7 +331,7 @@
 				CF045E9622E709F50013DE41 /* gt-walsheim-bold-oblique-web.ttf in Resources */,
 				CF045E9A22E70BD90013DE41 /* gt-walsheim-medium-web.ttf in Resources */,
 				CF5D5DD922E9EFBF0023138E /* gt-walsheim-regular-web.ttf in Resources */,
-				CF5D4196232015BC00BF3537 /* Assets.xcassets in Resources */,
+				5AF945E1238D99D0003B1731 /* Media.xcassets in Resources */,
 				CF045E9822E70A5A0013DE41 /* gt-walsheim-bold-web.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -342,7 +339,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		CFE4703422F84BCE00CB1CFC /* ShellScript */ = {
+		759F4EB5C25E6438F64B3926 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -350,19 +347,36 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/tvOS/ParallaxView.framework",
-				"$(SRCROOT)/Carthage/Build/tvOS/YoutubeDirectLinkExtractor.framework",
-				"$(SRCROOT)/Carthage/Build/tvOS/Alamofire.framework",
-				"$(SRCROOT)/Carthage/Build/tvOS/XCDYouTubeKit.framework",
-				"$(SRCROOT)/Carthage/Build/tvOS/RetroProgress.framework",
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Fvmrmnts-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9A1BD182544AC17E2E77D128 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Fvmrmnts/Pods-Fvmrmnts-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Fvmrmnts/Pods-Fvmrmnts-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Fvmrmnts/Pods-Fvmrmnts-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -516,6 +530,7 @@
 		};
 		CF34AC2822E077A00075E203 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A76D21BE0CEB05F15C12EF1D /* Pods-Fvmrmnts.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -541,6 +556,7 @@
 		};
 		CF34AC2922E077A00075E203 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 37CFD4FEB31918AF1F43AC48 /* Pods-Fvmrmnts.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
