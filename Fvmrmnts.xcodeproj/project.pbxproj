@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		13C4DF2BC339040BCF34D2AC /* Pods_Fvmrmnts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6D30FB4D29C1BBBE95CEFA8 /* Pods_Fvmrmnts.framework */; };
 		5AF945E1238D99D0003B1731 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AF945E0238D99D0003B1731 /* Media.xcassets */; };
+		5AF945E4238D9CD7003B1731 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5AF945E2238D9CD7003B1731 /* Model.xcdatamodeld */; };
+		5AF94607238DA4E9003B1731 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF94606238DA4E9003B1731 /* CoreDataManager.swift */; };
 		CF045E9622E709F50013DE41 /* gt-walsheim-bold-oblique-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF045E9522E709F50013DE41 /* gt-walsheim-bold-oblique-web.ttf */; };
 		CF045E9822E70A5A0013DE41 /* gt-walsheim-bold-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF045E9722E70A5A0013DE41 /* gt-walsheim-bold-web.ttf */; };
 		CF045E9A22E70BD90013DE41 /* gt-walsheim-medium-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF045E9922E70BD90013DE41 /* gt-walsheim-medium-web.ttf */; };
@@ -40,6 +42,8 @@
 /* Begin PBXFileReference section */
 		37CFD4FEB31918AF1F43AC48 /* Pods-Fvmrmnts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fvmrmnts.release.xcconfig"; path = "Target Support Files/Pods-Fvmrmnts/Pods-Fvmrmnts.release.xcconfig"; sourceTree = "<group>"; };
 		5AF945E0238D99D0003B1731 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		5AF945E3238D9CD7003B1731 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		5AF94606238DA4E9003B1731 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		A76D21BE0CEB05F15C12EF1D /* Pods-Fvmrmnts.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fvmrmnts.debug.xcconfig"; path = "Target Support Files/Pods-Fvmrmnts/Pods-Fvmrmnts.debug.xcconfig"; sourceTree = "<group>"; };
 		C6D30FB4D29C1BBBE95CEFA8 /* Pods_Fvmrmnts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fvmrmnts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF045E9522E709F50013DE41 /* gt-walsheim-bold-oblique-web.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "gt-walsheim-bold-oblique-web.ttf"; sourceTree = "<group>"; };
@@ -96,6 +100,7 @@
 		CF34AC0C22E0779D0075E203 = {
 			isa = PBXGroup;
 			children = (
+				5AF945E2238D9CD7003B1731 /* Model.xcdatamodeld */,
 				CF34AC1722E0779D0075E203 /* Fvmrmnts */,
 				5AF945E0238D99D0003B1731 /* Media.xcassets */,
 				CF34AC1622E0779D0075E203 /* Products */,
@@ -221,6 +226,7 @@
 				CFE11F2D23017A1900402B1F /* RequestUtils.swift */,
 				CFE11F2F23017AC900402B1F /* VideoPlayerUtils.swift */,
 				CF6DE2132306D574001E8747 /* Extractor.swift */,
+				5AF94606238DA4E9003B1731 /* CoreDataManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -393,7 +399,9 @@
 				CF224B4E23201BF20062E4D5 /* FirstViewController.swift in Sources */,
 				CF9E099D22F1C89F001A362E /* FirstCoordinator.swift in Sources */,
 				CFE11F2E23017A1900402B1F /* RequestUtils.swift in Sources */,
+				5AF94607238DA4E9003B1731 /* CoreDataManager.swift in Sources */,
 				CFE11F3023017AC900402B1F /* VideoPlayerUtils.swift in Sources */,
+				5AF945E4238D9CD7003B1731 /* Model.xcdatamodeld in Sources */,
 				CF6DE21A23154F54001E8747 /* Spinner.swift in Sources */,
 				CF045E9C22E711400013DE41 /* CollectionViewCell.swift in Sources */,
 				CF34AC2F22E081D50075E203 /* NetHexColors.swift in Sources */,
@@ -604,6 +612,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
+		5AF945E2238D9CD7003B1731 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5AF945E3238D9CD7003B1731 /* Model.xcdatamodel */,
+			);
+			currentVersion = 5AF945E3238D9CD7003B1731 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		CF34AC1C22E0779D0075E203 /* Fvmrmnts.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (

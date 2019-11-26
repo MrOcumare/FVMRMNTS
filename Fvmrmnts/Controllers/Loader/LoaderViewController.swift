@@ -10,6 +10,7 @@
 import UIKit
 import Network
 import RetroProgress
+import CoreData
 
 public protocol LoaderCoordinatorDelegate: class {
     func navigateToPlayList()
@@ -86,6 +87,34 @@ class LoaderViewController: UIViewController {
                 
                 var progressBarFloat : Float = 4
                 let requestGroup =  DispatchGroup()
+                let request: NSFetchRequest<CollectionPlayListModel> = CollectionPlayListModel.fetchRequest()
+                
+                var fetchedObjects: [CollectionPlayListModel] = []
+                CoreDataManager.shared.context.performAndWait {
+                    fetchedObjects = try! CoreDataManager.shared.context.fetch(request)
+                }
+                
+                if fetchedObjects.isEmpty {
+                    let context = CoreDataManager.shared.backgrounContext
+                    context.performAndWait {
+                        var collectionModels : [CollectionPlayListModel] = []
+                        for item in ArrayOFShow {
+                            var playListsModel : [PlayListModel] = []
+                            for id in item {
+                                let playListModel = NSEntityDescription.insertNewObject(forEntityName: "PlayList", into: context) as! PlayListModel
+                                playListModel.name = id
+                                playListModel.identifire = id
+                                playListsModel.append(playListModel)
+                            }
+                            let collection = NSEntityDescription.insertNewObject(forEntityName: "CollectionPlayList", into: context) as! CollectionPlayListModel
+                            collection.playLists = NSSet(array: playListsModel)
+                            collectionModels.append(collection)
+                        }
+                        try! context.save()
+                    }
+                    
+                }
+                
                 for item in ArrayOFShow {
                     let showCollection = CollectionOfShow()
                     for id in item {
@@ -125,6 +154,8 @@ class LoaderViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    
+    
     
     func setUplabelMian() {
         labelMian.translatesAutoresizingMaskIntoConstraints = false

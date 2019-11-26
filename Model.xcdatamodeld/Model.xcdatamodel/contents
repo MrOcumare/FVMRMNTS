@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14492.1" systemVersion="19B88" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CollectionPlayList" representedClassName="CollectionPlayListModel" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="playLists" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PlayList" syncable="YES"/>
+    </entity>
+    <entity name="PlayList" representedClassName="PlayListModel" syncable="YES" codeGenerationType="class">
+        <attribute name="identifire" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="videos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Video" syncable="YES"/>
+    </entity>
+    <entity name="Video" representedClassName="VideoModel" syncable="YES" codeGenerationType="class">
+        <attribute name="identifire" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timeFull" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="timeStop" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="CollectionPlayList" positionX="-63" positionY="-18" width="128" height="75"/>
+        <element name="PlayList" positionX="-54" positionY="-9" width="128" height="90"/>
+        <element name="Video" positionX="-36" positionY="9" width="128" height="105"/>
+    </elements>
+</model>
