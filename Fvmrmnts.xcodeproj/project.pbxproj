@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		13C4DF2BC339040BCF34D2AC /* Pods_Fvmrmnts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6D30FB4D29C1BBBE95CEFA8 /* Pods_Fvmrmnts.framework */; };
 		5AF945E1238D99D0003B1731 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AF945E0238D99D0003B1731 /* Media.xcassets */; };
-		5AF945E4238D9CD7003B1731 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5AF945E2238D9CD7003B1731 /* Model.xcdatamodeld */; };
+		5AF945E4238D9CD7003B1731 /* Fvmrmnts.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5AF945E2238D9CD7003B1731 /* Fvmrmnts.xcdatamodeld */; };
 		5AF94607238DA4E9003B1731 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF94606238DA4E9003B1731 /* CoreDataManager.swift */; };
 		CF045E9622E709F50013DE41 /* gt-walsheim-bold-oblique-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF045E9522E709F50013DE41 /* gt-walsheim-bold-oblique-web.ttf */; };
 		CF045E9822E70A5A0013DE41 /* gt-walsheim-bold-web.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF045E9722E70A5A0013DE41 /* gt-walsheim-bold-web.ttf */; };
@@ -19,7 +19,6 @@
 		CF224B4E23201BF20062E4D5 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF224B4D23201BF20062E4D5 /* FirstViewController.swift */; };
 		CF224B5023201C320062E4D5 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF224B4F23201C320062E4D5 /* SecondViewController.swift */; };
 		CF34AC1922E0779D0075E203 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF34AC1822E0779D0075E203 /* AppDelegate.swift */; };
-		CF34AC1E22E0779D0075E203 /* Fvmrmnts.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CF34AC1C22E0779D0075E203 /* Fvmrmnts.xcdatamodeld */; };
 		CF34AC2D22E07AD00075E203 /* FvmrmntsColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF34AC2C22E07AD00075E203 /* FvmrmntsColors.swift */; };
 		CF34AC2F22E081D50075E203 /* NetHexColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF34AC2E22E081D50075E203 /* NetHexColors.swift */; };
 		CF5D5DD622E8B05F0023138E /* CollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5D5DD422E8B05F0023138E /* CollectionReusableView.swift */; };
@@ -55,7 +54,6 @@
 		CF224B4F23201C320062E4D5 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		CF34AC1522E0779D0075E203 /* Fvmrmnts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fvmrmnts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF34AC1822E0779D0075E203 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CF34AC1D22E0779D0075E203 /* Fvmrmnts.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Fvmrmnts.xcdatamodel; sourceTree = "<group>"; };
 		CF34AC2422E077A00075E203 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF34AC2C22E07AD00075E203 /* FvmrmntsColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FvmrmntsColors.swift; sourceTree = "<group>"; };
 		CF34AC2E22E081D50075E203 /* NetHexColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetHexColors.swift; sourceTree = "<group>"; };
@@ -100,7 +98,7 @@
 		CF34AC0C22E0779D0075E203 = {
 			isa = PBXGroup;
 			children = (
-				5AF945E2238D9CD7003B1731 /* Model.xcdatamodeld */,
+				5AF945E2238D9CD7003B1731 /* Fvmrmnts.xcdatamodeld */,
 				CF34AC1722E0779D0075E203 /* Fvmrmnts */,
 				5AF945E0238D99D0003B1731 /* Media.xcassets */,
 				CF34AC1622E0779D0075E203 /* Products */,
@@ -127,7 +125,6 @@
 				CFE6B45D22E6031A00EE72CB /* TextFonts */,
 				CF34AC2A22E07AA70075E203 /* Styles */,
 				CF34AC2422E077A00075E203 /* Info.plist */,
-				CF34AC1C22E0779D0075E203 /* Fvmrmnts.xcdatamodeld */,
 				CF6DE21923154F54001E8747 /* Spinner.swift */,
 			);
 			path = Fvmrmnts;
@@ -401,11 +398,10 @@
 				CFE11F2E23017A1900402B1F /* RequestUtils.swift in Sources */,
 				5AF94607238DA4E9003B1731 /* CoreDataManager.swift in Sources */,
 				CFE11F3023017AC900402B1F /* VideoPlayerUtils.swift in Sources */,
-				5AF945E4238D9CD7003B1731 /* Model.xcdatamodeld in Sources */,
+				5AF945E4238D9CD7003B1731 /* Fvmrmnts.xcdatamodeld in Sources */,
 				CF6DE21A23154F54001E8747 /* Spinner.swift in Sources */,
 				CF045E9C22E711400013DE41 /* CollectionViewCell.swift in Sources */,
 				CF34AC2F22E081D50075E203 /* NetHexColors.swift in Sources */,
-				CF34AC1E22E0779D0075E203 /* Fvmrmnts.xcdatamodeld in Sources */,
 				CF9E099F22F1C950001A362E /* SecindCoordinator.swift in Sources */,
 				CFE11F2C2301799900402B1F /* ShowUtils.swift in Sources */,
 				CF6DE21823153A32001E8747 /* LoaderViewController.swift in Sources */,
@@ -612,22 +608,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		5AF945E2238D9CD7003B1731 /* Model.xcdatamodeld */ = {
+		5AF945E2238D9CD7003B1731 /* Fvmrmnts.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				5AF945E3238D9CD7003B1731 /* Model.xcdatamodel */,
 			);
 			currentVersion = 5AF945E3238D9CD7003B1731 /* Model.xcdatamodel */;
-			path = Model.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-		CF34AC1C22E0779D0075E203 /* Fvmrmnts.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				CF34AC1D22E0779D0075E203 /* Fvmrmnts.xcdatamodel */,
-			);
-			currentVersion = CF34AC1D22E0779D0075E203 /* Fvmrmnts.xcdatamodel */;
 			path = Fvmrmnts.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
